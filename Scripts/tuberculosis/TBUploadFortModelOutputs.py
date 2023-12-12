@@ -1,0 +1,524 @@
+import os
+import openpyxl
+from openpyxl.utils import get_column_letter
+from AvenirCommon.Database import GB_upload_json, GB_upload_file, GB_get_db_json
+import ujson
+import numpy as np
+from requests import post
+
+from AvenirCommon.Logger import log
+from AvenirCommon.Util import GBRange
+from SpectrumCommon.Const.TB import *
+from SpectrumCommon.Const.GB import GB_Nan
+
+
+def create_TB_fort_outputs(version):
+    
+    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
+    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
+    
+    for country_cell in xlsx['Countries']['C']:
+        iso3=country_cell.value
+    # for iso3 in ['LSO']:
+        if iso3=='iso3':
+            continue
+        log(iso3)
+        # pages = ['TB_burden_countries']
+        fort_inputs = GB_get_db_json(os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V2.JSON') 
+        fort_inputs["modelType"] = "IP"
+
+        num_years = 2050-fort_inputs["year"][0]+1
+        fort_inputs["sEp"]  = [None]*num_years
+        fort_inputs["pHat"] = [None]*num_years
+        fort_inputs["hRd"]  = [1]*num_years
+        fort_inputs["hRi"]  = [1]*num_years
+        fort_inputs["oRt"]  = [1]*num_years
+        fort_inputs["tXf"]  = [0.035]*num_years
+
+        for yr in GBRange(fort_inputs["year"][-1]+1, 2050):
+            fort_inputs["year"].append(yr)    
+            for key in ["iHat", "sEi", "nHat", "sEn", "mHat", "sEm", "pHat", "sEp"]:
+                fort_inputs[key].append(None)#fort_inputs[key][-1])
+
+        null = None
+
+        # with open('TestingIPFort.JSON', "w+") as fp:
+        #     ujson.dump(fort_inputs, fp)
+        response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
+        fort_outputs = response.json()
+        pass
+        os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\', exist_ok=True)
+        with open(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
+            ujson.dump(fort_outputs, f)
+
+def upload_tb_fort_outputs_db(version):
+    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    countries = []
+    
+    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
+    json_path= default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'
+    for subdir, dirs, files in os.walk(json_path):
+        for file in files:
+        # for file in ['LSO_V2.JSON']:
+            FQName = os.path.join(subdir, file)
+            log(FQName)
+            if version in FQName:
+                GB_upload_file(connection, 'tuberculosis', 'fort\\outputs\\'+file, FQName)
+        
+    log('Uploaded fort outputs db json')
+   
+
+######## Static data that works ######
+# fort_inputs = {}
+# fort_inputs["year"] = [
+#                     2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
+#                     2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023,
+#                     2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035,
+#                     2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, 2046, 2047,
+#                     2048, 2049, 2050
+#                 ]
+# fort_inputs["iHat"] = [
+#         37000,
+#         37000,
+#         40000,
+#         43000,
+#         44000,
+#         46000,
+#         48000,
+#         49000,
+#         50000,
+#         52000,
+#         53000,
+#         55000,
+#         58000,
+#         60000,
+#         62000,
+#         64000,
+#         65000,
+#         67000,
+#         69000,
+#         71000,
+#         71000,
+#         74000,
+#         76000,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null,
+#         null
+#     ]
+# fort_inputs["sEi"] = [
+#     7397.95918367347,
+#     7397.95918367347,
+#     7908.163265306122,
+#     8418.367346938776,
+#     8928.57142857143,
+#     9183.673469387755,
+#     9693.877551020409,
+#     9693.877551020409,
+#     10204.081632653062,
+#     10204.081632653062,
+#     10714.285714285714,
+#     10969.387755102041,
+#     11479.591836734695,
+#     11734.69387755102,
+#     12244.897959183674,
+#     12755.102040816328,
+#     13010.204081632653,
+#     13265.30612244898,
+#     13775.510204081633,
+#     14285.714285714286,
+#     14030.612244897959,
+#     14285.714285714286,
+#     14540.816326530612,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["nHat"] = [
+#     7107,
+#     10139,
+#     13794,
+#     13808,
+#     18404,
+#     21844,
+#     25475,
+#     28769,
+#     28301,
+#     26150,
+#     28029,
+#     27983,
+#     28679,
+#     30507,
+#     31746,
+#     35878,
+#     41954,
+#     46847,
+#     48625,
+#     52518,
+#     45887,
+#     50386,
+#     51855,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["sEn"] = [
+#     543.9030612244896,
+#     775.9438775510201,
+#     1055.6632653061222,
+#     1056.7346938775509,
+#     1408.4693877551017,
+#     1671.7346938775513,
+#     1949.6173469387745,
+#     2201.7091836734694,
+#     2165.892857142857,
+#     2001.2755102040808,
+#     2145.0765306122453,
+#     2141.5561224489793,
+#     2194.821428571429,
+#     2334.719387755101,
+#     2429.5408163265297,
+#     2745.7653061224487,
+#     3210.7653061224482,
+#     3585.2295918367345,
+#     3721.3010204081615,
+#     4019.2346938775513,
+#     3511.7602040816323,
+#     3856.0714285714275,
+#     3968.494897959182,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["mHat"] = [
+#     13000,
+#     12000,
+#     12000,
+#     13000,
+#     12000,
+#     12000,
+#     11000,
+#     10000,
+#     11000,
+#     12000,
+#     12000,
+#     13000,
+#     14000,
+#     14000,
+#     14000,
+#     13000,
+#     12000,
+#     11000,
+#     11000,
+#     9900,
+#     10000,
+#     10000,
+#     9900,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["sEm"] = [
+#     3163.265306122449,
+#     3010.204081632653,
+#     2806.122448979592,
+#     3163.265306122449,
+#     2780.612244897959,
+#     2857.1428571428573,
+#     2678.5714285714284,
+#     2295.918367346939,
+#     2448.979591836735,
+#     2984.6938775510203,
+#     2755.1020408163267,
+#     3137.7551020408164,
+#     3290.8163265306125,
+#     3265.3061224489797,
+#     3214.285714285714,
+#     3061.2244897959185,
+#     2806.122448979592,
+#     2448.979591836735,
+#     2448.979591836735,
+#     2321.4285714285716,
+#     2193.877551020408,
+#     2193.877551020408,
+#     2295.918367346939,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["pHat"] = [
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["sEp"] = [
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null,
+#     null
+# ]
+# fort_inputs["modelType"] = "IP"
+# fort_inputs["tXf"] = [
+#     0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035,
+#     0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035,
+#     0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035,
+#     0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035,
+#     0.035, 0.035, 0.035, 0.035, 0.035, 0.035, 0.035
+# ]
+# fort_inputs["hRd"] = [
+#     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+# ]
+# fort_inputs["hRi"] = [
+#     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+# ]
+# fort_inputs["oRt"] = [
+#     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+# ]
