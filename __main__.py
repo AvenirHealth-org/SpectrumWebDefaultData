@@ -5,8 +5,11 @@ import DefaultData.Scripts.famplan as famplan
 from SpectrumCommon.Const.DP import *
 from SpectrumCommon.Const.FP import *
 
-demproj.upload_UPD_db(DPUPDVersion)
-# demproj.upload_demproj_db(DPDatabaseVersion)
+# demproj.upload_UPD_db(DPUPDVersion)
+
+demproj.write_demproj_db(DPDatabaseVersion)
+demproj.upload_demproj_db(DPDatabaseVersion)
+
 # demproj.upload_DP_population_db(DPFirstYearPopDBVersion)
 
 # aim.upload_aim_db(AMDatabaseVersion)

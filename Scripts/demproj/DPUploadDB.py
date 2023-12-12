@@ -3,12 +3,16 @@ import pandas as pd
 import numpy as np
 import ujson
 
-from AvenirCommon.Database import GB_upload_json, GB_get_db_json
+from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 from AvenirCommon.Util import formatCountryFName
 from AvenirCommon.Logger import log
 
 from Tools.DefaultDataManager.GB.Upload.GBUploadModData  import getGBModDataDict
 from SpectrumCommon.Const.GB import GB_Male, GB_Female
+
+demproj_json_path = os.getcwd() + 'JSONData\\demproj\\moddata'
+demproj_country_dir = 'country'
+demproj_json_country_path = demproj_json_path + '\\' + demproj_country_dir
 
 def addDataByCountryName(countryName, countries, dataName, data):
 
@@ -37,8 +41,8 @@ def getASFRTableNames():
         'ASFR_AVG',
     ]
 
-def upload_demproj_db(version):
-    FQName = os.path.dirname(__file__) + '/DPModData.xlsx'
+def write_demproj_db(version):
+    FQName = os.getcwd() + '\SourceData\demproj\ModData\DPModData.xlsx'
     connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
     
     #non-country-specific data
@@ -68,11 +72,11 @@ def upload_demproj_db(version):
         'ASFRTables' : ASFRTables,
     }
 
-    log('Uploading global data')
-    DPModDataGlobal_json = ujson.dumps(DPModDataGlobal)
+    log('Writing global data')
     FName = 'DP_Global_' + version + '.JSON'
-    GB_upload_json(connection, 'demproj', FName, DPModDataGlobal_json)
-
+    os.makedirs(demproj_json_path, exist_ok=True)
+    with open(os.path.join(demproj_json_path, FName), 'w') as f:
+        ujson.dump(DPModDataGlobal, f)
 
     #country-specific data
 
@@ -80,7 +84,7 @@ def upload_demproj_db(version):
     sheet = pd.read_excel(FQName, sheet_name='LifeTable10', header=None)
     for row in range(1, len(sheet.values)):
         countryCode = sheet.values[row][0]
-        countryName = sheet.values[row][1]
+        countryName = sheet.values[row][1]  
         lifeTableName = sheet.values[row][2]
         lifeTableNum = sheet.values[row][3]
         data = {
@@ -89,22 +93,39 @@ def upload_demproj_db(version):
             'countryName' : countryName,
             'countryCode' : countryCode,
         }
-
         addDataByCountryName(countryName, countries, 'LifeTable', data)
  
+ 
+    os.makedirs(demproj_json_country_path, exist_ok=True)
     GBModData = getGBModDataDict()
     for countryName in countries:
         country = countries[countryName] 
         ISO3_Alpha = GBModData[countryName]['ISO3_Alpha'] if countryName in GBModData else 'notFound'
 
         if ISO3_Alpha != 'notFound':
-            log('Uploading '+ countryName)
-            country_json = ujson.dumps(country)
+            log('Writing '+ countryName)
             FName = 'country/' + formatCountryFName(ISO3_Alpha, version)
-            GB_upload_json(connection, 'demproj', FName, country_json)
+            with open(os.path.join(demproj_json_country_path, FName), 'w') as f:
+                ujson.dump(country, f)
+
+def isCurrentVersion(file, version):
+    return file.split('_')[-1] == version
 
 
+def upload_demproj_db(version):  
+    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
+    # global
+    for root, dirs, files in os.walk(demproj_json_path): 
+        for file in files:
+            if isCurrentVersion(file, version):
+                GB_upload_file(connection, 'demproj', file, os.path.join(root, file))
 
+    # country
+    for root, dirs, files in os.walk(demproj_json_country_path): 
+        for file in files:
+            if isCurrentVersion(file, version):
+                GB_upload_file(connection, 'demproj', os.path.join(demproj_country_dir, file), os.path.join(root, file))
+# demproj_country_dir + '\\' + file
 
 
 
