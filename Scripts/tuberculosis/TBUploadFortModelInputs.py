@@ -88,7 +88,7 @@ def create_TB_fort_input(version):
             ujson.dump(fort_input, f)
 
 def upload_tb_fort_inputs_db(version):
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
 
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'

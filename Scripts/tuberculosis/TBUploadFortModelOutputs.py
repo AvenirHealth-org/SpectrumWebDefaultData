@@ -25,7 +25,7 @@ def create_TB_fort_outputs(version):
             continue
         log(iso3)
         # pages = ['TB_burden_countries']
-        fort_inputs = GB_get_db_json(os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V2.JSON') 
+        fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V2.JSON') 
         fort_inputs["modelType"] = "IP"
 
         num_years = 2050-fort_inputs["year"][0]+1
@@ -53,7 +53,7 @@ def create_TB_fort_outputs(version):
             ujson.dump(fort_outputs, f)
 
 def upload_tb_fort_outputs_db(version):
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     countries = []
     
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
