@@ -77,7 +77,7 @@ def create_TBScreeningDefaults(version):
         ujson.dump(diagnosticEditorDefaults, f)
 
 def upload_TBScreeningDefaults(version):
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     
     FQName = os.getcwd()+'\Tools\DefaultDataManager\TB\JSON\screen\screeningDefaults'+version+'.JSON'
     log(FQName)

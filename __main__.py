@@ -5,7 +5,8 @@ import DefaultData.Scripts.tuberculosis as tuberculosis
 
 from SpectrumCommon.Const.DP import *
 from SpectrumCommon.Const.FP import *
-
+from AvenirCommon.Keys import store_keys_in_env
+store_keys_in_env()
 # demproj.upload_UPD_db(DPUPDVersion)
 
 # demproj.write_demproj_db(DPDatabaseVersion)

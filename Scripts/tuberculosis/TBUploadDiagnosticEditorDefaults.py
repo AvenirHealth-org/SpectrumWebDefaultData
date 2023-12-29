@@ -104,7 +104,7 @@ def create_TB_DiagEditorDefaults(version):
         ujson.dump(diagnosticEditorDefaults, f)
 
 def upload_TB_DiagEditorDefaults(version):
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     
     FQName = os.getcwd()+'\Tools\DefaultDataManager\TB\JSON\diag\diagnosticEditorDefaults'+version+'.JSON'
     log(FQName)

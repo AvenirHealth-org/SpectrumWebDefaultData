@@ -281,7 +281,7 @@ def create_TB_WHOCountryData(version):
 
 
 def upload_TB_WHOCountryData(version):
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     countries = []
     
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
