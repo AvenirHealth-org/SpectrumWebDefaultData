@@ -13,8 +13,10 @@ from SpectrumCommon.Const.FP import *
 
 # demproj.upload_DP_population_db(DPFirstYearPopDBVersion)
 
+# aim.write_aim_db(AMDatabaseVersion)
 # aim.upload_aim_db(AMDatabaseVersion)
-# aim.upload_easyAIM_db(AMEasyAIMDatabaseVersion)
+aim.write_easyAIM_db(AMEasyAIMDatabaseVersion)
+aim.upload_easyAIM_db(AMEasyAIMDatabaseVersion)
 # aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
 
 # famplan.create_famplan_db('V5', FP_Interpolated) 

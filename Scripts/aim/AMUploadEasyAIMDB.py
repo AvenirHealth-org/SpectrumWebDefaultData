@@ -3,14 +3,19 @@ import pandas as pd
 import numpy as np
 import ujson
 
-from AvenirCommon.Database import GB_upload_json, GB_get_db_json
+from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange
 from AvenirCommon.Logger import log
 
 from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict
+from DefaultData.DefaultDataUtil import *
 
 from SpectrumCommon.Const.GB import GB_Nan
+
+easyaim_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\easyAIM'
+# easyaim_country_dir = 'country'
+# easyaim_json_country_path = easyaim_json_path + '\\' + easyaim_country_dir
 
 def addDataByCountryName(countryName, countries, dataName, data, subnatCode = 0):
     if (subnatCode == 0):
@@ -75,7 +80,7 @@ def getValuesNotByYear(countries, sheet, sheetName):
 
         addDataByCountryName(countryName, countries, sheetName, data)
 
-def upload_easyAIM_db(version, country=''):
+def write_easyAIM_db(version, country=''):
     AM_Path = os.getcwd()+'\Tools\DefaultDataManager\AM\\'
     FQName = AM_Path + 'ModData\EasyAIMData.xlsx'
     # FQName = os.path.dirname(__file__) + '/EasyAIMData.xlsx'
@@ -93,22 +98,34 @@ def upload_easyAIM_db(version, country=''):
             getValuesNotByYear(countries, sheet, sheetName)
     
     GBModData = getGBModDataDict()
+    os.makedirs(easyaim_json_path, exist_ok=True)
     for countryName in countries:
         country = countries[countryName]
         ISO3_Alpha = GBModData[countries[countryName]['countryName']]['ISO3_Alpha'] if countries[countryName]['countryName'] in GBModData else 'notFound'
 
         if ISO3_Alpha != 'notFound':
-            log('Uploading '+ countryName)
-            country_json = ujson.dumps(country)
-            FName = 'easyAIM/' + formatCountryFName(ISO3_Alpha, version)
-            GB_upload_json(connection, 'aim', FName, country_json)
+            log('writing '+ countryName)
+            # country_json = ujson.dumps(country)
+            FName = formatCountryFName(ISO3_Alpha, version)
+            with open(os.path.join(easyaim_json_path, FName), 'w') as f:
+                ujson.dump(country, f)
+            # GB_upload_json(connection, 'aim', FName, country_json)
 
+def upload_easyAIM_db(version):  
+    uploadFilesInDir('aim', easyaim_json_path, version, pathMod = 'easyAIM/') 
+    # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
 
-def get_easyAIM_test(version):
-    FName = 'easyAIM/' + formatCountryFName('BEN', version)
+    # for root, dirs, files in os.walk(easyaim_json_path): 
+    #     for file in files:
+    #         if isCurrentVersion(file, version):
+    #             log('Uploading ' + file)
+    #             GB_upload_file(connection, 'aim', 'easyAIM/' + file, os.path.join(root, file))
+
+# def get_easyAIM_test(version):
+#     FName = 'easyAIM/' + formatCountryFName('BEN', version)
     
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+#     connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
     
-    db = GB_get_db_json(connection, 'aim', FName)
-    log(db['Incidence'])
+#     db = GB_get_db_json(connection, 'aim', FName)
+#     log(db['Incidence'])
 

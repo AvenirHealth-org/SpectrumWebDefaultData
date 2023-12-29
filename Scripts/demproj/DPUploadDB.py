@@ -6,13 +6,14 @@ import ujson
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 from AvenirCommon.Util import formatCountryFName
 from AvenirCommon.Logger import log
+from DefaultData.DefaultDataUtil import *
 
 from Tools.DefaultDataManager.GB.Upload.GBUploadModData  import getGBModDataDict
 from SpectrumCommon.Const.GB import GB_Male, GB_Female
 
-demproj_json_path = os.getcwd() + 'JSONData\\demproj\\moddata'
-demproj_country_dir = 'country'
-demproj_json_country_path = demproj_json_path + '\\' + demproj_country_dir
+demproj_json_path = os.getcwd() + '\\DefaultData\\JSONData\\demproj\\moddata'
+# demproj_country_dir = 'country'
+demproj_json_country_path = demproj_json_path + '\\' + country_dir
 
 def addDataByCountryName(countryName, countries, dataName, data):
 
@@ -42,8 +43,8 @@ def getASFRTableNames():
     ]
 
 def write_demproj_db(version):
-    FQName = os.getcwd() + '\SourceData\demproj\ModData\DPModData.xlsx'
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    FQName = os.getcwd() + '\DefaultData\SourceData\demproj\ModData\DPModData.xlsx'
+    # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
     
     #non-country-specific data
 
@@ -108,24 +109,20 @@ def write_demproj_db(version):
             with open(os.path.join(demproj_json_country_path, FName), 'w') as f:
                 ujson.dump(country, f)
 
-def isCurrentVersion(file, version):
-    return file.split('_')[-1] == version
-
-
 def upload_demproj_db(version):  
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
-    # global
-    for root, dirs, files in os.walk(demproj_json_path): 
-        for file in files:
-            if isCurrentVersion(file, version):
-                GB_upload_file(connection, 'demproj', file, os.path.join(root, file))
+    uploadFilesInDir('demproj', demproj_json_path, version)
+    # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
+    # # global
+    # for root, dirs, files in os.walk(demproj_json_path): 
+    #     for file in files:
+    #         if isCurrentVersion(file, version):
+    #             GB_upload_file(connection, 'demproj', file, os.path.join(root, file))
 
-    # country
-    for root, dirs, files in os.walk(demproj_json_country_path): 
-        for file in files:
-            if isCurrentVersion(file, version):
-                GB_upload_file(connection, 'demproj', os.path.join(demproj_country_dir, file), os.path.join(root, file))
-# demproj_country_dir + '\\' + file
+    # # country
+    # for root, dirs, files in os.walk(demproj_json_country_path): 
+    #     for file in files:
+    #         if isCurrentVersion(file, version):
+    #             GB_upload_file(connection, 'demproj', os.path.join(country_dir, file), os.path.join(root, file))
 
 
 
