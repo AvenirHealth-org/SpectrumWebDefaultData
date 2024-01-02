@@ -30,5 +30,6 @@ def uploadFilesInDir(container, directory, version, pathMod = ''):
         for file in files:
             if isCurrentVersion(file, version):
                 log('Uploading ' + file)
-                fileName = os.path.join(root.replace(directory, '').replace('\\', ''), file)
+                fileName = os.path.join(root.replace(directory, '').replace('\\', ''), file)    # strips root directory off of root, so subdirectory is added.  
+                                                                                                # might need recursive strategy if you want to go more than one directory deep
                 GB_upload_file(connection, container, os.path.join(pathMod, fileName), os.path.join(root, file))

@@ -990,7 +990,7 @@ def write_aim_db(version, country=''):
         if ISO3_Alpha != 'notFound':
             for subnatCode in countries[countryCode]:                
                 country = countries[countryCode][subnatCode] 
-                log('Uploading ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
+                log('Writing ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
                 FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
                 with open(os.path.join(aim_json_country_path, FName), 'w') as f:
                     ujson.dump(country, f)

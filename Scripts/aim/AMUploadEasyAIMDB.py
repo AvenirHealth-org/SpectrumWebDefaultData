@@ -14,8 +14,6 @@ from DefaultData.DefaultDataUtil import *
 from SpectrumCommon.Const.GB import GB_Nan
 
 easyaim_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\easyAIM'
-# easyaim_country_dir = 'country'
-# easyaim_json_country_path = easyaim_json_path + '\\' + easyaim_country_dir
 
 def addDataByCountryName(countryName, countries, dataName, data, subnatCode = 0):
     if (subnatCode == 0):
@@ -31,7 +29,7 @@ def addDataByCountryName(countryName, countries, dataName, data, subnatCode = 0)
     countries[countrySubnatName][dataName] = data
 
 def isValueByYearSheet(sheetName):
-    return not (sheetName in ['PercentHIVPopEligible', 'PercNotBFNotRecARVs', 'PercNotBFRecARVs', 'LocalAdjustmentFactor'])
+    return not (sheetName in ['PercentHIVPopEligible', 'PercNotBFNotRecARVs', 'PercNotBFRecARVs', 'LocalAdjustmentFactor', 'NewARTPatAllocation'])
 
 def getValuesByYear(countries, sheet, sheetName, startRow = 3):
     startCol = 4
@@ -43,21 +41,22 @@ def getValuesByYear(countries, sheet, sheetName, startRow = 3):
         countryCode = sheet.values[row][0]
         countryName = sheet.values[row][1]
 
-        values = np.zeros(endYear - startYear + 1)
-        i = 0
-        for col in GBRange(startCol, endCol):
-            values[i] = sheet.values[row][col]
-            i += 1
-        
-        data = {
-            'countryName' : countryName,
-            'countryCode' : countryCode,
-            'startYear' : startYear,
-            'endYear' : endYear,
-            'values' : values.tolist()
-        }
+        if (not pd.isna(countryCode)) and (not pd.isna(countryName)): #if country ID values are valid, add
+            values = np.zeros(endYear - startYear + 1)
+            i = 0
+            for col in GBRange(startCol, endCol):
+                values[i] = sheet.values[row][col]
+                i += 1
+            
+            data = {
+                'countryName' : countryName,
+                'countryCode' : countryCode,
+                'startYear' : startYear,
+                'endYear' : endYear,
+                'values' : values.tolist()
+            }
 
-        addDataByCountryName(countryName, countries, sheetName, data)
+            addDataByCountryName(countryName, countries, sheetName, data)
 
 
 def getValuesNotByYear(countries, sheet, sheetName):
@@ -68,23 +67,22 @@ def getValuesNotByYear(countries, sheet, sheetName):
         countryCode = sheet.values[row][0]
         countryName = sheet.values[row][1]
       
-        data = {
-            'countryName' : countryName,
-            'countryCode' : countryCode,
-        }
+        if (not pd.isna(countryCode)) and (not pd.isna(countryName)): #if country ID values are valid, add
+            data = {
+                'countryName' : countryName,
+                'countryCode' : countryCode,
+            }
 
-        for col in GBRange(startCol, endCol):
-            dataName = str(sheet.values[2][col])
-            dataName = 'value' if dataName in ['', GB_Nan, 'nan'] else dataName      #for LocalAdjustmentFactor
-            data[dataName] = sheet.values[row][col]
+            for col in GBRange(startCol, endCol):
+                dataName = str(sheet.values[2][col])
+                dataName = 'value' if pd.isna(dataName) else dataName      #for LocalAdjustmentFactor
+                data[dataName] = 0 if (pd.isna(sheet.values[row][col])) else sheet.values[row][col]
 
-        addDataByCountryName(countryName, countries, sheetName, data)
+            addDataByCountryName(countryName, countries, sheetName, data)
 
 def write_easyAIM_db(version, country=''):
-    AM_Path = os.getcwd()+'\Tools\DefaultDataManager\AM\\'
-    FQName = AM_Path + 'ModData\EasyAIMData.xlsx'
-    # FQName = os.path.dirname(__file__) + '/EasyAIMData.xlsx'
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+    
+    FQName = os.getcwd() + '/DefaultData/SourceData/aim/EasyAIMData.xlsx'
 
     countries = {}
     xlsx = pd.ExcelFile(FQName)
@@ -104,7 +102,7 @@ def write_easyAIM_db(version, country=''):
         ISO3_Alpha = GBModData[countries[countryName]['countryName']]['ISO3_Alpha'] if countries[countryName]['countryName'] in GBModData else 'notFound'
 
         if ISO3_Alpha != 'notFound':
-            log('writing '+ countryName)
+            log('Writing '+ countryName)
             # country_json = ujson.dumps(country)
             FName = formatCountryFName(ISO3_Alpha, version)
             with open(os.path.join(easyaim_json_path, FName), 'w') as f:
