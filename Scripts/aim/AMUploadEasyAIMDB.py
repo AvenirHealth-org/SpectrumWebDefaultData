@@ -74,8 +74,7 @@ def getValuesNotByYear(countries, sheet, sheetName):
             }
 
             for col in GBRange(startCol, endCol):
-                dataName = str(sheet.values[2][col])
-                dataName = 'value' if pd.isna(dataName) else dataName      #for LocalAdjustmentFactor
+                dataName = 'value' if pd.isna(sheet.values[2][col]) else sheet.values[2][col]  
                 data[dataName] = 0 if (pd.isna(sheet.values[row][col])) else sheet.values[row][col]
 
             addDataByCountryName(countryName, countries, sheetName, data)
