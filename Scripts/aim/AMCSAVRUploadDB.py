@@ -5,12 +5,15 @@ import ujson
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json
 from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange, getTagRow
+from DefaultData.DefaultDataUtil import *
 
 from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict, getGBModDataDictByISO3
 
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP import *
 
+CSAVR_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\CSAVR'
+CSAVR_json_country_path = CSAVR_json_path + '\\' + country_dir
 
 def addDataByCountryCode(countryCode, countries, data, subnatCode = 0):
 
@@ -19,7 +22,7 @@ def addDataByCountryCode(countryCode, countries, data, subnatCode = 0):
 
     countries[countryCode][subnatCode] = data
 
-def upload_CSAVR_db(version, country=''):
+def write_CSAVR_db(version, country=''):
     fitTypeRow  = 1
     mstIDRow    = 2
     paramRow    = 4
@@ -27,8 +30,7 @@ def upload_CSAVR_db(version, country=''):
 
     startCol    = 11
 
-    AM_Path = os.getcwd()+'\Tools\DefaultDataManager\AM\\'
-    FQName = AM_Path + 'ModData\AMModData.xlsx'
+    FQName = os.getcwd() + '/DefaultData/SourceData/aim/AMModData.xlsx'
 
     connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
 
@@ -44,8 +46,6 @@ def upload_CSAVR_db(version, country=''):
         subnatCode = 0
 
         rowData = {}
-        # for i in GBRange(DP_FitNotCalculated, DP_rLogistic):
-        #     rowData.append({})
         
         for col in GBRange(startCol, len(sheet.values[row]) - 1):
             fitType = int(sheet.values[fitTypeRow][col])
@@ -60,14 +60,18 @@ def upload_CSAVR_db(version, country=''):
             rowData[fitType][param] = data
 
         addDataByCountryCode(countryCode, countries, rowData, subnatCode)
+    
 
-
-    log('Uploading global data')
+    log('Writing global data')
     data_json = ujson.dumps(countries[0][0])
-    FName = 'CSAVR/' + formatCountryFName('Global', version)
-    GB_upload_json(connection, 'aim', FName, data_json)
+    FName = formatCountryFName('Global', version)
+    os.makedirs(CSAVR_json_path, exist_ok=True)
+    with open(os.path.join(CSAVR_json_path, FName), 'w') as f:
+        ujson.dump(countries[0][0], f)
+    # GB_upload_json(connection, 'aim', FName, data_json)
 
     GBModData = getGBModDataDictByISO3()
+    os.makedirs(CSAVR_json_country_path, exist_ok=True)
     for countryCode in countries:
         ISO3_Alpha = GBModData[countryCode]['ISO3_Alpha'] if countryCode in GBModData else 'notFound'
 
@@ -75,7 +79,12 @@ def upload_CSAVR_db(version, country=''):
             for subnatCode in countries[countryCode]:
                 country = countries[countryCode][subnatCode]
 
-                log('Uploading ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
+                log('Writing ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
                 country_json = ujson.dumps(country)
-                FName = 'CSAVR/' + formatCountryFName(ISO3_Alpha, version, subnatCode)
-                GB_upload_json(connection, 'aim', FName, country_json)
+                FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
+                with open(os.path.join(CSAVR_json_country_path, FName), 'w') as f:
+                    ujson.dump(country, f)
+                # GB_upload_json(connection, 'aim', FName, country_json)
+            
+def upload_CSAVR_db(version): 
+    uploadFilesInDir('aim', CSAVR_json_path, version, pathMod = 'CSAVR/') 
