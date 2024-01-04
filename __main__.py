@@ -1,4 +1,6 @@
 import DefaultData.Scripts.globals as globals
+import DefaultData.Scripts.aim as aim
+import DefaultData.Scripts.demproj as demproj
 import DefaultData.Scripts.famplan as famplan
 import DefaultData.Scripts.tuberculosis as tuberculosis
 import DefaultData.Scripts.interventions as interventions
@@ -30,10 +32,33 @@ store_keys_in_env()
 # globals.uploadGBCountryListMaster(GBDatabaseVersion)
 # globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
 
+####### DemProj #######
+# demproj.upload_UPD_db(DPUPDVersion)
+
+# demproj.write_demproj_db(DPDatabaseVersion)
+# demproj.upload_demproj_db(DPDatabaseVersion)
+
+# demproj.upload_DP_population_db(DPFirstYearPopDBVersion)
+
+####### AIM #######
+# aim.write_aim_db(AMDatabaseVersion)
+# aim.upload_aim_db(AMDatabaseVersion)
+# aim.write_easyAIM_db(AMEasyAIMDatabaseVersion)
+# aim.upload_easyAIM_db(AMEasyAIMDatabaseVersion)
+# aim.write_CSAVR_db(AMCSAVRDatabaseVersion)
+# aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
+# aim.write_CSAVR_db('V1Beta')
+# aim.upload_CSAVR_db('V1Beta')
+
+
+####### FamPlan #######
 # famplan.create_famplan_db('V5', FP_Interpolated) 
+# famplan.create_famplan_db('V3', FP_Uninterpolated)
+# famplan.create_famplan_effectiveness('V2')# famplan.create_famplan_db('V5', FP_Interpolated) 
 # famplan.create_famplan_db('V3', FP_Uninterpolated)
 # famplan.create_famplan_effectiveness('V2')
 
+####### Tuberculosis #######
 # tuberculosis.create_TB_WHOCountryData('V2')
 # tuberculosis.upload_TB_WHOCountryData('V2')
 
