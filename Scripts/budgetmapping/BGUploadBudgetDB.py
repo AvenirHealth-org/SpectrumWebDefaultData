@@ -23,11 +23,10 @@ BG_BUDGET_ID              = '<Budget ID>'
 def create_budget_DB_BG(version_str):
 
     log('Creating BG budget DB')
-    BG_path = os.getcwd() + '\Tools\DefaultDataManager\BG\\'
-    BG_mod_data_FQ_name = BG_path + 'ModData\BGModData.xlsx'
+    BG_source_data_FQ_name = os.getcwd() + '\\' + gbc.GB_DEFAULT_DATA_SOURCE_DATA_PATH + '\\' + gbc.GB_BG_CONTAINER + '\BGModData.xlsx'
 
     budget_list = []
-    wb = load_workbook(BG_mod_data_FQ_name)
+    wb = load_workbook(BG_source_data_FQ_name)
     sheet = wb[bgc.BG_BUDGET_DB_NAME]
     
     '''
@@ -82,14 +81,17 @@ def create_budget_DB_BG(version_str):
 
     j = ujson.dumps(budget_list)
 
-    os.makedirs(BG_path + 'JSON\\', exist_ok = True)
-    with open(BG_path + 'JSON\\' + bgc.BG_BUDGET_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    BG_JSON_data_path = os.getcwd() + '\\' + gbc.GB_DEFAULT_DATA_JSON_DATA_PATH + '\\' + gbc.GB_BG_CONTAINER + '\\'
+
+    os.makedirs(BG_JSON_data_path, exist_ok = True)
+    with open(BG_JSON_data_path + bgc.BG_BUDGET_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
         f.write(j)
     log('Finished BG budget DB')
 
 def upload_budget_DB_BG(version):
     connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\BG\JSON\\' + bgc.BG_BUDGET_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    BG_JSON_data_path = os.getcwd() + '\\' + gbc.GB_DEFAULT_DATA_JSON_DATA_PATH + '\\' + gbc.GB_BG_CONTAINER + '\\'
+    FQName = BG_JSON_data_path + bgc.BG_BUDGET_DB_NAME + '_' + version + '.' + gbc.GB_JSON
     container_name = gbc.GB_BG_CONTAINER
     GB_upload_file(connection, container_name, bgc.BG_BUDGET_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName) 
     log('Uploaded BG budget DB')
