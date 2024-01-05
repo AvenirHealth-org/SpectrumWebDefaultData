@@ -25,7 +25,6 @@ from AvenirCommon.Keys import store_keys_in_env
 
 store_keys_in_env()
 
-####### Globals  ########
 # globals.create_disability_json('V1')
 # globals.upload_disability_json('V1')
 # globals.createGBCountryListMaster(GBDatabaseVersion)
@@ -87,8 +86,6 @@ store_keys_in_env()
 
 # ihtcore.create_exchange_rate_DB_IH(IH_EXCHANGE_RATE_DB_CURR_VERSION) 
 # ihtcore.upload_exchange_rate_DB_IH(IH_EXCHANGE_RATE_DB_CURR_VERSION)
-
-####### Intervention Costing ######
 
 # interventioncosting.create_drug_supply_DB_IC(IC_DRUG_SUPPLY_DB_CURR_VERSION)
 # interventioncosting.upload_drug_supply_DB_IC(IC_DRUG_SUPPLY_DB_CURR_VERSION)

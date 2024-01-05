@@ -3,10 +3,11 @@ import ujson
 from itertools import islice
 from openpyxl import load_workbook
 
-
 from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
+
+import DefaultData.DefaultDataUtil as ddu
 
 import SpectrumCommon.Const.GB as gbc
 
@@ -24,14 +25,12 @@ IC_TB_PROG_AREAS   = '<TB - Programme Area(s)>'
 IC_LIST_PROG_AREAS = '<LiST - Programme Area(s)>'
 IC_REQ_MODULES     = '<Required Module(s)>'
 
-def create_targ_pop_DB_IC(version_str):
+def create_targ_pop_DB_IC(version = str):
 
     log('Creating IC target pop DB')
-    IC_path = os.getcwd() + '\Tools\DefaultDataManager\IC\\'
-    IC_mod_data_FQ_name = IC_path + 'ModData\ICModData.xlsx'
 
     targ_pop_list = []
-    wb = load_workbook(IC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_IC) + '\ICModData.xlsx')
     sheet = wb[icc.IC_TARG_POP_DB_NAME]
     
     '''
@@ -121,10 +120,13 @@ def create_targ_pop_DB_IC(version_str):
     # for debugging
     # for i, obj in enumerate(targ_pop_list):
     #     log(obj)
-    
-    os.makedirs(IC_path + 'JSON\\', exist_ok = True)
-    with open(IC_path + 'JSON\\' + icc.IC_TARG_POP_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    IC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IC)
+    JSON_file_name = icc.IC_TARG_POP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+
+    os.makedirs(IC_JSON_data_path + '\\', exist_ok = True)
+    with open(IC_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
+
     log('Finished IC target pop DB')
 
     with open(os.getcwd() + '\SpectrumCommon\Const\IC\ICTargetPopulationIDs.py', 'w') as f:
@@ -134,9 +136,7 @@ def create_targ_pop_DB_IC(version_str):
     log('Updated target population master IDs in SpectrumCommon --> Const --> IC --> ICTargetPopulationIDs.py.')
 
 def upload_targ_pop_DB_IC(version):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\IC\JSON\\' + icc.IC_TARG_POP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    container_name = gbc.GB_IC_CONTAINER
-    GB_upload_file(connection, container_name, icc.IC_TARG_POP_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName) 
+    JSON_file_name = icc.IC_TARG_POP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_IC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + JSON_file_name) 
     log('Uploaded IC target pop DB')
             
