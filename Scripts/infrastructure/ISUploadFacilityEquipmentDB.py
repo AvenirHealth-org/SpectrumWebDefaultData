@@ -7,6 +7,8 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.IS.ISConst as isc
@@ -28,16 +30,14 @@ IS_EQUIP_STR_CONST            = '<Equipment String Constant>'
 IS_UNIT_COST                  = '<Unit Cost>'
 IS_UNITS_PER_FACILITY_TYPE    = '<Units per Facility Type>'
 
-def create_facility_equipment_and_group_DBs_IS(version_str):
+def create_facility_equipment_and_group_DBs_IS(version = str):
 
     log('Creating Facility Equipment DB, IS')
-    IS_path = os.getcwd() + '\Tools\DefaultDataManager\IS\\'
-    IS_mod_data_FQ_name = IS_path + 'ModData\ISModData.xlsx'
 
     facility_equip_list = []
     facility_med_equip_group_list = []
 
-    wb = load_workbook(IS_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_IS) + '\ISModData.xlsx')
     sheet = wb[isc.IS_FACILITY_EQUIP_DB_NAME]
 
     '''
@@ -158,40 +158,36 @@ def create_facility_equipment_and_group_DBs_IS(version_str):
         current_facility_type_mst_ID = facility_type_mst_ID
         currrent_group_mst_ID = group_mst_ID
 
+
+    IS_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IS)
+    os.makedirs(IS_JSON_data_path + '\\', exist_ok = True)
+
     # Write facility equipment
 
     j = ujson.dumps(facility_equip_list)
     # for debugging
     # for i, obj in enumerate(facility_equip_list):
     #     log(obj)
-
-    os.makedirs(IS_path + 'JSON\\', exist_ok = True)
-    with open(IS_path + 'JSON\\' + isc.IS_FACILITY_EQUIP_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    JSON_file_name = isc.IS_FACILITY_EQUIP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    with open(IS_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
 
     # Write facility medical equipment groups
 
     j = ujson.dumps(facility_med_equip_group_list)
-
-    # for debugging
-    # for i, obj in enumerate(facility_med_equip_group_list):
-    #     log(obj)
-
-    with open(IS_path + 'JSON\\' + isc.IS_FACILITY_MED_EQUIP_GROUP_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    JSON_file_name = isc.IS_FACILITY_MED_EQUIP_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    with open(IS_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
         
     log('Finished Facility Equipment DB, IS')
 
 def upload_facility_equipment_and_group_DBs_IS(version):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    container_name = gbc.GB_IS_CONTAINER
-
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\IS\JSON\\' + isc.IS_FACILITY_EQUIP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    GB_upload_file(connection, container_name, isc.IS_FACILITY_EQUIP_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName) 
-
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\IS\JSON\\' + isc.IS_FACILITY_MED_EQUIP_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    GB_upload_file(connection, container_name, isc.IS_FACILITY_MED_EQUIP_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName)
+    JSON_file_name = isc.IS_FACILITY_EQUIP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_IS_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_IS) + '\\' + JSON_file_name) 
     
+    JSON_file_name = isc.IS_FACILITY_MED_EQUIP_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_IS_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_IS) + '\\' + JSON_file_name) 
+
     log('Uploaded Facility Equipment DB, IS') 
 
     

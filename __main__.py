@@ -115,12 +115,8 @@ store_keys_in_env()
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 
-####### Infrastructure ######
-
 # infrastructure.create_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
 # infrastructure.upload_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
-
-######## Programme Costing ######
 
 # programmecosting.create_cost_category_DB_PC(PC_COST_CAT_DB_CURR_VERSION)
 # programmecosting.upload_cost_category_DB_PC(PC_COST_CAT_DB_CURR_VERSION)
