@@ -85,8 +85,6 @@ store_keys_in_env()
 # interventions.create_group_DB_IV(IV_CS_GROUP_DB_CURR_VERSION, GB_CS)
 # interventions.upload_group_DB_IV(IV_CS_GROUP_DB_CURR_VERSION, GB_CS)
 
-####### OneHealth Core/Configuration ######
-
 # ihtcore.create_exchange_rate_DB_IH(IH_EXCHANGE_RATE_DB_CURR_VERSION) 
 # ihtcore.upload_exchange_rate_DB_IH(IH_EXCHANGE_RATE_DB_CURR_VERSION)
 

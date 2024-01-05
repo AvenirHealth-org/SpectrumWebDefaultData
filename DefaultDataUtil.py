@@ -27,7 +27,7 @@ def isCurrentVersion(file, version):
 # and will also safely work up to one directory 'deep'.  will probably break if things are nested more than one level.
 # pathMod is used for uploading from a directory into a 'subdirectory' of a blob - see easyAIM upload as an example
 def uploadFilesInDir(container, directory, version, pathMod = ''): 
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
+    connection =  os.environ[GB_SPECT_MOD_DATA_CONN_ENV]
     for root, dirs, files in os.walk(directory): 
         for file in files:
             if isCurrentVersion(file, version):
