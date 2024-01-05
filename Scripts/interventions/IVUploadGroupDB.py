@@ -7,6 +7,8 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file, GB_file_exists
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.IV.IVConst as ivc
@@ -52,11 +54,9 @@ def create_group_DB_IV(version = str, mod_ID = int):
     #     log('File does not exist')
 
     log('Creating Intervention Group DB, ' + gbc.GB_MOD_STR[mod_ID])
-    IV_path = os.getcwd() + '\Tools\DefaultDataManager\IV\\'
-    IV_mod_data_FQ_name = IV_path + 'ModData\IVModData.xlsx'
 
     group_list = []
-    wb = load_workbook(IV_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_IV) + '\IVModData.xlsx')
     sheet = wb[ivc.IV_GROUP_DB_NAME]
     
     '''
@@ -193,9 +193,14 @@ def create_group_DB_IV(version = str, mod_ID = int):
                 group_list.append(group_dict)
 
     j = ujson.dumps(group_list)
-    os.makedirs(IV_path + 'JSON\\', exist_ok = True)
-    with open(IV_path + 'JSON\\' + ivc.IV_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
+
+    IV_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IV)
+    JSON_file_name = ivc.IV_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+
+    os.makedirs(IV_JSON_data_path + '\\', exist_ok = True)
+    with open(IV_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
+
     log('Finished Intervention Group DB, ' + gbc.GB_MOD_STR[mod_ID])
 
     # Write out a new group master ID constants file to the appropriate place depending on mode/module.
@@ -243,11 +248,10 @@ def create_group_DB_IV(version = str, mod_ID = int):
         log('Updated intervention master IDs in SpectrumCommon --> Const --> CS --> CSGroupIDs.')
 
 def upload_group_DB_IV(version = str, mod_ID = int):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
     # File will be uploaded from this location. Same location regardless of mode/module since it's temporary.
-    source_database_name = os.getcwd() + '\Tools\DefaultDataManager\IV\JSON\\' + ivc.IV_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
     container_name = ''
     destination_database_name = ''
+    source_JSON_file_name = ivc.IV_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
 
     # Store IHT and TB Costing group databases in the IHT container. TB doesn't use the TB interventions and groups from the IV database
     # outside of costing. On the other hand, LiST does, so LiST groups will go in the LiST container.
@@ -260,6 +264,7 @@ def upload_group_DB_IV(version = str, mod_ID = int):
         container_name = gbc.GB_CS_CONTAINER
         destination_database_name = ivc.IV_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
 
-    GB_upload_file(connection, container_name, destination_database_name, source_database_name) 
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], container_name, destination_database_name, ddu.get_JSON_data_path(gbc.GB_IV) + '\\' + source_JSON_file_name) 
+
     log('Uploaded Intervention Group DB, ' + gbc.GB_MOD_STR[mod_ID])
             
