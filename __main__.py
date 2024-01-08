@@ -67,8 +67,6 @@ store_keys_in_env()
 # tuberculosis.create_TB_fort_outputs('V3')
 # tuberculosis.upload_tb_fort_outputs_db('V3')
 
-###### Interventions [Module] ######
-
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.create_group_DB_IV(IV_IH_GROUP_DB_CURR_VERSION, GB_IH)

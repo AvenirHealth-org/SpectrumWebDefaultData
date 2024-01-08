@@ -947,7 +947,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
 
     j = ujson.dumps(interventions_list)
 
-    IV_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IV)
+    IV_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IV) + '\\' + gbc.GB_CONTAINERS[mod_ID]
     JSON_file_name = ivc.IV_INTERVENTION_DB_NAME + '_' + version + '.' + gbc.GB_JSON
 
     os.makedirs(IV_JSON_data_path + '\\', exist_ok = True)
@@ -996,7 +996,7 @@ def upload_intervention_DB_IV(version = str, mod_ID = int):
         container_name = gbc.GB_CS_CONTAINER
         destination_database_name = ivc.IV_INTERVENTION_DB_NAME + '_' + version + '.' + gbc.GB_JSON
 
-    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], container_name, destination_database_name, ddu.get_JSON_data_path(gbc.GB_IV) + '\\' + source_JSON_file_name) 
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], container_name, destination_database_name, ddu.get_JSON_data_path(gbc.GB_IV) + '\\' + gbc.GB_CONTAINERS[mod_ID] + '\\' + source_JSON_file_name) 
 
     log('Uploaded Intervention DB, ' + gbc.GB_MOD_STR[mod_ID])
             
