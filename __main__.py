@@ -25,7 +25,6 @@ from AvenirCommon.Keys import store_keys_in_env
 
 store_keys_in_env()
 
-####### Globals  ########
 # globals.create_disability_json('V1')
 # globals.upload_disability_json('V1')
 # globals.createGBCountryListMaster(GBDatabaseVersion)
@@ -66,8 +65,6 @@ store_keys_in_env()
 # tuberculosis.create_TB_fort_outputs('V3')
 # tuberculosis.upload_tb_fort_outputs_db('V3')
 
-###### Interventions [Module] ######
-
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.create_group_DB_IV(IV_IH_GROUP_DB_CURR_VERSION, GB_IH)
@@ -83,12 +80,8 @@ store_keys_in_env()
 # interventions.create_group_DB_IV(IV_CS_GROUP_DB_CURR_VERSION, GB_CS)
 # interventions.upload_group_DB_IV(IV_CS_GROUP_DB_CURR_VERSION, GB_CS)
 
-####### OneHealth Core/Configuration ######
-
 # ihtcore.create_exchange_rate_DB_IH(IH_EXCHANGE_RATE_DB_CURR_VERSION) 
 # ihtcore.upload_exchange_rate_DB_IH(IH_EXCHANGE_RATE_DB_CURR_VERSION)
-
-####### Intervention Costing ######
 
 # interventioncosting.create_drug_supply_DB_IC(IC_DRUG_SUPPLY_DB_CURR_VERSION)
 # interventioncosting.upload_drug_supply_DB_IC(IC_DRUG_SUPPLY_DB_CURR_VERSION)
@@ -113,12 +106,8 @@ store_keys_in_env()
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 
-####### Infrastructure ######
-
 # infrastructure.create_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
 # infrastructure.upload_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
-
-######## Programme Costing ######
 
 # programmecosting.create_cost_category_DB_PC(PC_COST_CAT_DB_CURR_VERSION)
 # programmecosting.upload_cost_category_DB_PC(PC_COST_CAT_DB_CURR_VERSION)
@@ -131,8 +120,6 @@ store_keys_in_env()
 # programmecosting.create_activity_line_item_DB_PC(PC_ACTIVITY_LINE_ITEM_DB_CURR_VERSION)
 # programmecosting.upload_activity_line_item_DB_PC(PC_ACTIVITY_LINE_ITEM_DB_CURR_VERSION)
 
-######## Budget Mapping ######
-
 # budgetmapping.create_budget_DB_BG(BG_BUDGET_DB_CURR_VERSION)
 # budgetmapping.upload_budget_DB_BG(BG_BUDGET_DB_CURR_VERSION)
 # budgetmapping.create_budget_category_DB_BG(BG_BUDGET_CAT_DB_CURR_VERSION)
@@ -141,3 +128,5 @@ store_keys_in_env()
 # budgetmapping.upload_funding_framework_DB_BG(BG_FUND_FW_DB_CURR_VERSION)
 # budgetmapping.create_funding_source_DB_BG(BG_FUND_SOURCE_DB_CURR_VERSION)
 # budgetmapping.upload_funding_source_DB_BG(BG_FUND_SOURCE_DB_CURR_VERSION)
+# budgetmapping.create_indicator_mapping_DB_BG(BG_INDICATOR_MAPPING_DB_CURR_VERSION)
+# budgetmapping.upload_indicator_mapping_DB_BG(BG_INDICATOR_MAPPING_DB_CURR_VERSION)

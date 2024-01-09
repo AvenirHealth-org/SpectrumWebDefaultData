@@ -8,6 +8,8 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.IC.ICConst as icc
@@ -20,14 +22,12 @@ IC_ISO_ALPHA_3_COUNTRY_CODE = '<ISO Alpha-3 Country Code>'
 IC_COST_PER_OUTPAT_VISIT    = '<Cost per Outpatient Visit>'
 COST_PER_INPAT_DAY          = '<Cost per Inpatient Day>'
 
-def create_outpat_visit_inpat_day_costs_TB_DB_IC(version_str):
+def create_outpat_visit_inpat_day_costs_TB_DB_IC(version = str):
+
     log('Creating IC outpatient visit inpatient day costs TB DB')
 
-    IC_path = os.getcwd() + '\Tools\DefaultDataManager\IC\\'
-    IC_mod_data_FQ_name = IC_path + 'ModData\ICModData.xlsx'
-
     country_list = []
-    wb = load_workbook(IC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_IC) + '\ICModData.xlsx')
     sheet = wb[icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_NAME]
 
     num_rows = sheet.max_row
@@ -88,22 +88,19 @@ def create_outpat_visit_inpat_day_costs_TB_DB_IC(version_str):
 
         country_list.append(country_dict)
 
-    os.makedirs(IC_path + '\JSON\\' + icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_DIR + '\\', exist_ok = True)
+    IC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_DIR
+    os.makedirs(IC_JSON_data_path + '\\', exist_ok = True)
+    
     for country_obj in country_list:    
         iso3 = country_obj[icdbc.IC_ISO_ALPHA_3_COUNTRY_CODE_KEY_OVIDCTBDB]
-        with open(IC_path + '\JSON\\' + icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_DIR + '\\' + iso3 + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+        with open(IC_JSON_data_path + '\\' + iso3 + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
             ujson.dump(country_obj, f)
+
     log('Finished IC outpatient visit inpatient day costs TB DB')
 
 def upload_outpat_visit_inpat_day_costs_TB_DB_IC(version):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    walk_path = os.getcwd() + '\Tools\DefaultDataManager\IC\JSON\\' + icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_DIR + '\\'
-
-    for subdir, dirs, files in os.walk(walk_path):
-        for file in files:
-            FQName = os.path.join(subdir, file)
-            log(FQName)
-            GB_upload_file(connection, gbc.GB_IC_CONTAINER, icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_DIR + '\\' + file, FQName)
+    walk_path = ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_DIR + '\\'
+    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version)
     log('Uploaded IC outpatient visit inpatient day costs TB DB')
             
   

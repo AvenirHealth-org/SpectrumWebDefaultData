@@ -7,6 +7,8 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.PC.PCConst as pcc
@@ -27,12 +29,11 @@ PC_COSTING_SUBSECT_STR_CONST = '<Costing Subsection String Constant>'
 PC_COSTS_CS                  = '<Costs - CS>'
 
 def create_costing_section_DB_PC(version = str):
+
     log('Creating PC costing section DB')
-    PC_path = os.getcwd() + '\Tools\DefaultDataManager\PC\\'
-    PC_mod_data_FQ_name = PC_path + 'ModData\PCModData.xlsx'
 
     costing_sect_list = []
-    wb = load_workbook(PC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_PC) + '\PCModData.xlsx')
     sheet = wb[pcc.PC_COSTING_SECT_DB_NAME]
     
     # first row of intervention data after col descriptions and col tags
@@ -109,21 +110,17 @@ def create_costing_section_DB_PC(version = str):
 
     j = ujson.dumps(costing_sect_list)
 
-    os.makedirs(PC_path + 'JSON\\', exist_ok = True)
-    with open(PC_path + 'JSON\\' + pcc.PC_COSTING_SECT_DB_NAME + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
+    PC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_PC)
+    JSON_file_name = pcc.PC_COSTING_SECT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+
+    os.makedirs(PC_JSON_data_path + '\\', exist_ok = True)
+    with open(PC_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
+
     log('Finished PC costing section DB')
 
-def upload_costing_section_DB_PC(version = str, mod_ID = int):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    # File will be uploaded from this location. Same location regardless of mode/module since it's temporary.
-    source_database_name = os.getcwd() + '\Tools\DefaultDataManager\PC\JSON\\' + pcc.PC_COSTING_SECT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    container_name = ''
-    destination_database_name = ''
-
-    container_name = gbc.GB_PC_CONTAINER
-    destination_database_name = pcc.PC_COSTING_SECT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-
-    GB_upload_file(connection, container_name, destination_database_name, source_database_name) 
+def upload_costing_section_DB_PC(version = str):
+    JSON_file_name = pcc.PC_COSTING_SECT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_PC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + JSON_file_name)
     log('Uploaded PC costing section DB')
             

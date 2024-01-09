@@ -7,21 +7,21 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.IC.ICConst as icc
 import SpectrumCommon.Const.IC.ICDatabaseConst as icdbc 
 
-def create_treatment_input_and_group_DBs_IC(version_str):
+def create_treatment_input_and_group_DBs_IC(version = str):
 
     log('Creating IC treatment input and group DB')
-    IC_path = os.getcwd() + '\Tools\DefaultDataManager\IC\\'
-    IC_mod_data_FQ_name = IC_path + 'ModData\ICModData.xlsx'
 
     treatment_input_list = []
     treatment_input_group_list = []
 
-    wb = load_workbook(IC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_IC) + '\ICModData.xlsx')
     sheet = wb[icc.IC_TREATMENT_INPUT_DB_NAME]
 
     '''
@@ -184,33 +184,32 @@ def create_treatment_input_and_group_DBs_IC(version_str):
 
     # Write treatment inputs
 
-    j = ujson.dumps(treatment_input_list)
+    IC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IC)
+    os.makedirs(IC_JSON_data_path + '\\', exist_ok = True) 
+
     # for debugging
     # for i, obj in enumerate(drug_supply_list):
     #     log(obj)
-
-    with open(IC_path + 'JSON\\' + icc.IC_TREATMENT_INPUT_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    j = ujson.dumps(treatment_input_list)
+    JSON_file_name =  icc.IC_TREATMENT_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    with open(IC_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
 
     # Write treatment input groups
 
     j = ujson.dumps(treatment_input_group_list)
-
-    #fails after this point
-    with open(IC_path + 'JSON\\' + icc.IC_TREATMENT_INPUT_GROUP_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    JSON_file_name =  icc.IC_TREATMENT_INPUT_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    with open(IC_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
-        
+
     log('Finished IC treatment input and group DB')
 
 def upload_treatment_input_and_group_DBs_IC(version):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    container_name = gbc.GB_IC_CONTAINER
+    JSON_file_name = icc.IC_TREATMENT_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_IC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + JSON_file_name) 
 
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\IC\JSON\\' + icc.IC_TREATMENT_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    GB_upload_file(connection, container_name, icc.IC_TREATMENT_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName) 
-
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\IC\JSON\\' + icc.IC_TREATMENT_INPUT_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    GB_upload_file(connection, container_name, icc.IC_TREATMENT_INPUT_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName)
+    JSON_file_name = icc.IC_TREATMENT_INPUT_GROUP_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_IC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + JSON_file_name) 
     
     log('Uploaded IC treatment input and group DB') 
 

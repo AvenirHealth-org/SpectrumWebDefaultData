@@ -3,10 +3,10 @@ import ujson
 from itertools import islice
 from openpyxl import load_workbook
 
-
-from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
+
+import DefaultData.DefaultDataUtil as ddu
 
 import SpectrumCommon.Const.GB as gbc
 import SpectrumCommon.Const.IC.ICConst as icc
@@ -22,15 +22,13 @@ IC_INTERV_NAME              = '<Intervention Name>'
 IC_DATA                     = '<Data>'
 IC_YEARS                    = '<Years>'
 
-def create_non_impact_coverage_by_year_DB_IC(version_str):
+def create_non_impact_coverage_by_year_DB_IC(version = str):
     return # Currently no more interventions with non-impact coverage by year
 
     log('Creating IC non impact coverage by year DB')
-    IC_path = os.getcwd() + '\Tools\DefaultDataManager\IC\\'
-    IC_mod_data_FQ_name = IC_path + 'ModData\ICModData.xlsx'
 
     country_list = []
-    wb = load_workbook(IC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_IC) + '\ICModData.xlsx')
     sheet = wb[icc.IC_NON_IMPACT_COVERAGE_BY_YEAR_DB_NAME]
 
     num_rows = sheet.max_row
@@ -86,7 +84,7 @@ def create_non_impact_coverage_by_year_DB_IC(version_str):
     os.makedirs(IC_path + '\JSON\\' + icc.IC_NON_IMPACT_COVERAGE_BY_YEAR_DB_DIR + '\\', exist_ok = True)
     for country_obj in country_list:    
         iso3 = country_obj[icdbc.IC_ISO_ALPHA_3_COUNTRY_CODE_KEY_NbYDB]
-        with open(IC_path + '\JSON\\' + icc.IC_NON_IMPACT_COVERAGE_BY_YEAR_DB_DIR + '\\' + iso3 + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+        with open(IC_path + '\JSON\\' + icc.IC_NON_IMPACT_COVERAGE_BY_YEAR_DB_DIR + '\\' + iso3 + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
             ujson.dump(country_obj, f)
     log('Finished IC non impact coverage by year DB')
 

@@ -7,6 +7,8 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.PC.PCConst as pcc
@@ -30,14 +32,13 @@ PC_NUM_UNITS            = '<Number of Units>'
 PC_DURATION             = '<Duration>' 
 PC_FREQUENCY            = '<Frequency>' 
 
-def create_activity_line_item_DB_PC(version_str):
+def create_activity_line_item_DB_PC(version = str):
+
     log('Creating PC activity line item DB')
-    PC_path = os.getcwd() + '\Tools\DefaultDataManager\PC\\'
-    PC_mod_data_FQ_name = PC_path + 'ModData\PCModData.xlsx'
 
     activity_line_item_list = []
 
-    wb = load_workbook(PC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_PC) + '\PCModData.xlsx')
     sheet = wb[pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME]
 
     '''
@@ -136,22 +137,19 @@ def create_activity_line_item_DB_PC(version_str):
     # Write activity input line items
 
     j = ujson.dumps(activity_line_item_list)
-    # for debugging
-    # for i, obj in enumerate(drug_supply_list):
-    #     log(obj)
 
-    with open(PC_path + 'JSON\\' +  pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    PC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_PC)
+    JSON_file_name = pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+
+    os.makedirs(PC_JSON_data_path + '\\', exist_ok = True)
+    with open(PC_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
         
     log('Finished PC activity line item DB')
 
 def upload_activity_line_item_DB_PC(version):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    container_name = gbc.GB_PC_CONTAINER
-
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\PC\JSON\\' + pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    GB_upload_file(connection, container_name, pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName)
-
+    JSON_file_name = pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_PC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + JSON_file_name)
     log('Uploaded PC activity line item DB') 
 
     

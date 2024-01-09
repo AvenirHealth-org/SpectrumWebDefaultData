@@ -7,6 +7,8 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
+import DefaultData.DefaultDataUtil as ddu
+
 import SpectrumCommon.Const.GB as gbc
 
 import SpectrumCommon.Const.PC.PCConst as pcc
@@ -25,13 +27,11 @@ PC_UNIT_OF_MEASURE_STR_CONST = '<Unit of Measure String Constant>'
 PC_NOTE                      = '<Note>' 
 PC_SOURCE                    = '<Source>'
 
-def create_cost_input_DB_PC(version_str):
+def create_cost_input_DB_PC(version = str):
     log('Creating PC cost input DB')
-    PC_path = os.getcwd() + '\Tools\DefaultDataManager\PC\\'
-    PC_mod_data_FQ_name = PC_path + 'ModData\PCModData.xlsx'
 
     cost_input_list = []
-    wb = load_workbook(PC_mod_data_FQ_name)
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_PC) + '\PCModData.xlsx')
     sheet = wb[pcc.PC_COST_INPUT_DB_NAME]
     
     '''
@@ -114,15 +114,17 @@ def create_cost_input_DB_PC(version_str):
     # for debugging
     # for i, obj in enumerate(activity_list):
     #     log(obj)
-    os.makedirs(PC_path + 'JSON\\', exist_ok = True)
-    with open(PC_path + 'JSON\\' + pcc.PC_COST_INPUT_DB_NAME + '_' + version_str + '.' + gbc.GB_JSON, 'w') as f:
+    PC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_PC)
+    JSON_file_name = pcc.PC_COST_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+
+    os.makedirs(PC_JSON_data_path + '\\', exist_ok = True)
+    with open(PC_JSON_data_path + '\\' + JSON_file_name, 'w') as f:
         f.write(j)
+
     log('Finished PC cost input DB')
 
 def upload_cost_input_DB_PC(version):
-    connection =  os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV]
-    FQName = os.getcwd() + '\Tools\DefaultDataManager\PC\JSON\\' + pcc.PC_COST_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
-    container_name = gbc.GB_PC_CONTAINER
-    GB_upload_file(connection, container_name, pcc.PC_COST_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON, FQName) 
+    JSON_file_name = pcc.PC_COST_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
+    GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_PC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + JSON_file_name)
     log('Uploaded PC cost input DB')
             
