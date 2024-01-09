@@ -47,8 +47,6 @@ store_keys_in_env()
 # aim.upload_easyAIM_db(AMEasyAIMDatabaseVersion)
 # aim.write_CSAVR_db(AMCSAVRDatabaseVersion)
 # aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
-# aim.write_CSAVR_db('V1Beta')
-# aim.upload_CSAVR_db('V1Beta')
 
 
 ####### FamPlan #######

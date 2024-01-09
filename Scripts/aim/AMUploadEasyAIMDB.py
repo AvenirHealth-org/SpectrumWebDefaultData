@@ -102,27 +102,10 @@ def write_easyAIM_db(version, country=''):
 
         if ISO3_Alpha != 'notFound':
             log('Writing '+ countryName)
-            # country_json = ujson.dumps(country)
             FName = formatCountryFName(ISO3_Alpha, version)
             with open(os.path.join(easyaim_json_path, FName), 'w') as f:
                 ujson.dump(country, f)
-            # GB_upload_json(connection, 'aim', FName, country_json)
 
 def upload_easyAIM_db(version):  
-    uploadFilesInDir('aim', easyaim_json_path, version, pathMod = 'easyAIM/') 
-    # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
-
-    # for root, dirs, files in os.walk(easyaim_json_path): 
-    #     for file in files:
-    #         if isCurrentVersion(file, version):
-    #             log('Uploading ' + file)
-    #             GB_upload_file(connection, 'aim', 'easyAIM/' + file, os.path.join(root, file))
-
-# def get_easyAIM_test(version):
-#     FName = 'easyAIM/' + formatCountryFName('BEN', version)
-    
-#     connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
-    
-#     db = GB_get_db_json(connection, 'aim', FName)
-#     log(db['Incidence'])
+    uploadFilesInDir('aim', easyaim_json_path, version, pathMod = 'easyAIM/')
 

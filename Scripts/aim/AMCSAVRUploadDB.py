@@ -26,16 +26,12 @@ def write_CSAVR_db(version, country=''):
     fitTypeRow  = 1
     mstIDRow    = 2
     paramRow    = 4
-    startRow    = 5
 
     startCol    = 11
 
     FQName = os.getcwd() + '/DefaultData/SourceData/aim/AMModData.xlsx'
 
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
-
     countries = {}
-    # globalData = {}
 
     xlsx = pd.ExcelFile(FQName)
 
@@ -63,12 +59,10 @@ def write_CSAVR_db(version, country=''):
     
 
     log('Writing global data')
-    data_json = ujson.dumps(countries[0][0])
     FName = formatCountryFName('Global', version)
     os.makedirs(CSAVR_json_path, exist_ok=True)
     with open(os.path.join(CSAVR_json_path, FName), 'w') as f:
         ujson.dump(countries[0][0], f)
-    # GB_upload_json(connection, 'aim', FName, data_json)
 
     GBModData = getGBModDataDictByISO3()
     os.makedirs(CSAVR_json_country_path, exist_ok=True)
@@ -80,11 +74,9 @@ def write_CSAVR_db(version, country=''):
                 country = countries[countryCode][subnatCode]
 
                 log('Writing ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
-                country_json = ujson.dumps(country)
                 FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
                 with open(os.path.join(CSAVR_json_country_path, FName), 'w') as f:
                     ujson.dump(country, f)
-                # GB_upload_json(connection, 'aim', FName, country_json)
             
 def upload_CSAVR_db(version): 
     uploadFilesInDir('aim', CSAVR_json_path, version, pathMod = 'CSAVR/') 
