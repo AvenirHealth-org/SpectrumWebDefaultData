@@ -32,7 +32,8 @@ store_keys_in_env()
 # globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
 
 ####### DemProj #######
-# demproj.upload_UPD_db(DPUPDVersion)
+demproj.write_UPD_db(DPUPDVersion)
+# demproj.upload_UPD_db(DPUPDVersion) test this before using
 
 # demproj.write_demproj_db(DPDatabaseVersion)
 # demproj.upload_demproj_db(DPDatabaseVersion)
@@ -42,8 +43,10 @@ store_keys_in_env()
 ####### AIM #######
 # aim.write_aim_db(AMDatabaseVersion)
 # aim.upload_aim_db(AMDatabaseVersion)
+
 # aim.write_easyAIM_db(AMEasyAIMDatabaseVersion)
 # aim.upload_easyAIM_db(AMEasyAIMDatabaseVersion)
+
 # aim.write_CSAVR_db(AMCSAVRDatabaseVersion)
 # aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
 

@@ -9,10 +9,9 @@ from AvenirCommon.Logger import log
 from SpectrumCommon.Const.DP import *
 
 from Tools.DefaultDataManager.GB.Upload.GBUploadModData  import getGBModDataDict
+from DefaultData.DefaultDataUtil import *
 
-DP_MaxSingleAges = 80
-
-GB_Female = 2
+UPD_json_path = os.getcwd() + '\\DefaultData\\JSONData\\demproj\\UPD'
 
 headerStartTag = '<header>'
 headerEndTag = '</header>'
@@ -142,8 +141,10 @@ def findCountryInDirs(root, dirs, file):
 
     return result
 
-def upload_UPD_db(version):
-    for root, dirs, files in os.walk(os.getcwd() + '\\Tools\\DefaultDataManager\\DP\\UNPopDataByCountry'):  # get all year dirs
+def write_UPD_db(version):
+    os.makedirs(UPD_json_path, exist_ok=True)
+    
+    for root, dirs, files in os.walk(os.getcwd() + '\\DefaultData\\SourceData\\demproj\\UNPopDataByCountry'):  # get all year dirs
         dirs.sort()                                                                                         # and sort them, just in case
 
         for dir in dirs:                                                                                   # upload  files 
@@ -151,11 +152,11 @@ def upload_UPD_db(version):
                 for file in files2:
                     if str.lower(file).endswith('.upd'):
                         if not findCountryInDirs(root, dirs[dirs.index(dir)+1:], file):                     # for each file, check if newer version exists
-                            uploadUPD(version, root2, file)                                                 # if not, upload it
+                            writeUPD(version, root2, file)                                                 # if not, upload it
 
 
 
-def uploadUPD(version, root, file):
+def writeUPD(version, root, file):
     connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
     GBModData = getGBModDataDict()
 
@@ -210,26 +211,13 @@ def uploadUPD(version, root, file):
         general = getgeneralData(sheet, generalStartTagRow, generalEndTagRow)
         UPDData['general'] = general
 
-    
-        # 'basepop' : basepop,
-        # 'lfts' : lfts,
-        # 'tfr' : tfr,
-        # 'srb' : srb,
-        # 'pasfrs' : pasfrs,
-        # 'migration' : migration,
-
-    # if type(sourceStartTagRow) == int:
-    #     UPDData['source'] = source
-    # if type(generalStartTagRow) == int:
-    #     UPDData['general'] = general
-
-
     if ISO3_Alpha != 'notFound':
-        
-        log('Uploading '+ countryName)
-        country_json = ujson.dumps(UPDData)
-        FName = 'UPD/' + formatCountryFName(ISO3_Alpha, version)
-        GB_upload_json(connection, 'demproj', FName, country_json)
+        log('Writing '+ countryName)
+        with open(os.path.join(UPD_json_path, formatCountryFName(ISO3_Alpha, version)), 'w') as f:
+            ujson.dump(UPDData, f)
+
+def upload_UPD_db(version):  
+    uploadFilesInDir('aim', UPD_json_path, version, pathMod = 'UPD/')
 
 def get_UPD_test(version):
     FName = 'UPD/' + formatCountryFName('BEN', version)
