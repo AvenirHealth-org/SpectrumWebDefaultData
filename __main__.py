@@ -32,11 +32,11 @@ store_keys_in_env()
 # globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
 
 ####### DemProj #######
-demproj.write_UPD_db(DPUPDVersion)
+# demproj.write_UPD_db(DPUPDVersion)
 # demproj.upload_UPD_db(DPUPDVersion) test this before using
 
 # demproj.write_demproj_db(DPDatabaseVersion)
-# demproj.upload_demproj_db(DPDatabaseVersion)
+# demproj.upload_demproj_db(DPDatabaseVersion) test this before using
 
 # demproj.upload_DP_population_db(DPFirstYearPopDBVersion)
 
