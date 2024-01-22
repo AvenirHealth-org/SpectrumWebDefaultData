@@ -217,7 +217,7 @@ def writeUPD(version, root, file):
             ujson.dump(UPDData, f)
 
 def upload_UPD_db(version):  
-    uploadFilesInDir('aim', UPD_json_path, version, pathMod = 'UPD/')
+    uploadFilesInDir('demproj', UPD_json_path, version, pathMod = 'UPD/')
 
 def get_UPD_test(version):
     FName = 'UPD/' + formatCountryFName('BEN', version)
