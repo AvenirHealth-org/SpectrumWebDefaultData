@@ -100,6 +100,6 @@ def create_health_system_costs_DB_IC(version = str):
 
 def upload_health_system_costs_DB_IC(version):
     walk_path = ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + icc.IC_HEALTH_SYSTEM_COSTS_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version)
+    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version, icc.IC_HEALTH_SYSTEM_COSTS_DB_DIR + '\\')
     log('Uploaded IC health system costs DB')
             

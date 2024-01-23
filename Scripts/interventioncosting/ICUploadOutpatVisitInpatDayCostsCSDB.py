@@ -114,7 +114,7 @@ def create_outpat_visit_inpat_day_costs_CS_DB_IC(version = str):
 
 def upload_outpat_visit_inpat_day_costs_CS_DB_IC(version):
     walk_path = ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version)
+    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version, icc.IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_DIR + '\\')
     log('Uploaded IC outpatient visit inpatient day costs CS DB')
             
   

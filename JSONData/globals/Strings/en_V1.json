@@ -2810,5 +2810,6 @@
   "GB_stSpiRemovHumanRightsGenderRelatedBarriers": "SPI,Removing human rights and gender-related barriers to specific prevention interventions",
   "GB_stDonor": "Donor",
   "GB_stGovernment": "Government",
-  "GB_stOther": "Other"
+  "GB_stOther": "Other",
+  "GB_stAllStaffTypes": "All staff types"
 }
