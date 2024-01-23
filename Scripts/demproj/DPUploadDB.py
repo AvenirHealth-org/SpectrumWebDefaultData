@@ -103,9 +103,9 @@ def write_demproj_db(version):
         country = countries[countryName] 
         ISO3_Alpha = GBModData[countryName]['ISO3_Alpha'] if countryName in GBModData else 'notFound'
 
-        if ISO3_Alpha != 'notFound':
+        if (ISO3_Alpha != 'notFound') and (isinstance(GBModData[countryName]['ISO3_Alpha'], str)):
             log('Writing '+ countryName)
-            FName = 'country/' + formatCountryFName(ISO3_Alpha, version)
+            FName = formatCountryFName(ISO3_Alpha, version)
             with open(os.path.join(demproj_json_country_path, FName), 'w') as f:
                 ujson.dump(country, f)
 
