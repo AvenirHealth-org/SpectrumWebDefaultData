@@ -105,7 +105,7 @@ def create_PIN_by_year_DB_IC(version = str):
 
 def upload_PIN_by_year_DB_IC(version):
     walk_path = ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + icc.IC_PIN_BY_YEAR_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version)
+    ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version, icc.IC_PIN_BY_YEAR_DB_DIR + '\\')
     log('Uploaded IC PIN by year DB')
 
 

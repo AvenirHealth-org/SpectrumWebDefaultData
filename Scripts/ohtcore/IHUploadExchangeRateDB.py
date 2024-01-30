@@ -65,7 +65,7 @@ def create_exchange_rate_DB_IH(version = str):
 
 def upload_exchange_rate_DB_IH(version):
     walk_path = ddu.get_JSON_data_path(gbc.GB_IH) + '\\' + ihc.IH_EXCHANGE_RATE_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_IH_CORE_CONTAINER, walk_path, version)
+    ddu.uploadFilesInDir(gbc.GB_IH_CORE_CONTAINER, walk_path, version, ihc.IH_EXCHANGE_RATE_DB_DIR + '\\')
     log('Uploaded Exchange rate IH')
 
 
