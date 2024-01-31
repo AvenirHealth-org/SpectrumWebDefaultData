@@ -27,7 +27,7 @@ store_keys_in_env()
 
 # globals.create_disability_json('V1')
 # globals.upload_disability_json('V1')
-# globals.createGBCountryListMaster(GBDatabaseVersion)
+# globals.writeGBCountryListMaster(GBDatabaseVersion)
 # globals.uploadGBCountryListMaster(GBDatabaseVersion)
 # globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
 
@@ -37,7 +37,7 @@ store_keys_in_env()
 
 # demproj.write_demproj_db(DPDatabaseVersion)
 # demproj.upload_demproj_db(DPDatabaseVersion) test this before using
-
+# demproj.write_DP_population_db(DPFirstYearPopDBVersion)
 # demproj.upload_DP_population_db(DPFirstYearPopDBVersion)
 
 ####### AIM #######
