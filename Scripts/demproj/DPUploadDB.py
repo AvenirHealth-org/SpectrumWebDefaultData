@@ -8,18 +8,11 @@ from AvenirCommon.Util import formatCountryFName
 from AvenirCommon.Logger import log
 from DefaultData.DefaultDataUtil import *
 
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData  import getGBModDataDict
 from SpectrumCommon.Const.GB import GB_Male, GB_Female
+from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details
 
 demproj_json_path = os.getcwd() + '\\DefaultData\\JSONData\\demproj\\moddata'
-# demproj_country_dir = 'country'
 demproj_json_country_path = demproj_json_path + '\\' + country_dir
-
-def addDataByCountryName(countryName, countries, dataName, data):
-
-    if not(countryName in countries):
-        countries[countryName] = {}
-    countries[countryName][dataName] = data
 
 def getLifeTableNameRoots():
     return [
@@ -94,37 +87,21 @@ def write_demproj_db(version):
             'countryName' : countryName,
             'countryCode' : countryCode,
         }
-        addDataByCountryName(countryName, countries, 'LifeTable', data)
- 
+        addDataByCountryCode(countryCode, countries, 'LifeTable', data)
  
     os.makedirs(demproj_json_country_path, exist_ok=True)
-    GBModData = getGBModDataDict()
-    for countryName in countries:
-        country = countries[countryName] 
-        ISO3_Alpha = GBModData[countryName]['ISO3_Alpha'] if countryName in GBModData else 'notFound'
+    for countryCode in countries:
+        countryData = countries[countryCode] 
+        ISO3_Alpha = get_country_ISO3Alpha(countryCode) 
 
-        if (ISO3_Alpha != 'notFound') and (isinstance(GBModData[countryName]['ISO3_Alpha'], str)):
-            log('Writing '+ countryName)
+        if (ISO3_Alpha != 'notFound') and (isinstance(ISO3_Alpha, str)):
+            log('Writing '+ get_country_details(ISO3_Alpha)['name'])
             FName = formatCountryFName(ISO3_Alpha, version)
             with open(os.path.join(demproj_json_country_path, FName), 'w') as f:
-                ujson.dump(country, f)
+                ujson.dump(countryData, f)
 
 def upload_demproj_db(version):  
     uploadFilesInDir('demproj', demproj_json_path, version)
-    # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
-    # # global
-    # for root, dirs, files in os.walk(demproj_json_path): 
-    #     for file in files:
-    #         if isCurrentVersion(file, version):
-    #             GB_upload_file(connection, 'demproj', file, os.path.join(root, file))
-
-    # # country
-    # for root, dirs, files in os.walk(demproj_json_country_path): 
-    #     for file in files:
-    #         if isCurrentVersion(file, version):
-    #             GB_upload_file(connection, 'demproj', os.path.join(country_dir, file), os.path.join(root, file))
-
-
 
 
 
