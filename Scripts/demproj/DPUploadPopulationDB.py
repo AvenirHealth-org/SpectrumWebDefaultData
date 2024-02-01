@@ -1,5 +1,4 @@
 import os
-from re import L, M
 import pandas as pd
 import numpy as np
 import json
@@ -8,7 +7,6 @@ from datetime import datetime
 from AvenirCommon.Database.BlobStorage import GB_upload_json, GB_get_db_json
 from Calc.GB.GBMain import GBCalculate 
 from SpectrumCommon.Const.GB.GBConst import GB_DP, GB_AM
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict, getGBModDataDictByISO3
 from AvenirCommon.Util import GBRange, formatCountryFName, findTagCol
 from SpectrumCommon.Const.DP import *
 from SpectrumCommon.Const.AM import *
@@ -26,16 +24,16 @@ def addDataByCountryName(countryName, countries, dataName, data):
         countries[countryName] = {}
     countries[countryName][dataName] = data.copy()
 
-def upload_DP_population_db(version):
-    GBModData = getGBModDataDict()
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
+def write_DP_population_db(version):
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, version))
+
     for country in GBModData: 
-        if not (GBModData[country]['ISO3'] == 5733):
+        if not (country['ISO3_Numeric'] == 5733):
 
             params = createProjectionParams()
             params.firstYear = 1970
             params.finalYear = 2030
-            params.country = GBModData[country]['ISO3_Alpha']
+            params.country = country['ISO3_Alpha']
             params.extra['subNatCode'] = 0
             params.modules = [GB_DP, GB_AM]
 
@@ -43,16 +41,16 @@ def upload_DP_population_db(version):
             
             dt = np.dtype(np.float64)  
             for mv in projection:
-                    if mv in [AM_ChildMortByCD4WithART0to6Tag, AM_ChildMortByCD4WithART0to6PercTag,
-                            AM_ChildMortByCD4WithART7to12Tag, AM_ChildMortByCD4WithART7to12PercTag,
-                            AM_ChildMortByCD4WithARTGT12Tag, AM_ChildMortByCD4WithARTGT12PercTag]:
-                        #print('meow')
-                        pass
-                    elif type(projection[mv]) == list:
-                        if len(projection[mv])>0 and ((type(projection[mv][0])==dict) or(type(projection[mv][0])==str)) :
-                            projection[mv] = np.array(projection[mv], order='C')
-                        else:
-                            projection[mv] = np.array(projection[mv], order='C', dtype=dt)
+                    # if mv in [AM_ChildMortByCD4WithART0to6Tag, AM_ChildMortByCD4WithART0to6PercTag,
+                    #         AM_ChildMortByCD4WithART7to12Tag, AM_ChildMortByCD4WithART7to12PercTag,
+                    #         AM_ChildMortByCD4WithARTGT12Tag, AM_ChildMortByCD4WithARTGT12PercTag]:
+                    #     #print('meow')
+                    #     pass
+                if type(projection[mv]) == list:
+                    if len(projection[mv])>0 and ((type(projection[mv][0])==dict) or(type(projection[mv][0])==str)) :
+                        projection[mv] = np.array(projection[mv], order='C')
+                    else:
+                        projection[mv] = np.array(projection[mv], order='C', dtype=dt)
 
             projection[DP_Pop1TempTransportTag] = []
 
@@ -61,7 +59,7 @@ def upload_DP_population_db(version):
 
             pop1 = projection[DP_Pop1TempTransportTag]
  
-            print('Uploading '+ country)
+            print('Writing '+ country['name'])
 
             now = datetime.utcnow()
             timeStamp = now.strftime("Date: %Y-%m-%d Time: %H:%M:%S")
@@ -73,8 +71,7 @@ def upload_DP_population_db(version):
                     'date': timeStamp,
                 }        
             
-            # FName = 'pop1Default/' + formatCountryFName(params.country, version)
-            # GB_upload_json(connection, 'demproj', FName, country_json)
+        os.makedirs(pop1Default_json_path, exist_ok=True)
         with open(os.path.join(pop1Default_json_path, formatCountryFName(params.country, version)), 'w') as f:
             ujson.dump(country_data, f)
 

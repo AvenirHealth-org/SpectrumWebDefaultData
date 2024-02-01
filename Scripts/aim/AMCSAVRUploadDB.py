@@ -7,20 +7,12 @@ from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange, getTagRow
 from DefaultData.DefaultDataUtil import *
 
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict, getGBModDataDictByISO3
-
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP import *
+from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details
 
 CSAVR_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\CSAVR'
 CSAVR_json_country_path = CSAVR_json_path + '\\' + country_dir
-
-def addDataByCountryCode(countryCode, countries, data, subnatCode = 0):
-
-    if not(countryCode in countries):
-        countries[countryCode] = {}
-
-    countries[countryCode][subnatCode] = data
 
 def write_CSAVR_db(version, country=''):
     fitTypeRow  = 1
@@ -56,7 +48,6 @@ def write_CSAVR_db(version, country=''):
             rowData[fitType][param] = data
 
         addDataByCountryCode(countryCode, countries, rowData, subnatCode)
-    
 
     log('Writing global data')
     FName = formatCountryFName('Global', version)
@@ -64,16 +55,15 @@ def write_CSAVR_db(version, country=''):
     with open(os.path.join(CSAVR_json_path, FName), 'w') as f:
         ujson.dump(countries[0][0], f)
 
-    GBModData = getGBModDataDictByISO3()
     os.makedirs(CSAVR_json_country_path, exist_ok=True)
     for countryCode in countries:
-        ISO3_Alpha = GBModData[countryCode]['ISO3_Alpha'] if countryCode in GBModData else 'notFound'
+        ISO3_Alpha = get_country_ISO3Alpha(countryCode)
 
         if ISO3_Alpha != 'notFound':
             for subnatCode in countries[countryCode]:
                 country = countries[countryCode][subnatCode]
 
-                log('Writing ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
+                log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + str(subnatCode))
                 FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
                 with open(os.path.join(CSAVR_json_country_path, FName), 'w') as f:
                     ujson.dump(country, f)

@@ -13,30 +13,10 @@ from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP import *
 from SpectrumCommon.Modvars.AM.AMUtil import getARTCovSurveyDict
+from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details
 
 aim_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\moddata'
 aim_json_country_path = aim_json_path + '\\' + country_dir
-
-
-def addDataByCountryName(countryName, countries, dataName, data, subnatCode = 0):
-
-    if not(countryName in countries):
-        countries[countryName] = {}
-
-    if not subnatCode in countries[countryName]:
-        countries[countryName][subnatCode] = {}
-
-    countries[countryName][subnatCode][dataName] = data
-
-def addDataByCountryCode(countryCode, countries, dataName, data, subnatCode = 0):
-
-    if not(countryCode in countries):
-        countries[countryCode] = {}
-
-    if not subnatCode in countries[countryCode]:
-        countries[countryCode][subnatCode] = {}
-
-    countries[countryCode][subnatCode][dataName] = data
 
 def isValueByYearSheet(sheetName):
     return sheetName in [
@@ -961,68 +941,25 @@ def write_aim_db(version, country=''):
     # FName = 'AM_Global_' + version + '.JSON'
     # GB_upload_json(connection, 'aim', FName, AMModDataGlobal_json)
     log('Writing global data')
-    FName = 'AM_Global_' + version + '.JSON'
+    FName = formatCountryFName('AM_Global_', version)
     os.makedirs(aim_json_path, exist_ok=True)
     with open(os.path.join(aim_json_path, FName), 'w') as f:
         ujson.dump(AMModDataGlobal, f)
-
-
-    # GBModData = getGBModDataDictByISO3()
-    # for countryCode in countries:
-    #     ISO3_Alpha = GBModData[countryCode]['ISO3_Alpha'] if countryCode in GBModData else 'notFound'
-
-    #     if ISO3_Alpha != 'notFound':
-    #         for subnatCode in countries[countryCode]:
-    #             country = countries[countryCode][subnatCode]
-
-    #             log('Uploading ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
-    #             country_json = ujson.dumps(country)
-    #             FName = 'country/' + formatCountryFName(ISO3_Alpha, version, subnatCode)
-    #             GB_upload_json(connection, 'aim', FName, country_json)os.makedirs(demproj_json_country_path, exist_ok=True)
-
     
-    GBModData = getGBModDataDictByISO3()
     os.makedirs(aim_json_country_path, exist_ok=True)
     for countryCode in countries:
-        # country = countries[countryCode] 
-        ISO3_Alpha = GBModData[countryCode]['ISO3_Alpha'] if countryCode in GBModData else 'notFound'
+        ISO3_Alpha = get_country_ISO3Alpha(countryCode) 
 
         if ISO3_Alpha != 'notFound':
             for subnatCode in countries[countryCode]:                
-                country = countries[countryCode][subnatCode] 
-                log('Writing ' + GBModData[countryCode]['countryName'] + ' ' + str(subnatCode))
+                countryData = countries[countryCode][subnatCode] 
+                log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + str(subnatCode))
                 FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
                 with open(os.path.join(aim_json_country_path, FName), 'w') as f:
-                    ujson.dump(country, f)
-
-    # GBModData = getGBModDataDict()
-    # for countryName in countries:
-    #     country = countries[countryName] 
-    #     ISO3_Alpha = GBModData[countryName]['ISO3_Alpha'] if countryName in GBModData else 'notFound'
-
-    #     if ISO3_Alpha != 'notFound':
-    #         log('Writing '+ countryName)
-    #         FName = 'country/' + formatCountryFName(ISO3_Alpha, version)
-    #         with open(os.path.join(aim_json_country_path, FName), 'w') as f:
-    #             ujson.dump(country, f)
+                    ujson.dump(countryData, f)
 
 def upload_aim_db(version): 
     uploadFilesInDir('aim', aim_json_path, version) 
-    # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']  
-    # # global
-    # for root, dirs, files in os.walk(aim_json_path, followlinks=False): 
-    #     if (root == aim_json_path):
-    #         for file in files:
-    #             if isCurrentVersion(file, version):
-    #                 log('Uploading ' + file)
-    #                 GB_upload_file(connection, 'aim', file, os.path.join(root, file))
-
-    # # country
-    # for root, dirs, files in os.walk(aim_json_country_path): 
-    #     for file in files:
-    #         if isCurrentVersion(file, version):
-    #             log('Uploading ' + file)
-    #             GB_upload_file(connection, 'aim', os.path.join(aim_country_dir, file), os.path.join(root, file))
 
 
             
