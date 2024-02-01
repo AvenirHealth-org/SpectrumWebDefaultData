@@ -4,8 +4,10 @@ from openpyxl.utils import get_column_letter
 from AvenirCommon.Database import GB_upload_json, GB_upload_file
 import ujson
 import numpy as np
+import cProfile
+import pstats
 
-from AvenirCommon.Logger import log
+import logging
 from SpectrumCommon.Const.TB import *
 from SpectrumCommon.Const.GB import GB_Nan
 
@@ -19,15 +21,16 @@ def create_TB_WHOCountryData(version):
     who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
     
+    # profile = cProfile.Profile()
+    # profile.enable()
+    countries = []
     for country_cell in xlsx['Countries']['C']:
-        iso3=country_cell.value
-        fqname = default_path+'\\JSONData\\tuberculosis\\countries\\'+iso3+'_'+version+'.JSON'
-        if os.path.isfile(fqname):
+        countries.append(country_cell.value)
+    # countries = ('GRL',)#('IND', 'ZMB', 'ZWE', 'WLF')
+    for iso3 in countries[197:]: #81 GRL 137 ANT 174 SCG 197 TKL
+        if (iso3=='iso3') or (iso3=='GRL'):
             continue
-    # for iso3 in ('ETH', 'ZMB', 'ZWE'):
-        if (iso3=='iso3'):# or (iso3=='GRL'):
-            continue
-        log(iso3)
+        logging.debug(iso3)
         pages = {'TB_burden_countries': 'burden',
                  'TB_notifications': 'notifications',
                  'Noti_Distribution':'Noti_Distribution',
@@ -118,7 +121,7 @@ def create_TB_WHOCountryData(version):
 
                     if  iso3==xlsx[page_name]['C'+row_str].value:
                         tmp = row_str
-                        if xlsx[page_name]['BF'+row_str].value==0:
+                        if xlsx[page_name]['BI'+row_str].value==0:
                             row_str = '221'
                         # Numbers
                         country[sector_name]['c_notification']       = xlsx[page_name]['F'+row_str].value
@@ -276,7 +279,11 @@ def create_TB_WHOCountryData(version):
         os.makedirs(default_path+'\\JSONData\\tuberculosis\\countries\\', exist_ok=True)
         with open(default_path+'\\JSONData\\tuberculosis\\countries\\'+iso3+'_'+version+'.JSON', 'w') as f:
             ujson.dump(country, f)
-
+    # profile.disable()
+    # ps = pstats.Stats(profile)
+    # ps.sort_stats('calls', 'cumtime')
+    # ps.print_stats(50)
+    pass
 
 
 
@@ -288,11 +295,11 @@ def upload_TB_WHOCountryData(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\countries\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
-        # for file in ('ETH_V2.JSON', 'ZMB_V2.JSON', 'ZWE_V2.JSON'):
+        # for file in ('IND_V3.JSON'):
             FQName = os.path.join(subdir, file)
             if version in FQName:
-                log(FQName)
+                logging.debug(FQName)
                 GB_upload_file(connection, 'tuberculosis', 'countries\\'+file, FQName)
         
-    log('Uploaded TB who db json')
+    logging.debug('Uploaded TB who db json')
    
