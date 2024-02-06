@@ -8,7 +8,6 @@ from AvenirCommon.Util import GBRange, formatCountryFName, getTagRow
 from AvenirCommon.Logger import log
 from SpectrumCommon.Const.DP import *
 
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData  import getGBModDataDict
 from DefaultData.DefaultDataUtil import *
 
 UPD_json_path = os.getcwd() + '\\DefaultData\\JSONData\\demproj\\UPD'
@@ -157,21 +156,17 @@ def write_UPD_db(version):
 
 
 def writeUPD(version, root, file):
-    connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
-    GBModData = getGBModDataDict()
 
     sheet = pd.read_csv(os.path.join(root, file), header=None)
 
-    # headerStartTagRow = getTagRow(sheet, headerStartTag)
     countryName = file[0 : file.find('_')]
-    ISO3_Alpha = GBModData[countryName]['ISO3_Alpha'] if countryName in GBModData else 'notFound'
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, version))
+    ISO3_Alpha = next((country['ISO3_Alpha'] for country in GBModData if country['name'] == countryName), 'notFound')
 
     UPDData = {}
 
     basepopStartTagRow = getTagRow(sheet, basepopStartTag)
-    # basepopEndTagRow = getTagRow(sheet, basepopEndTag)
     basepop, row = getYearSexAgeYearData(sheet, basepopStartTagRow + 2, '1970')
-    # basepop = getYearSexAgeData(sheet, basepopStartTagRow, basepopEndTagRow)
     UPDData['basepop'] = basepop
 
     lftsStartTagRow = getTagRow(sheet, lftsStartTag)

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link href="../eppStyle.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<h1><strong>HIV  Data Page: Entering your surveillance data</strong></h1>
+<p>On the  Project page each sub-population you have defined will be fit with a curve describing  the past and future history of that component of the epidemic. This requires entering  HIV surveillance data for each sub-population you have included. The HIV Data  page allows you to enter both the prevalence measurements and sample sizes from  surveillance sites for each sub-population. </p>
+<h2><strong>What  data must you enter on this page?</strong></h2>
+<p>The data  required for each sub-population includes:</p>
+<ul>
+  <li><strong><em>HIV  prevalence trends for each site</em></strong>.  EPP fits to observed prevalence trends in each sub-population. This requires  that you enter the data for as many years and sites as you have for that  sub-population. The multiple site data is used to estimate intersite  variability, which is used in estimating the uncertainty in the fits.</li>
+  <li><strong><em>Sample  size for each prevalence measurement</em></strong>. For each prevalence data point you enter, you should  also provide a sample size. These are used in the fitting calculations with  more weight given to sites with larger sample sizes. If you do not assign  sample sizes, then default sample sizes of 300 will be used for each site.</li>
+  <li><strong><em>A  list of which sites are to be used in the fitting</em></strong>. It is possible to exclude some sites  from the fitting if they are considered to be outliers or have quality issues.  This is done by unchecking the box next to the site name. </li>
+</ul>
+<p>Each  sub-population can include as many surveillance sites as needed. You may add  additional sites using the Add and Add Multiple buttons at the bottom of the  page. </p>
+<h2><strong>A  familiar spreadsheet form is used for entering data</strong></h2>
+<p>The basic form of the HIV Data Entry  Page, shown below, will be familiar to anyone who has worked with spreadsheets.  It consists of a separate spreadsheet for entering HIV prevalence data for each  sub-population over time. You move between the sub-populations by clicking on  the sub-population name in the National Epidemic Structure tree on the right  hand side of the page. </p>
+<p align="center"><img src="images/HIVdata_clip_image002_en.jpg" alt="" width="600" height="372" /></p>
+<h2><strong>Data for each site is entered on two  adjacent horizontal lines in the table</strong></h2>
+<p>The surveillance data for the  sub-population highlighted in light blue in the National Epidemic Structure  tree is displayed as a spreadsheet. This spreadsheet is organized vertically by  site and horizontally by year. In EPP each surveillance site is represented by  two horizontal lines with its data running from right to left. The first line,  with the site name followed by &quot;(%)&quot;, shows the HIV prevalence (in  percent, a value between 0 and 100%) and the next line, with an &quot;(N)&quot;  shows the sample sizes for each prevalence point from that site. The color of  the site line pairs (% line and N line) alternates between white and light blue  to make it clear which prevalence and sample size data goes with which site.</p>
+<p>The two yellow colored lines at the top of  the table give means and medians across all sites for each year. If there is no  data for that year, the corresponding mean and median cell is left blank. All  means and medians are calculated using sample sizes. Means are weighted by the  sample size. For medians, values are sorted into numerical order and then a  running sum of the sample sizes is formed starting from the smallest prevalence  value. When that sum reaches or exceeds 50% of the sum of all sample sizes,  that value is used as the median. If the sample sizes sum to exactly 50% the  average of the current value and the next value is used as the median. If all  sample sizes are equal this reduces to the standard mid-point estimate for  median of an odd number of prevalence values and the average of the middle two  values for an even number of prevalence values. </p>
+<h2><strong>What do the columns in the table  mean?</strong></h2>
+<p>At the top of the table are column  headers in blue. Each column has the following contents:</p>
+<ul>
+  <li><strong><em>Column  1 (no header)</em></strong>: the site  name. In this column you should enter the name of the site to make it easy to  review and validate your data the next time you open the spreadsheet.</li>
+  <li><strong><em>Column  2 (header: &ldquo;In&rdquo;)</em></strong>:  contains a checkbox that indicates whether the site is to be included in the  fitting or not. If the box is checked, then the site is included, if it is  unchecked, the site is excluded. By default all sites are checked.</li>
+  <li><strong><em>Columns  3-33 (header: years from 1985 to 2015)</em></strong>:  the year of data collection</li>
+</ul>
+<h2><strong>What do the other items on this page  do?</strong></h2>
+<p>At the  bottom of the page are a number of buttons, display settings and information  boxes.</p>
+<p align="center"><img src="images/HIVdata_clip_image004_en.jpg" alt="" width="600" height="111" /></p>
+<p><strong><em>The  site buttons</em></strong>,  highlighted in the blue box above, are used to add and delete sites. More  specifically they are:</p>
+<ul>
+  <li><strong><em>Add</em></strong>: adds a single new site to the  spreadsheet. Each click on the button will add an additional site.</li>
+  <li><strong><em>Add  Multiple</em></strong>: brings  up a dialog (shown below) that asks you how many new sites you want to add. If  you want to add 12 more sites, enter a 12 in the text box and click &ldquo;OK&rdquo;.</li>
+</ul>
+<p align="center"><img src="images/HIVdata_clip_image006_en.png" alt="" width="235" height="173" /></p>
+<ul>
+  <li><strong><em>Delete</em></strong>: deletes the sites which you have  highlighted in the spreadsheet. Select the sites using the mouse and then click  this button.</li>
+  <li><strong><em>Undelete</em></strong>: restores the last set of deleted  sites.</li>
+</ul>
+<p><strong><em>The  display options</em></strong>,  highlighted in the red box above, allow you to select what is being displayed  in the table. The options are:</p>
+<ul>
+  <li><strong><em>Both</em></strong>: displays both the HIV prevalence and  sample sizes for each site.</li>
+  <li><strong><em>%  HIV</em></strong>: displays  only the HIV prevalence values for each site, hiding the sample sizes.</li>
+  <li><strong><em>N</em></strong>: displays only the sample sizes for  each site, hiding the HIV prevalence. </li>
+</ul>
+<p>The figure  below illustrates what happens when the &ldquo;% HIV&rdquo; entry is chosen.</p>
+<p align="center"><img src="images/HIVdata_clip_image008_en.jpg" alt="" width="600" height="372" /></p>
+<p><strong><em>The  active site counters</em></strong>,  highlighted by the green box, display the number of active and inactive sites.  This makes it easier to keep track of sites which have been turned off,  especially when there are more sites than are visible on the screen.</p>
+<h2><strong>After  entering your data, click Save and Continue</strong></h2>
+<p>After you  finish typing in all site data for a particular sub-population, click on the  green Save and continue button on the lower right. This will move you to the  next sub-population in the prevalence tree and allow you to enter the  surveillance data from that sub-population. After you enter the data for the  final sub-population, clicking on Save and continue will take you to the  Surveys page, the second step in the process of entering HIV data for your  sub-populations.</p>
+<h2><strong>Cutting  and pasting from Excel spreadsheets or the previous version of EPP</strong></h2>
+<p>The data spreadsheet has been set up to allow cutting of  data on prevalence and sample sizes from an Excel spreadsheet or the old  version of EPP and pasting it into the spreadsheet. To do this: </p>
+<ul type="disc">
+  <li>Determine       how many rows and columns of data you will copy </li>
+  <li>Add       sites in the EPP spreadsheet to ensure you have enough space to paste the       data you copy from Excel </li>
+  <li>Select       the data in Excel and type &lt;CTRL&gt;-C (copy). This will copy the data       to the clipboard </li>
+  <li>In       the EPP spreadsheet single click (do <em>NOT</em> double click) on the first       site on which your data will be pasted (upper left hand corner of your       selection from Excel) </li>
+  <li>Type       &lt;CTRL&gt;-V to paste the data into the EPP spreadsheet. </li>
+</ul>
+<p>If your site names are immediately adjacent to your data in  your Excel sheet and your surveillance data starts in 1985, you can select the  site names and the data together in Excel, single click on the first site name  cell and then type &lt;CTRL&gt;-V to paste the entire set of data. If your site  names are not organized this way or you wish to start with some data year other  than 1985, you will need to copy and paste in two steps. First copy the site  names from Excel and paste them by clicking in the first data entry cell in the  site name column. Then copy the numerical data using the instructions above to  the appropriate cells.</p>
+<h2><strong>IMPORTANT NOTE  for data importers</strong></h2>
+<p>If pasting data from the old version of EPP or from an Excel  spreadsheet that only contains HIV prevalence values, it is important to first  change the EPP table to contain only the HIV prevalence (&quot;% HIV&quot;). If  you paste into the expanded table with both HIV prevalence and sample sizes  displayed, prevalence data may get put into sample size cells. Always check  your values after you paste to ensure that the data has gone into the proper  sites and year columns. </p>
+<h2><strong>Document  your sources and move on</strong><strong> </strong></h2>
+<p>You should always document the  sources and authors of the surveillance data used and of any additional ad hoc  studies you may incorporate into the data set for a particular sub-population.  This is done by hitting the &quot;Source&quot; button. In the box which pops up  you should enter your surveillance data source, any adjustments you made to the  data set, e.g., removal of outliers from a particular site or excluding a  surveillance site because the trend is problematic, and any other information  that is needed for someone reviewing your projections later. Once this is done,  click &quot;Save and continue&quot; to save the surveillance data for that  sub-population and move on to the next one. Once you have entered surveillance  data for all sub-populations, click on Save and continue and you will be moved  on to the Surveys page. </p>
+</body>
+</html>

@@ -8,25 +8,12 @@ from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange
 from AvenirCommon.Logger import log
 
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict
 from DefaultData.DefaultDataUtil import *
 
 from SpectrumCommon.Const.GB import GB_Nan
+from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details
 
 easyaim_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\easyAIM'
-
-def addDataByCountryName(countryName, countries, dataName, data, subnatCode = 0):
-    if (subnatCode == 0):
-        countrySubnatName = countryName + '_' + str(subnatCode)
-    else:
-        countrySubnatName = countryName
-
-    if not(countrySubnatName in countries):
-        countries[countrySubnatName] = {
-            'countryName' : countryName,
-            'subnatCode' : subnatCode,
-        }
-    countries[countrySubnatName][dataName] = data
 
 def isValueByYearSheet(sheetName):
     return not (sheetName in ['PercentHIVPopEligible', 'PercNotBFNotRecARVs', 'PercNotBFRecARVs', 'LocalAdjustmentFactor', 'NewARTPatAllocation'])
@@ -56,7 +43,7 @@ def getValuesByYear(countries, sheet, sheetName, startRow = 3):
                 'values' : values.tolist()
             }
 
-            addDataByCountryName(countryName, countries, sheetName, data)
+            addDataByCountryCode(countryCode, countries, sheetName, data)
 
 
 def getValuesNotByYear(countries, sheet, sheetName):
@@ -77,7 +64,7 @@ def getValuesNotByYear(countries, sheet, sheetName):
                 dataName = 'value' if pd.isna(sheet.values[2][col]) else sheet.values[2][col]  
                 data[dataName] = 0 if (pd.isna(sheet.values[row][col])) else sheet.values[row][col]
 
-            addDataByCountryName(countryName, countries, sheetName, data)
+            addDataByCountryCode(countryCode, countries, sheetName, data)
 
 def write_easyAIM_db(version, country=''):
     
@@ -94,17 +81,16 @@ def write_easyAIM_db(version, country=''):
         else:
             getValuesNotByYear(countries, sheet, sheetName)
     
-    GBModData = getGBModDataDict()
     os.makedirs(easyaim_json_path, exist_ok=True)
-    for countryName in countries:
-        country = countries[countryName]
-        ISO3_Alpha = GBModData[countries[countryName]['countryName']]['ISO3_Alpha'] if countries[countryName]['countryName'] in GBModData else 'notFound'
+    for countryCode in countries:
+        countryData = countries[countryCode]
+        ISO3_Alpha = get_country_ISO3Alpha(countryCode) 
 
         if ISO3_Alpha != 'notFound':
-            log('Writing '+ countryName)
+            log('Writing '+ get_country_details(ISO3_Alpha)['name'])
             FName = formatCountryFName(ISO3_Alpha, version)
             with open(os.path.join(easyaim_json_path, FName), 'w') as f:
-                ujson.dump(country, f)
+                ujson.dump(countryData, f)
 
 def upload_easyAIM_db(version):  
     uploadFilesInDir('aim', easyaim_json_path, version, pathMod = 'easyAIM/')
