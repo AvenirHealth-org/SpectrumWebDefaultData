@@ -6,6 +6,7 @@ import DefaultData.Scripts.tuberculosis as tuberculosis
 import DefaultData.Scripts.interventions as interventions
 import DefaultData.Scripts.interventioncosting as interventioncosting
 import DefaultData.Scripts.ohtcore as ihtcore
+import DefaultData.Scripts.humanresources as humanresources
 import DefaultData.Scripts.infrastructure as infrastructure
 import DefaultData.Scripts.programmecosting as programmecosting
 import DefaultData.Scripts.budgetmapping as budgetmapping
@@ -17,6 +18,7 @@ from SpectrumCommon.Const.CS.CSConst import *
 from SpectrumCommon.Const.IV.IVConst import *
 from SpectrumCommon.Const.IC.ICConst import *
 from SpectrumCommon.Const.IH.IHConst import *
+from SpectrumCommon.Const.HW.HWConst import *
 from SpectrumCommon.Const.IS.ISConst import *
 from SpectrumCommon.Const.PC.PCConst import *
 from SpectrumCommon.Const.BG.BGConst import *
@@ -108,6 +110,9 @@ store_keys_in_env()
 # interventioncosting.upload_outpat_visit_inpat_day_costs_TB_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_CURR_VERSION)
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
+
+# humanresources.create_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
+# humanresources.upload_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
 
 # infrastructure.create_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
 # infrastructure.upload_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)

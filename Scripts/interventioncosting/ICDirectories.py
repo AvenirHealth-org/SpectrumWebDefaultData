@@ -2,7 +2,6 @@ import os
 
 from SpectrumCommon.Const.IC.ICConst import *
 
-
 def create_IC_directories():
     IC_path = os.getcwd()+'\Tools\DefaultDataManager\IC\\'
     dir_list = [IC_path+ 'JSON\\' + IC_NON_IMPACT_COVERAGE_BY_YEAR_DB_DIR ,
