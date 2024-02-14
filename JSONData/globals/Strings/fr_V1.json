@@ -2616,5 +2616,16 @@
   "GB_stZincFortificationSuppOnePersonAnnualSupply": "approvisionnements d’enrichissement en zinc (une personne, approvisionnement annuel)",
   "GB_stZincOxideOintment10": "Pommade à l'oxyde de zinc, 10%",
   "GB_stZincTablet20Mg": "Zinc, comprimé, 20 mg",
-  "GB_stNull": ""
+  "GB_stNull": "",
+  "GB_stLabInfrasEquipSupp": "Infrastructure, équipement et fournitures de laboratoire",
+  "GB_stNatTBProgStaff": "Personnel du Programme National de Tuberculose (unité centrale et coordonnateurs régionaux)",
+  "GB_stDSTBDrugs": "TB sensible aux médicaments: médicaments",
+  "GB_stDSTBProgCosts": "TB sensible aux médicaments: les coûts du programme",
+  "GB_stDRTBDrugs": "TB pharmacorésistante: médicaments",
+  "GB_stDRTBProgCosts": "TB pharmacorésistante: les coûts du programme",
+  "GB_stTBPrevTreatDrugs": "Traitment préventif contre la TB: médicaments",
+  "GB_stCollabTBHIVAct": "Activités de collaboration TB/VIH",
+  "GB_stPatientSupp": "Soutien au patient",
+  "GB_stOpResearchSurv": "Recherches opérationnelles et enquêtes",
+  "GB_stAllOtherBudgetLines": "Autres postes budgétaires"
 }

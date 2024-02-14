@@ -2616,5 +2616,16 @@
   "GB_stZincFortificationSuppOnePersonAnnualSupply": "Suministros de fortificación de zinc (una persona, suministro anual)",
   "GB_stZincOxideOintment10": "Ungüento de óxido de zinc, 10%",
   "GB_stZincTablet20Mg": "Zinc, comprimido, 20 mg",
-  "GB_stNull": ""
+  "GB_stNull": "",
+  "GB_stLabInfrasEquipSupp": "Infraestructura, equipo y suministros de laboratorio",
+  "GB_stNatTBProgStaff": "Personal del Programa Nacional de Tuberculosis (unidad central y coordinadores regionales y subregionales",
+  "GB_stDSTBDrugs": "TB sensible a los medicamentos: medicamentos",
+  "GB_stDSTBProgCosts": "TB sensible a los medicamentos: costos de programa",
+  "GB_stDRTBDrugs": "TB resistente a medicamentos: medicamentos",
+  "GB_stDRTBProgCosts": "TB resistente a medicamentos: costos de programa",
+  "GB_stTBPrevTreatDrugs": "Tratamiento preventivo de TB: medicamentos",
+  "GB_stCollabTBHIVAct": "Actividades de colaboración TB/VIH",
+  "GB_stPatientSupp": "Apoyo al paciente",
+  "GB_stOpResearchSurv": "Investigación operativa y encuestas",
+  "GB_stAllOtherBudgetLines": "Otras partidas presupuestarias"
 }
