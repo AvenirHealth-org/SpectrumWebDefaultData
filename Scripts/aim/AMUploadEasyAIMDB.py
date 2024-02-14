@@ -84,7 +84,7 @@ def write_easyAIM_db(version, country=''):
     os.makedirs(easyaim_json_path, exist_ok=True)
     for countryCode in countries:
         countryData = countries[countryCode]
-        ISO3_Alpha = get_country_ISO3Alpha(countryCode) 
+        ISO3_Alpha = get_country_ISO3Alpha(countryData['countryCode']) 
 
         if ISO3_Alpha != 'notFound':
             log('Writing '+ get_country_details(ISO3_Alpha)['name'])

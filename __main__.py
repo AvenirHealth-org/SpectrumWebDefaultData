@@ -52,6 +52,7 @@ store_keys_in_env()
 # aim.write_CSAVR_db(AMCSAVRDatabaseVersion)
 # aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
 
+# aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
 ####### FamPlan #######
 # famplan.create_famplan_db('V5', FP_Interpolated) 
