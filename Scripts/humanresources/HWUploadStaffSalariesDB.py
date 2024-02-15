@@ -23,72 +23,65 @@ IC_EDU_CODE_3               = '<Educational Code 3>'
 IC_EDU_CODE_4               = '<Educational Code 4>'
 IC_EDU_CODE_5               = '<Educational Code 5>'
 
-# def create_staff_salaries_DB_HW(version = str):
+def create_staff_salaries_DB_HW(version = str):
 
-#     log('Creating IC non impact coverage DB')
+    log('Creating HW staff salaries DB')
 
-#     country_list = []
-#     wb = load_workbook(ddu.get_source_data_path(gbc.GB_IC) + '\ICModData.xlsx')
-#     sheet = wb[icc.IC_NON_IMPACT_COVERAGE_DB_NAME]
+    country_list = []
+    wb = load_workbook(ddu.get_source_data_path(gbc.GB_HW) + '\HWModData.xlsx')
+    sheet = wb[hwc.HW_STAFF_SALARIES_DB_NAME]
     
-#     num_rows = sheet.max_row
-#     #num_cols = sheet.max_column
+    num_rows = sheet.max_row
+    #num_cols = sheet.max_column
 
-#     # Establish tag columns.  Not many, so don't bother searching for them.
-#     col = 1
-#     #iso_numeric_country_code_col = col
-#     col += 1    
-#     #country_name_col = col
-#     col += 1
-#     iso_alpha_3_country_code_col = col
-#     col += 1
-#     first_data_col = col
+    # Establish tag columns.  Not many, so don't bother searching for them.
+    col = 1
+    #iso_numeric_country_code_col = col
+    col += 1    
+    #country_name_col = col
+    col += 1
+    iso_alpha_3_country_code_col = col
+    col += 1
+    edu_code_1_salary_col = col
+    col += 1
+    edu_code_2_salary_col = col
+    col += 1
+    edu_code_3_salary_col = col
+    col += 1
+    edu_code_4_salary_col = col
+    col += 1
+    edu_code_5_salary_col = col
 
-#     # Establish tag rows. Not many, so don't bother searching for them.
-#     row = 2
-#     interv_mstID_row = row
-#     row += 1
-#     #interv_name_row = row
-#     row += 1
-#     first_data_row = row
+    # Establish tag rows. Not many, so don't bother searching for them.
+    row = 2
+    first_data_row = row
 
-#     # Intervention master ID row
-#     interv_mstID_row_list = []
-#     for row in islice(sheet.values, interv_mstID_row - 1, interv_mstID_row):
-#         interv_mstID_row_list = row
+    # Get each row from the sheet and create a dictionary for each each country
+    for row in islice(sheet.values, first_data_row - 1, num_rows):
+        country_dict = {}
 
-#     # Get each row from the sheet and create a dictionary for each each country
-#     for row in islice(sheet.values, first_data_row - 1, num_rows):
-#         country_dict = {}
-#         intervention_list = []
+        iso3 = row[iso_alpha_3_country_code_col - 1]
 
-#         iso3 = row[iso_alpha_3_country_code_col - 1]
+        if iso3 != None:
+            country_dict[hwdbc.HW_ISO_ALPHA_3_COUNTRY_CODE_KEY_SSDB] = iso3
+            country_dict[hwdbc.HW_EDU_CODE_1_SALARY_KEY_SSDB] = row[edu_code_1_salary_col - 1]
+            country_dict[hwdbc.HW_EDU_CODE_2_SALARY_KEY_SSDB] = row[edu_code_2_salary_col - 1]
+            country_dict[hwdbc.HW_EDU_CODE_3_SALARY_KEY_SSDB] = row[edu_code_3_salary_col - 1]
+            country_dict[hwdbc.HW_EDU_CODE_4_SALARY_KEY_SSDB] = row[edu_code_4_salary_col - 1]
+            country_dict[hwdbc.HW_EDU_CODE_5_SALARY_KEY_SSDB] = row[edu_code_5_salary_col - 1]
+            country_list.append(country_dict)
 
-#         if iso3 != None:
-#             country_dict[icdbc.IC_ISO_ALPHA_3_COUNTRY_CODE_KEY_NICDB] = iso3
-
-#             for col, col_val in enumerate(row):
-#                 if col >= (first_data_col - 1):
-#                     intervention_dict = {}
-#                     intervention_dict[icdbc.IC_INTERV_MST_ID_KEY_NICDB] = interv_mstID_row_list[col]
-#                     intervention_dict[icdbc.IC_NON_IMPACT_COV_KEY_NICDB] = col_val
-#                     intervention_list.append(intervention_dict)
-#                     #log(intervention_dict)
-
-#             country_dict[icdbc.IC_INTERVENTION_LIST_KEY_NICDB] = intervention_list
-#             country_list.append(country_dict)
-
-#     IC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_IC) + '\\' + icc.IC_NON_IMPACT_COVERAGE_DB_DIR
-#     os.makedirs(IC_JSON_data_path + '\\', exist_ok = True)
+    HW_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_HW) + '\\' + hwc.HW_STAFF_SALARIES_DB_DIR
+    os.makedirs(HW_JSON_data_path + '\\', exist_ok = True)
     
-#     for country_obj in country_list:    
-#         iso3 = country_obj[icdbc.IC_ISO_ALPHA_3_COUNTRY_CODE_KEY_NICDB]
-#         with open(IC_JSON_data_path + '\\' + iso3 + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
-#             ujson.dump(country_obj, f)
+    for country_obj in country_list:    
+        iso3 = country_obj[hwdbc.HW_ISO_ALPHA_3_COUNTRY_CODE_KEY_SSDB]
+        with open(HW_JSON_data_path + '\\' + iso3 + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
+            ujson.dump(country_obj, f)
 
-#     log('Finished IC non impact coverage DB')
+    log('Finished HW staff salaries DB')
 
-# def upload_staff_salaries_DB_HW(version):
-#     walk_path = ddu.get_JSON_data_path(gbc.GB_HW) + '\\' + icc.IC_NON_IMPACT_COVERAGE_DB_DIR + '\\'
-#     ddu.uploadFilesInDir(gbc.GB_IC_CONTAINER, walk_path, version, icc.IC_NON_IMPACT_COVERAGE_DB_DIR + '\\')
-#     log('Uploaded IC non impact coverage DB')
+def upload_staff_salaries_DB_HW(version):
+    walk_path = ddu.get_JSON_data_path(gbc.GB_HW) + '\\' + hwc.HW_STAFF_SALARIES_DB_DIR + '\\'
+    ddu.uploadFilesInDir(gbc.GB_HW_CONTAINER, walk_path, version, hwc.HW_STAFF_SALARIES_DB_DIR + '\\')
+    log('Uploaded HW staff salaries DB')
