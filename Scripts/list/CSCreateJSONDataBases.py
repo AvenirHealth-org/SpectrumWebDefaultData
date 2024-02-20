@@ -94,9 +94,10 @@ def createCountryFiles(DBName, countries):
         i += 1
         ISO3_Alpha = country.pop('ISO3_Alpha')     
         progress = str(i) + '/' + str(len(countries))
-        reportStr = DBName + ', country: ' + ISO3_Alpha + ', ' + progress      
-        FQName = path + ISO3_Alpha + '.JSON'   
-        createFile(FQName, reportStr, country)        
+        if not ISO3_Alpha == -1:
+            reportStr = DBName + ', country: ' + ISO3_Alpha + ', ' + progress      
+            FQName = path + ISO3_Alpha + '.JSON'   
+            createFile(FQName, reportStr, country)        
 
 #####################################################################################################################
 #                                                                                                                   #
@@ -471,6 +472,8 @@ def create_IVDefaultData():
 def create_GNI_Per_Cap():
     xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
 
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
+
     for sheetName in xlsx.sheet_names:      
         if sheetName in ['GNI per capita growth rate']:
             sheet = xlsx.parse(sheetName, header=None)
@@ -485,8 +488,16 @@ def create_GNI_Per_Cap():
             
             for row in GBRange(dataFirstRow, dataFinalRow):
                 
-                name = getVal(sheet, row, 1)                
-                countries[name] = {'ISO3_Alpha' : getVal(sheet, row, 2)}
+                name = getVal(sheet, row, 1)
+                
+                ISO3 = getVal(sheet, row, 0)
+                
+                ISO3_Alpha = -1
+                for i in GBRange(0, len(GBModData)-1):
+                    if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                        ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+                
+                countries[name] = {'ISO3_Alpha' : ISO3_Alpha}
 
                 i = 0
                 for col in GBRange(dataStartCol, dataFinalCol):
@@ -505,6 +516,8 @@ def create_GNI_Per_Cap():
 def create_Readiness():
     xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
 
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
+
     for sheetName in xlsx.sheet_names:     
         if sheetName in ['Readiness']:
             sheet = xlsx.parse(sheetName, header=None)
@@ -519,9 +532,14 @@ def create_Readiness():
             
             for row in GBRange(dataFirstRow, dataFinalRow): 
                 
-                ISO3 = getVal(sheet, row, 0)
+                ISO3 = getVal(sheet, row, 1)
                 
-                countries[ISO3] = {
+                ISO3_Alpha = -1
+                for i in GBRange(0, len(GBModData)-1):
+                    if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                        ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+                
+                countries[ISO3_Alpha] = {
                     'ISO3_Alpha' : getVal(sheet, row, 0),
                     'anchorYear' : getVal(sheet, row, 2),
                     'anc' : getVal(sheet, row, 3),
@@ -531,7 +549,7 @@ def create_Readiness():
                 for col in GBRange(dataFirstCol, dataFinalCol): 
                     name = getVal(sheet, 3, col)
                     if not name == '':
-                        countries[ISO3][name] = {
+                        countries[ISO3_Alpha][name] = {
                             'mstID': getVal(sheet, 4, col),
                             'anchor' : getVal(sheet, row, col)
                         }                 
@@ -548,6 +566,8 @@ def create_Readiness():
 def create_CSection_Cov():
     xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
 
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
+
     for sheetName in xlsx.sheet_names:     
         if sheetName in ['CSection coverage']:
             sheet = xlsx.parse(sheetName, header=None)
@@ -559,15 +579,21 @@ def create_CSection_Cov():
             
             for row in GBRange(dataFirstRow, dataFinalRow):                            
 
-                ISO3 = getVal(sheet, row, 0)
+                ISO3 = getVal(sheet, row, 1)
+                
+                ISO3_Alpha = -1
+                for i in GBRange(0, len(GBModData)-1):
+                    if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                        ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+                
                 year = getVal(sheet, row, 2)
                 
-                if not(ISO3 in countries):
-                    countries[ISO3] = {
+                if not(ISO3_Alpha in countries):
+                    countries[ISO3_Alpha] = {
                         'ISO3_Alpha' : getVal(sheet, row, 0)
                         }
                 
-                countries[ISO3][year] = {
+                countries[ISO3_Alpha][year] = {
                     '<Csect>' : getVal(sheet, row, 3),
                     '<Urine>' : getVal(sheet, row, 4),
                     '<Blood>' : getVal(sheet, row, 5),
@@ -881,7 +907,7 @@ def create_regionalValues():
 #                                                                                                                   #
 #####################################################################################################################
 
-def processSubnatData(countries, regions, FName, key):
+def processSubnatData(GBModData, countries, regions, FName, key):
     xlsx = pd.ExcelFile(SourceData_DIR + '\Subnational/' + FName + '.xlsx')
 
     for sheetName in xlsx.sheet_names:     
@@ -896,36 +922,40 @@ def processSubnatData(countries, regions, FName, key):
         for row in GBRange(dataFirstRow, dataFinalRow):                            
 
             ISO3 = getVal(sheet, row, 0)
-            ISO3_Alpha = getVal(sheet, row, 1)
             level = getVal(sheet, row, 5)
             year = getVal(sheet, row, 3)
             source = getVal(sheet, row, 4)
             
+            ISO3_Alpha = -1
+            for i in GBRange(0, len(GBModData)-1):
+                if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                    ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+            
             # Country stuff            
             
-            if not(ISO3 in countries):
-                countries[ISO3] = {'ISO3_Alpha' : ISO3_Alpha}
+            if not(ISO3_Alpha in countries):
+                countries[ISO3_Alpha] = {'ISO3_Alpha' : ISO3_Alpha}
             
-            if not (level in countries[ISO3]):
-                countries[ISO3][level] = {}
+            if not (level in countries[ISO3_Alpha]):
+                countries[ISO3_Alpha][level] = {}
 
-            if not (year in countries[ISO3][level]):
-                countries[ISO3][level][year] = {}
+            if not (year in countries[ISO3_Alpha][level]):
+                countries[ISO3_Alpha][level][year] = {}
 
-            if not (source in countries[ISO3][level][year]):
-                countries[ISO3][level][year][source] = {}            
+            if not (source in countries[ISO3_Alpha][level][year]):
+                countries[ISO3_Alpha][level][year][source] = {}            
             
             for col in GBRange(dataStartCol, dataFinalCol): 
                 mstID =  getVal(sheet, 2, col)
 
-                if not (mstID in countries[ISO3][level][year][source]):
-                    countries[ISO3][level][year][source][mstID] = {'name' : getVal(sheet, 3, col)}
+                if not (mstID in countries[ISO3_Alpha][level][year][source]):
+                    countries[ISO3_Alpha][level][year][source][mstID] = {'name' : getVal(sheet, 3, col)}
             
                 if key == 'flag':
-                    countries[ISO3][level][year][source][mstID][key] = getVal(sheet, row, col)
+                    countries[ISO3_Alpha][level][year][source][mstID][key] = getVal(sheet, row, col)
         
                 if key == 'value':
-                    countries[ISO3][level][year][source][mstID][key] = getFloat(sheet, row, col)        
+                    countries[ISO3_Alpha][level][year][source][mstID][key] = getFloat(sheet, row, col)        
 
             # Region stuff
 
@@ -953,7 +983,7 @@ def processSubnatData(countries, regions, FName, key):
                     if not foundSurvey:
                         record['surveys'].append({'source' : source, 'year' : year})
             
-def processPercPop(countries, FName):
+def processPercPop(GBModData, countries, FName):
     xlsx = pd.ExcelFile(SourceData_DIR + '\Subnational/' + FName + '.xlsx')
 
     for sheetName in xlsx.sheet_names:     
@@ -968,34 +998,41 @@ def processPercPop(countries, FName):
             level = getVal(sheet, row, 5)
             year = getVal(sheet, row, 3)
             
-            if not(ISO3 in countries):
-                countries[ISO3] = {
+            ISO3_Alpha = -1
+            for i in GBRange(0, len(GBModData)-1):
+                if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                    ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+            
+            if not(ISO3_Alpha in countries):
+                countries[ISO3_Alpha] = {
                     'ISO3_Alpha' : getVal(sheet, row, 1)
                     }
             
-            if not (level in countries[ISO3]):
-                countries[ISO3][level] = {}
+            if not (level in countries[ISO3_Alpha]):
+                countries[ISO3_Alpha][level] = {}
 
-            if not (year in countries[ISO3][level]):
-                countries[ISO3][level][year] = {}
+            if not (year in countries[ISO3_Alpha][level]):
+                countries[ISO3_Alpha][level][year] = {}
             
-            countries[ISO3][level][year]['PercPop'] = getFloat(sheet, row, 6)
+            countries[ISO3_Alpha][level][year]['PercPop'] = getFloat(sheet, row, 6)
 
 def create_SubnatData():
     countries = {}
     regions = {}
     
-    processSubnatData(countries, regions, 'CSSubnatDB', 'value')
-    processSubnatData(countries, regions, 'CSSubnatFlagDB', 'flag')
-    processSubnatData(countries, regions, 'CSSubnatUrbanRural', 'value')
-    processSubnatData(countries, regions, 'CSSubnatFlagUrbanRural', 'flag')
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
+
+    processSubnatData(GBModData, countries, regions, 'CSSubnatDB', 'value')
+    processSubnatData(GBModData, countries, regions, 'CSSubnatFlagDB', 'flag')
+    processSubnatData(GBModData, countries, regions, 'CSSubnatUrbanRural', 'value')
+    processSubnatData(GBModData, countries, regions, 'CSSubnatFlagUrbanRural', 'flag')
    
     for key, record in regions.items():
         for i in GBRange(0, len(record)-1):
             record[i]['surveys'] = sorted(record[i]['surveys'], key=lambda x: x['year'], reverse=True)
 
-    processPercPop(countries, 'CSSubnatPercPop')
-    processPercPop(countries, 'CSSubnatPercPopUrbanRural')
+    processPercPop(GBModData, countries, 'CSSubnatPercPop')
+    processPercPop(GBModData, countries, 'CSSubnatPercPopUrbanRural')
 
     trimDict(countries)
     createCountryFiles(SubnatData, countries)
