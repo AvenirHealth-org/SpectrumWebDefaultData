@@ -44,9 +44,9 @@ def get_JSON_data_path(mod_ID = int, file_name = ''):
 
 def addDataByCountryCode(countryCode, countries, dataName, data, subnatCode = 0):
     if (subnatCode == 0):
-        countrySubnatCode = countryCode + '_' + str(subnatCode)
+        countrySubnatCode = str(countryCode) + '_' + str(subnatCode)
     else:
-        countrySubnatCode = countryCode
+        countrySubnatCode = str(countryCode)
 
     if not(countrySubnatCode in countries):
         countries[countrySubnatCode] = {

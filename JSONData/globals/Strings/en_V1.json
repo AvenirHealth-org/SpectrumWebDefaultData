@@ -2811,5 +2811,17 @@
   "GB_stDonor": "Donor",
   "GB_stGovernment": "Government",
   "GB_stOther": "Other",
-  "GB_stAllStaffTypes": "All staff types"
+  "GB_stAllStaffTypes": "All staff types",
+  "GB_stWHOBudgetCategories": "WHO budget categories",
+  "GB_stLabInfrasEquipSupp": "Laboratory infrastructure, equipment and supplies",
+  "GB_stNatTBProgStaff": "National TB Programme staff (central unit staff and subnational TB staff)",
+  "GB_stDSTBDrugs": "Drug-susceptible TB: drugs",
+  "GB_stDSTBProgCosts": "Drug-susceptible TB: programme costs",
+  "GB_stDRTBDrugs": "Drug-resistant TB: drugs",
+  "GB_stDRTBProgCosts": "Drug-resistant TB: programme costs",
+  "GB_stTBPrevTreatDrugs": "TB preventive treatment: drugs",
+  "GB_stCollabTBHIVAct": "Collaborative TB/HIV activities",
+  "GB_stPatientSupp": "Patient support",
+  "GB_stOpResearchSurv": "Operational research and surveys",
+  "GB_stAllOtherBudgetLines": "All other budget lines"
 }

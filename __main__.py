@@ -5,7 +5,9 @@ import DefaultData.Scripts.famplan as famplan
 import DefaultData.Scripts.tuberculosis as tuberculosis
 import DefaultData.Scripts.interventions as interventions
 import DefaultData.Scripts.interventioncosting as interventioncosting
+import DefaultData.Scripts.list as list
 import DefaultData.Scripts.ohtcore as ihtcore
+import DefaultData.Scripts.humanresources as humanresources
 import DefaultData.Scripts.infrastructure as infrastructure
 import DefaultData.Scripts.programmecosting as programmecosting
 import DefaultData.Scripts.budgetmapping as budgetmapping
@@ -17,6 +19,7 @@ from SpectrumCommon.Const.CS.CSConst import *
 from SpectrumCommon.Const.IV.IVConst import *
 from SpectrumCommon.Const.IC.ICConst import *
 from SpectrumCommon.Const.IH.IHConst import *
+from SpectrumCommon.Const.HW.HWConst import *
 from SpectrumCommon.Const.IS.ISConst import *
 from SpectrumCommon.Const.PC.PCConst import *
 from SpectrumCommon.Const.BG.BGConst import *
@@ -50,6 +53,7 @@ store_keys_in_env()
 # aim.write_CSAVR_db(AMCSAVRDatabaseVersion)
 # aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
 
+# aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
 ####### FamPlan #######
 # famplan.create_famplan_db('V5', FP_Interpolated) 
@@ -108,6 +112,32 @@ store_keys_in_env()
 # interventioncosting.upload_outpat_visit_inpat_day_costs_TB_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_CURR_VERSION)
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
+
+####### LiST  #######
+# list.create_DefaultData() 
+# list.create_IVDefaultData() 
+# list.create_GNI_Per_Cap() 
+# list.create_Readiness() 
+# list.create_CSection_Cov() 
+# list.create_dataByCountry(CS_Interpolated)
+# list.create_dataByCountry(CS_Uninterpolated)
+# list.create_regionalValues()
+# list.create_SubnatData()
+# list.create_MissOpData()
+# list.uploadDatabaseFiles(DefaultData)
+# list.uploadDatabaseFiles(IVDefaultData)
+# list.uploadDatabaseFiles(GNI_Per_Cap)
+# list.uploadDatabaseFiles(Readiness)
+# list.uploadDatabaseFiles(CSection_Cov)
+# list.uploadDatabaseFiles(DataByCountry)
+# list.uploadDatabaseFiles(DBC_DataPoints)
+# list.uploadDatabaseFiles(RegionData)
+# list.uploadDatabaseFiles(SubnatData)
+# list.uploadDatabaseFiles(SubnatMetaData)
+# list.uploadDatabaseFiles(MissOpData)
+
+# humanresources.create_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
+# humanresources.upload_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
 
 # infrastructure.create_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
 # infrastructure.upload_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
