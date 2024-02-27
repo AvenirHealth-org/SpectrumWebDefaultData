@@ -18,59 +18,36 @@ def create_TB_fort_outputs(version):
     who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
     failed_countries = []
-    for country_cell in xlsx['Countries']['C']:
-        try:
-            iso3=country_cell.value
-        # for iso3 in ['WLF']:
-            if iso3=='iso3':
-                continue
-            logging.debug(iso3)
-            # pages = ['TB_burden_countries']
-            fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V2.JSON') 
-            who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V3.JSON') 
-            fort_inputs["modelType"] = "IP"
+    after_stp =True
+    # for country_cell in xlsx['Countries']['C']:
+        # iso3=country_cell.value
+    for iso3 in ('BRB',):#('SWZ', 'ETH', 'ZMB', 'ZWE'):
+        # if iso3 == 'STP':
+        #     after_stp = True 
+        #     continue
+        if after_stp:
+            try:
+                if iso3=='iso3':
+                    continue
+                print(iso3)
+                # pages = ['TB_burden_countries']
+                fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V3.JSON') 
+                # who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V3.JSON') 
+                # fort_inputs["tXf"]  = [0.035]*num_years
 
-            num_years = 2050-fort_inputs["year"][0]+1
-            fort_inputs["sEp"]  = [None]*num_years
-            fort_inputs["pHat"] = [None]*num_years
-            fort_inputs["hRd"]  = [1]*num_years
-            fort_inputs["hRi"]  = [1]*num_years
-            fort_inputs["oRt"]  = [1]*num_years
-            # fort_inputs["tXf"]  = [0.035]*num_years
-            
-            PropHIVp         = who_db['Noti_Distribution']['newrel_hivpos_perc']
-            PropHIVn         = 1 - PropHIVp
-            PropHIVponART    = who_db['Noti_Distribution']['newrel_art_perc']
+                # null = None
 
-            PropHIVpNoART    = PropHIVp * (1- PropHIVponART)
-            PropHIVponART6m  = PropHIVp * 0.1 * PropHIVponART
-            PropHIVponART12m = PropHIVp * 0.9 * PropHIVponART
-            # check that     PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m=1
-            if (PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m)!=1:
-                print(f'PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m!=1 {iso3}')
-                failed_countries.append(iso3)
-            TXf  = PropHIVn*(3/100)+PropHIVpNoART*(9/100)+PropHIVponART6m*(6/100)+PropHIVponART12m*(4/100)
-            fort_inputs["tXf"] = [TXf]*num_years
-            # check value for Ethiopia for which TXf ~ 0.035. Check value for Eswatini should closer to the HIV values
-
-            for yr in GBRange(fort_inputs["year"][-1]+1, 2050):
-                fort_inputs["year"].append(yr)    
-                for key in ["iHat", "sEi", "nHat", "sEn", "mHat", "sEm", "pHat", "sEp"]:
-                    fort_inputs[key].append(None)#fort_inputs[key][-1])
-
-            null = None
-
-            # with open('WLF_FORT_INPUTS.JSON', "w+") as fp:
-                # ujson.dump(fort_inputs, fp)
-            response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
-            # response = post('http://localhost/projection', json=fort_inputs)
-            fort_outputs = response.json()
-            pass
-            os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\', exist_ok=True)
-            with open(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
-                ujson.dump(fort_outputs, f)
-        except:
-            print(f'{iso3} exception')
+                with open('BRB_FORT_INPUTS.JSON', "w+") as fp:
+                    ujson.dump(fort_inputs, fp)
+                response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
+                # response = post('http://localhost:8080/projection', json=fort_inputs)
+                fort_outputs = response.json()
+                pass
+                os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\', exist_ok=True)
+                with open(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
+                    ujson.dump(fort_outputs, f)
+            except:
+                print(f'{iso3} exception')
     pass
 
 def upload_tb_fort_outputs_db(version):
@@ -80,11 +57,11 @@ def upload_tb_fort_outputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        for file in files:
-        # for file in ['LSO_V2.JSON']:
+        # for file in files:
+        for file in ['BRB_V4.JSON']:
             FQName = os.path.join(subdir, file)
-            logging.debug(FQName)
             if version in FQName:
+                print(FQName)
                 GB_upload_file(connection, 'tuberculosis', 'fort\\outputs\\'+file, FQName)
         
     logging.debug('Uploaded fort outputs db json')
