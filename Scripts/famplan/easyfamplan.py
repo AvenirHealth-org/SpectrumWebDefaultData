@@ -11,7 +11,7 @@ from AvenirCommon.Logger import log
 from SpectrumCommon.Const.GB import GB_Nan
 from SpectrumCommon.Const.FP import *
 
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict
+# from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict
   
 sheet_to_key = {
     'Vaginal Barrier (Diaphragm)':     'vaginalBarrierDiaphragm',
@@ -69,20 +69,23 @@ def create_famplan_db(version, mode, country=''):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     easy_famplan_fqname = f'{default_path}\\SourceData\\famplan\\EasyFamPlan.xlsx'
     fp_xlsx = pd.ExcelFile(easy_famplan_fqname)
-     
-    GBModData = getGBModDataDict()
+    
+    with open(f'{default_path}\\JSONData\\globals\\CountryList_V6.JSON', 'r') as fp:
+        GBModData = ujson.load(fp)
+        iso_map = {}
+        for cntry in GBModData:
+            iso_map[cntry['ISO3_Numeric']] = cntry['ISO3_Alpha']
+
 
     #single year data and initial country data setup
     sheet = fp_xlsx.parse('Single Year Data')
     for r in range(0, sheet.shape[0]):
         country_name = sheet.iat[r, 1]
         iso_numeric = int(sheet.iat[r, 0])
-      
-        iso_alpha = -1
-        for key, record in GBModData.items():
-            if record['ISO3'] == iso_numeric:
-                iso_alpha = record['ISO3_Alpha'] 
-        
+        if iso_numeric in [530, 957]:
+            continue
+        iso_alpha = iso_map[iso_numeric]
+
         #using country name as key since it is used in age data
         countries[country_name] = {'name':country_name, 
                                    'ISO_Numeric':iso_numeric,
@@ -154,3 +157,17 @@ def create_famplan_db(version, mode, country=''):
         with open(famplan_json_path+dir+'\\'+country['ISO_Alpha']+'_'+version+'.JSON', 'w') as f:
             ujson.dump(country, f)
     log('Finished famplan json')
+
+def upload_famplan_db(version, mode):
+    connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
+    countries = []
+    
+    dir = FP_InterpDir if mode == FP_Interpolated else FP_Uninterp
+    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
+    json_path= default_path+f'\\JSONData\\famplan\\{dir}\\'
+    for subdir, dirs, files in os.walk(json_path):
+        for file in files:
+            FQName = os.path.join(subdir, file)
+            if version in FQName:
+                print(FQName)
+                GB_upload_file(connection, 'famplan', f'{dir}/{file}', FQName)

@@ -55,10 +55,13 @@ store_keys_in_env()
 
 # aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
-####### FamPlan #######
+# ####### FamPlan #######
+# famplan.create_famplan_db('V6', FP_Interpolated) 
+# famplan.create_famplan_db('V4', FP_Uninterpolated)
+famplan.upload_famplan_db('V6', FP_Interpolated) 
+famplan.upload_famplan_db('V4', FP_Uninterpolated)
+# famplan.create_famplan_effectiveness('V2')
 # famplan.create_famplan_db('V5', FP_Interpolated) 
-# famplan.create_famplan_db('V3', FP_Uninterpolated)
-# famplan.create_famplan_effectiveness('V2')# famplan.create_famplan_db('V5', FP_Interpolated) 
 # famplan.create_famplan_db('V3', FP_Uninterpolated)
 # famplan.create_famplan_effectiveness('V2')
 
@@ -69,8 +72,8 @@ store_keys_in_env()
 # tuberculosis.create_TB_fort_input('V3')
 # tuberculosis.upload_tb_fort_inputs_db('V3')
 
-tuberculosis.create_TB_fort_outputs('V4')
-tuberculosis.upload_tb_fort_outputs_db('V4')
+# tuberculosis.create_TB_fort_outputs('V4')
+# tuberculosis.upload_tb_fort_outputs_db('V4')
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
