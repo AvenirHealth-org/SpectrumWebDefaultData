@@ -1,6 +1,7 @@
 import os
 import openpyxl
 from openpyxl.utils import get_column_letter
+import matplotlib.pyplot as plt
 from AvenirCommon.Database import GB_upload_json, GB_upload_file, GB_get_db_json
 import ujson
 import numpy as np
@@ -21,7 +22,7 @@ def create_TB_fort_outputs(version):
     after_stp =True
     # for country_cell in xlsx['Countries']['C']:
         # iso3=country_cell.value
-    for iso3 in ('BRB',):#('SWZ', 'ETH', 'ZMB', 'ZWE'):
+    for iso3 in ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
         # if iso3 == 'STP':
         #     after_stp = True 
         #     continue
@@ -37,15 +38,42 @@ def create_TB_fort_outputs(version):
 
                 # null = None
 
-                with open('BRB_FORT_INPUTS.JSON', "w+") as fp:
-                    ujson.dump(fort_inputs, fp)
+                # with open('BRB_FORT_INPUTS.JSON', "w+") as fp:
+                    # ujson.dump(fort_inputs, fp)
+                fort_inputs['modelType'] = 'IPn2'
                 response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
                 # response = post('http://localhost:8080/projection', json=fort_inputs)
-                fort_outputs = response.json()
+                fort_IP_outputs = response.json()
+                # fort_inputs['modelType'] = 'failsafe'
+                # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
+                # # response = post('http://localhost:8080/projection', json=fort_inputs)
+                # fort_failsafe_outputs = response.json()
+
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['pMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['pMid'])
+                # plt.la
+                # plt.ylabel('prevalence')
+                # plt.show()
+
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['iMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['iMid'])
+                # plt.ylabel('incidence')
+                # plt.show()
+                
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['mMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['mMid'])
+                # plt.ylabel('mortality')
+                # plt.show()
+
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['nMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['nMid'])
+                # plt.ylabel('notification')
+                # plt.show()
+
                 pass
                 os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\', exist_ok=True)
                 with open(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
-                    ujson.dump(fort_outputs, f)
+                    ujson.dump(fort_IP_outputs, f)
             except:
                 print(f'{iso3} exception')
     pass
@@ -58,7 +86,8 @@ def upload_tb_fort_outputs_db(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'
     for subdir, dirs, files in os.walk(json_path):
         # for file in files:
-        for file in ['BRB_V4.JSON']:
+        for iso3 in  ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
+            file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:
                 print(FQName)

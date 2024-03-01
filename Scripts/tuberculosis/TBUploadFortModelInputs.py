@@ -17,9 +17,9 @@ def create_TB_fort_input(version):
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
 
     failed_countries = []
-    for country_cell in xlsx['Countries']['C']:
-        iso3=country_cell.value
-    # for iso3 in ('BFA',):# ('SWZ', 'ETH', 'ZMB', 'ZWE'):
+    # for country_cell in xlsx['Countries']['C']:
+        # iso3=country_cell.value
+    for iso3 in  ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
         if iso3=='iso3':
             continue
         try:
@@ -88,7 +88,7 @@ def create_TB_fort_input(version):
             pass
 
 
-            fort_input["modelType"] = "IP"
+            fort_input["modelType"] = "IPn2"
 
             num_years = 2050-fort_input["year"][0]+1
             fort_input["sEp"]  = [None]*num_years
@@ -135,9 +135,9 @@ def upload_tb_fort_inputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        for file in files:
-        # for file in ('BFA_'+version+'.JSON', ):
-
+        # for file in files:
+        for iso3 in  ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
+            file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file) 
             if version in FQName:
                 log(FQName)

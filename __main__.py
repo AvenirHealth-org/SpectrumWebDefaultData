@@ -66,11 +66,11 @@ store_keys_in_env()
 # tuberculosis.create_TB_WHOCountryData('V2')
 # tuberculosis.upload_TB_WHOCountryData('V2')
 
-# tuberculosis.create_TB_fort_input('V2')
-# tuberculosis.upload_tb_fort_inputs_db('V2')
+# tuberculosis.create_TB_fort_input('V3')
+# tuberculosis.upload_tb_fort_inputs_db('V3')
 
-# tuberculosis.create_TB_fort_outputs('V3')
-# tuberculosis.upload_tb_fort_outputs_db('V3')
+tuberculosis.create_TB_fort_outputs('V4')
+tuberculosis.upload_tb_fort_outputs_db('V4')
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
