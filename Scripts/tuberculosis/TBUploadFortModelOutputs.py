@@ -1,12 +1,13 @@
 import os
 import openpyxl
 from openpyxl.utils import get_column_letter
+import matplotlib.pyplot as plt
 from AvenirCommon.Database import GB_upload_json, GB_upload_file, GB_get_db_json
 import ujson
 import numpy as np
 from requests import post
 
-from AvenirCommon.Logger import log
+import logging
 from AvenirCommon.Util import GBRange
 from SpectrumCommon.Const.TB import *
 from SpectrumCommon.Const.GB import GB_Nan
@@ -17,40 +18,65 @@ def create_TB_fort_outputs(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
-    
-    for country_cell in xlsx['Countries']['C']:
-        iso3=country_cell.value
-    # for iso3 in ['LSO']:
-        if iso3=='iso3':
-            continue
-        log(iso3)
-        # pages = ['TB_burden_countries']
-        fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V2.JSON') 
-        fort_inputs["modelType"] = "IP"
+    failed_countries = []
+    after_stp =True
+    # for country_cell in xlsx['Countries']['C']:
+        # iso3=country_cell.value
+    for iso3 in ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
+        # if iso3 == 'STP':
+        #     after_stp = True 
+        #     continue
+        if after_stp:
+            try:
+                if iso3=='iso3':
+                    continue
+                print(iso3)
+                # pages = ['TB_burden_countries']
+                fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V3.JSON') 
+                # who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V3.JSON') 
+                # fort_inputs["tXf"]  = [0.035]*num_years
 
-        num_years = 2050-fort_inputs["year"][0]+1
-        fort_inputs["sEp"]  = [None]*num_years
-        fort_inputs["pHat"] = [None]*num_years
-        fort_inputs["hRd"]  = [1]*num_years
-        fort_inputs["hRi"]  = [1]*num_years
-        fort_inputs["oRt"]  = [1]*num_years
-        fort_inputs["tXf"]  = [0.035]*num_years
+                # null = None
 
-        for yr in GBRange(fort_inputs["year"][-1]+1, 2050):
-            fort_inputs["year"].append(yr)    
-            for key in ["iHat", "sEi", "nHat", "sEn", "mHat", "sEm", "pHat", "sEp"]:
-                fort_inputs[key].append(None)#fort_inputs[key][-1])
+                # with open('BRB_FORT_INPUTS.JSON', "w+") as fp:
+                    # ujson.dump(fort_inputs, fp)
+                fort_inputs['modelType'] = 'IPn2'
+                response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
+                # response = post('http://localhost:8080/projection', json=fort_inputs)
+                fort_IP_outputs = response.json()
+                # fort_inputs['modelType'] = 'failsafe'
+                # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
+                # # response = post('http://localhost:8080/projection', json=fort_inputs)
+                # fort_failsafe_outputs = response.json()
 
-        null = None
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['pMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['pMid'])
+                # plt.la
+                # plt.ylabel('prevalence')
+                # plt.show()
 
-        # with open('TestingIPFort.JSON', "w+") as fp:
-        #     ujson.dump(fort_inputs, fp)
-        response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
-        fort_outputs = response.json()
-        pass
-        os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\', exist_ok=True)
-        with open(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
-            ujson.dump(fort_outputs, f)
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['iMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['iMid'])
+                # plt.ylabel('incidence')
+                # plt.show()
+                
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['mMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['mMid'])
+                # plt.ylabel('mortality')
+                # plt.show()
+
+                # plt.plot(fort_IP_outputs['year'], fort_IP_outputs['nMid'])
+                # plt.plot(fort_failsafe_outputs['year'], fort_failsafe_outputs['nMid'])
+                # plt.ylabel('notification')
+                # plt.show()
+
+                pass
+                os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\', exist_ok=True)
+                with open(default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
+                    ujson.dump(fort_IP_outputs, f)
+            except:
+                print(f'{iso3} exception')
+    pass
 
 def upload_tb_fort_outputs_db(version):
     connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
@@ -59,14 +85,15 @@ def upload_tb_fort_outputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        for file in files:
-        # for file in ['LSO_V2.JSON']:
+        # for file in files:
+        for iso3 in  ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
+            file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
-            log(FQName)
             if version in FQName:
+                print(FQName)
                 GB_upload_file(connection, 'tuberculosis', 'fort\\outputs\\'+file, FQName)
         
-    log('Uploaded fort outputs db json')
+    logging.debug('Uploaded fort outputs db json')
    
 
 ######## Static data that works ######
