@@ -26,8 +26,8 @@ def create_TB_WHOCountryData(version):
     countries = []
     for country_cell in xlsx['Countries']['C']:
         countries.append(country_cell.value)
-    # countries = ('GRL',)#('IND', 'ZMB', 'ZWE', 'WLF')
-    for iso3 in countries[197:]: #81 GRL 137 ANT 174 SCG 197 TKL
+    countries = ('KEN',)#('IND', 'ZMB', 'ZWE', 'WLF')
+    for iso3 in countries: #81 GRL 137 ANT 174 SCG 197 TKL
         if (iso3=='iso3') or (iso3=='GRL'):
             continue
         logging.debug(iso3)
@@ -279,6 +279,12 @@ def create_TB_WHOCountryData(version):
         os.makedirs(default_path+'\\JSONData\\tuberculosis\\countries\\', exist_ok=True)
         with open(default_path+'\\JSONData\\tuberculosis\\countries\\'+iso3+'_'+version+'.JSON', 'w') as f:
             ujson.dump(country, f)
+            
+        if iso3 == 'KEN':
+            iso3 = 'SAMP'
+            print(iso3)
+            with open(default_path+'\\JSONData\\tuberculosis\\countries\\'+iso3+'_'+version+'.JSON', 'w') as f:
+                ujson.dump(country, f)
     # profile.disable()
     # ps = pstats.Stats(profile)
     # ps.sort_stats('calls', 'cumtime')
@@ -294,8 +300,9 @@ def upload_TB_WHOCountryData(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\countries\\'
     for subdir, dirs, files in os.walk(json_path):
-        for file in files:
-        # for file in ('IND_V3.JSON'):
+        # for file in files:
+        for iso3 in  ('SAMP',):
+            file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:
                 logging.debug(FQName)
