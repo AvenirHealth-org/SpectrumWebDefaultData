@@ -19,7 +19,7 @@ def create_TB_fort_input(version):
     failed_countries = []
     # for country_cell in xlsx['Countries']['C']:
         # iso3=country_cell.value
-    for iso3 in  ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
+    for iso3 in  ('KEN', ):
         if iso3=='iso3':
             continue
         try:
@@ -126,6 +126,11 @@ def create_TB_fort_input(version):
             os.makedirs(default_path+'\\JSONData\\tuberculosis\\fortinputs\\', exist_ok=True)
             with open(default_path+'\\JSONData\\tuberculosis\\fortinputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
                 ujson.dump(fort_input, f)
+            if iso3 == 'KEN':
+                iso3 = 'SAMP'
+                print(iso3)
+                with open(default_path+'\\JSONData\\tuberculosis\\fortinputs\\'+iso3+'_'+version+'.JSON', 'w') as f:
+                    ujson.dump(fort_input, f)
         except:
             print(f'{iso3} exception')
 
@@ -136,7 +141,7 @@ def upload_tb_fort_inputs_db(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
         # for file in files:
-        for iso3 in  ('SWZ', 'ETH', 'ZMB', 'ZWE', 'KEN'):
+        for iso3 in  ('SAMP',):
             file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file) 
             if version in FQName:

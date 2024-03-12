@@ -107,6 +107,10 @@ def create_TB_DyanmicalModelData(version):
         os.makedirs(default_path+'\\JSONData\\tuberculosis\\dynamicalmodel\\countries\\', exist_ok=True)
         with open(default_path+'\\JSONData\\tuberculosis\\dynamicalmodel\\countries\\'+iso3+'_'+version+'.JSON', 'w') as f:
             ujson.dump(country, f)
+        if iso3 == 'KEN':
+            iso3 = 'SAMP'
+            with open(default_path+'\\JSONData\\tuberculosis\\dynamicalmodel\\countries\\'+iso3+'_'+version+'.JSON', 'w') as f:
+                ujson.dump(country, f)
     # profile.disable()
     # ps = pstats.Stats(profile)
     # ps.sort_stats('calls', 'cumtime')
