@@ -40,8 +40,8 @@ store_keys_in_env()
 
 # demproj.write_demproj_db(DPDatabaseVersion)
 # demproj.upload_demproj_db(DPDatabaseVersion) test this before using
-# demproj.write_DP_population_db(DPFirstYearPopDBVersion)
-# demproj.upload_DP_population_db(DPFirstYearPopDBVersion)
+# demproj.write_DP_population_db(DPInitialConditionsDBVersion)
+# demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
 
 ####### AIM #######
 # aim.write_aim_db(AMDatabaseVersion)
