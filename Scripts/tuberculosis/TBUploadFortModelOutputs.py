@@ -20,9 +20,9 @@ def create_TB_fort_outputs(version):
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
     failed_countries = []
     after_stp =True
-    # for country_cell in xlsx['Countries']['C']:
-        # iso3=country_cell.value
-    for iso3 in ('KEN', ):
+    for country_cell in xlsx['Countries']['C']:
+        iso3=country_cell.value
+    # for iso3 in ('KEN', ):
         # if iso3 == 'STP':
         #     after_stp = True 
         #     continue
@@ -41,10 +41,10 @@ def create_TB_fort_outputs(version):
                 # with open('BRB_FORT_INPUTS.JSON', "w+") as fp:
                     # ujson.dump(fort_inputs, fp)
                 fort_inputs['modelType'] = 'IPn2'
-                response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
-                # response = post('http://localhost:8080/projection', json=fort_inputs)
+                # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
+                response = post('http://localhost:8080/projection', json=fort_inputs)
                 fort_IP_outputs = response.json()
-                # fort_inputs['modelType'] = 'failsafe'
+                # fort_inputs['modelType'] = 'failsafe
                 # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
                 # # response = post('http://localhost:8080/projection', json=fort_inputs)
                 # fort_failsafe_outputs = response.json()
@@ -90,9 +90,9 @@ def upload_tb_fort_outputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        # for file in files:
-        for iso3 in  ('SAMP',):
-            file = iso3+'_'+version+'.JSON'
+        for file in files:
+        # for iso3 in  ('SAMP',):
+            # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:
                 print(FQName)

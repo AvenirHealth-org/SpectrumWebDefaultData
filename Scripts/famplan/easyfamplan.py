@@ -84,10 +84,12 @@ def create_famplan_db(version, mode, country=''):
         iso_numeric = int(sheet.iat[r, 0])
         if iso_numeric in [530, 957]:
             continue
+        if not (iso_numeric == 384):
+            continue
         iso_alpha = iso_map[iso_numeric]
 
         #using country name as key since it is used in age data
-        countries[country_name] = {'name':country_name, 
+        countries[iso_numeric] = {'name':country_name, 
                                    'ISO_Numeric':iso_numeric,
                                    'ISO_Alpha': iso_alpha}
         
@@ -100,11 +102,12 @@ def create_famplan_db(version, mode, country=''):
                 value = int(value)
             if (str(value).upper() ==GB_Nan): 
                 value = 0
-            countries[country_name][key] = value 
+            countries[iso_numeric][key] = value 
         
     #Sources
     sheet = fp_xlsx.parse('Sources')
     for r in range(0, sheet.shape[0]):
+        country_iso = sheet.iat[r, 0]
         country_name = sheet.iat[r, 2]
         note = str(sheet.iat[r, 3])
         proxy_note = str(sheet.iat[r, 4])
@@ -114,16 +117,17 @@ def create_famplan_db(version, mode, country=''):
         if proxy_note!='nan':
             source += proxy_note
 
-        if (country_name in  countries):
-            countries[country_name]['mainDataSources'] = source        
+        if (country_iso in  countries):
+            countries[country_iso]['mainDataSources'] = source        
 
     #age data, Uninterpolated data is for Explore LiST 
     sheetName = 'Age Data' if mode == FP_Interpolated else 'Age Data (Uninterpolated)'
     
     sheet = fp_xlsx.parse(sheetName)
     for r in range(0, sheet.shape[0]):
+        country_iso = sheet.iat[r, 0]
         country_name = sheet.iat[r, 2]
-        if not (country_name in  countries):
+        if not (country_iso in  countries):
             #log(country_name +' skipped. No single year data')
             continue
             #raise Exception(country+' country does not exist in FP single year data')
@@ -134,8 +138,8 @@ def create_famplan_db(version, mode, country=''):
         if key == None:
             log(r)
             continue
-        if not(key in countries[country_name]):
-            countries[country_name][key] = [] 
+        if not(key in countries[country_iso]):
+            countries[country_iso][key] = [] 
             
         age_array = []
         for c in range(5, sheet.shape[1]):
@@ -143,13 +147,13 @@ def create_famplan_db(version, mode, country=''):
             if str(value).upper()==GB_Nan:           
                 value = 0 if mode == FP_Interpolated else -1
             age_array.append(value)
-        countries[country_name][key].append(age_array)
+        countries[country_iso][key].append(age_array)
         
     dir = FP_InterpDir if mode == FP_Interpolated else FP_Uninterp
 
     famplan_json_path  = default_path +'\\JSONData\\famplan\\'
-    for country_name in countries:    
-        country = countries[country_name]
+    for country_iso in countries:    
+        country = countries[country_iso]
         if country['ISO_Alpha']==-1:
             continue
         os.makedirs(famplan_json_path+dir+'\\', exist_ok=True)
