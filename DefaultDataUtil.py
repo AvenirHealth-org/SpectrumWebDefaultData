@@ -43,7 +43,7 @@ def get_JSON_data_path(mod_ID = int, file_name = ''):
     return os.getcwd() + '\DefaultData\JSONData\\' + GB_CONTAINERS[mod_ID]
 
 def addDataByCountryCode(countryCode, countries, dataName, data, subnatCode = 0):
-    if (subnatCode == 0):
+    if not (subnatCode == 0):
         countrySubnatCode = str(countryCode) + '_' + str(subnatCode)
     else:
         countrySubnatCode = str(countryCode)

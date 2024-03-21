@@ -7,7 +7,6 @@ from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange, getTagRow, GBEqual
 from DefaultData.DefaultDataUtil import *
 
-from Tools.DefaultDataManager.GB.Upload.GBUploadModData import getGBModDataDict, getGBModDataDictByISO3
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 
 from SpectrumCommon.Const.GB import *
@@ -941,22 +940,22 @@ def write_aim_db(version, country=''):
     # FName = 'AM_Global_' + version + '.JSON'
     # GB_upload_json(connection, 'aim', FName, AMModDataGlobal_json)
     log('Writing global data')
-    FName = formatCountryFName('AM_Global_', version)
+    FName = formatCountryFName('AM_Global', version)
     os.makedirs(aim_json_path, exist_ok=True)
     with open(os.path.join(aim_json_path, FName), 'w') as f:
         ujson.dump(AMModDataGlobal, f)
     
     os.makedirs(aim_json_country_path, exist_ok=True)
     for countryCode in countries:
-        ISO3_Alpha = get_country_ISO3Alpha(countryCode) 
+        ISO3_Alpha = get_country_ISO3Alpha(countries[countryCode]['countryCode']) 
 
         if ISO3_Alpha != 'notFound':
-            for subnatCode in countries[countryCode]:                
-                countryData = countries[countryCode][subnatCode] 
-                log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + str(subnatCode))
-                FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
-                with open(os.path.join(aim_json_country_path, FName), 'w') as f:
-                    ujson.dump(countryData, f)
+            # for subnatCode in countries[countryCode]:                
+            countryData = countries[countryCode]
+            log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + countries[countryCode]['subnatCode'])
+            FName = formatCountryFName(ISO3_Alpha, version, countries[countryCode]['subnatCode'])
+            with open(os.path.join(aim_json_country_path, FName), 'w') as f:
+                ujson.dump(countryData, f)
 
 def upload_aim_db(version): 
     uploadFilesInDir('aim', aim_json_path, version) 
