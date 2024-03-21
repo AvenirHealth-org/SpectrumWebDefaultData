@@ -36,7 +36,7 @@ store_keys_in_env()
 
 ####### DemProj #######
 # demproj.write_UPD_db(DPUPDVersion)
-# demproj.upload_UPD_db(DPUPDVersion) test this before using
+# demproj.upload_UPD_db(DPUPDVersion)
 
 # demproj.write_demproj_db(DPDatabaseVersion)
 # demproj.upload_demproj_db(DPDatabaseVersion) test this before using
