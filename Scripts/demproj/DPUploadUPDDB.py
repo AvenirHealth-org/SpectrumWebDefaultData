@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import ujson
+import re
 
 from AvenirCommon.Database import  GB_upload_json, GB_get_db_json
 from AvenirCommon.Util import GBRange, formatCountryFName, getTagRow
@@ -159,9 +160,10 @@ def writeUPD(version, root, file):
 
     sheet = pd.read_csv(os.path.join(root, file), header=None)
 
-    countryName = file[0 : file.find('_')]
+    countryName = re.split('_', file)[0] #file[0 : file.find('_')]
+    countryCode = int(re.split('[.]', re.split('_', file)[1])[0]) 
     GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, version))
-    ISO3_Alpha = next((country['ISO3_Alpha'] for country in GBModData if country['name'] == countryName), 'notFound')
+    ISO3_Alpha = next((country['ISO3_Alpha'] for country in GBModData if country['ISO3_Numeric'] == countryCode), 'notFound')
 
     UPDData = {}
 
@@ -210,6 +212,8 @@ def writeUPD(version, root, file):
         log('Writing '+ countryName)
         with open(os.path.join(UPD_json_path, formatCountryFName(ISO3_Alpha, version)), 'w') as f:
             ujson.dump(UPDData, f)
+    else:  
+        log('ERROR: not found ' + countryName)
 
 def upload_UPD_db(version):  
     uploadFilesInDir('demproj', UPD_json_path, version, pathMod = 'UPD/')
