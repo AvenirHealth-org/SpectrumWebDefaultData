@@ -84,8 +84,8 @@ def create_famplan_db(version, mode, country=''):
         iso_numeric = int(sheet.iat[r, 0])
         if iso_numeric in [530, 957]:
             continue
-        if not (iso_numeric == 384):
-            continue
+        # if not (iso_numeric == 384):
+        #     continue
         iso_alpha = iso_map[iso_numeric]
 
         #using country name as key since it is used in age data
