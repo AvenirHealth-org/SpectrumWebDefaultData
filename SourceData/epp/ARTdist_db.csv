@@ -1,0 +1,339 @@
+﻿cc,country,survyear,eppregion,Subnational region,survname,ISO3,Sex,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020
+204,Benin,,TOTAL,Atlantique,Naomi,BEN,female,,,528,,,,2042,1926,2409,2873,3217
+204,Benin,,TOTAL,Atlantique,Naomi,BEN,male,,,217,,,,282,852,1013,1183,1234
+204,Benin,,TOTAL,Mono,Naomi,BEN,female,,,95,,,,,1312,1503,1628,1686
+204,Benin,,TOTAL,Mono,Naomi,BEN,male,,,31,,,,,593,644,710,718
+204,Benin,,TOTAL,Borgou,Naomi,BEN,female,,,1618,,,,1764,2002,2327,2573,2471
+204,Benin,,TOTAL,Borgou,Naomi,BEN,male,,,1032,,,,1072,773,927,1114,1090
+204,Benin,,TOTAL,Couffo,Naomi,BEN,female,,,92,,,,122,1739,1929,2122,2113
+204,Benin,,TOTAL,Couffo,Naomi,BEN,male,,,43,,,,96,827,959,1024,956
+204,Benin,,TOTAL,Alibori,Naomi,BEN,female,,,468,,,,509,481,543,617,596
+204,Benin,,TOTAL,Alibori,Naomi,BEN,male,,,184,,,,153,162,185,219,229
+204,Benin,,TOTAL,Littoral,Naomi,BEN,female,,,6425,,,,2688,9981,10201,10818,10528
+204,Benin,,TOTAL,Littoral,Naomi,BEN,male,,,1348,,,,1073,3931,3999,4201,4384
+204,Benin,,TOTAL,Plateau,Naomi,BEN,female,,,396,,,,162,510,624,741,762
+204,Benin,,TOTAL,Plateau,Naomi,BEN,male,,,139,,,,67,192,219,272,278
+204,Benin,,TOTAL,Zou,Naomi,BEN,female,,,1366,,,,832,1769,1855,2048,2228
+204,Benin,,TOTAL,Zou,Naomi,BEN,male,,,798,,,,410,693,736,834,918
+204,Benin,,TOTAL,Atacora,Naomi,BEN,female,,,678,,,,754,1265,1554,1932,2175
+204,Benin,,TOTAL,Atacora,Naomi,BEN,male,,,380,,,,472,674,890,1125,1320
+204,Benin,,TOTAL,Collines,Naomi,BEN,female,,,490,,,,669,638,823,949,1044
+204,Benin,,TOTAL,Collines,Naomi,BEN,male,,,209,,,,284,282,347,381,337
+204,Benin,,TOTAL,Oueme,Naomi,BEN,female,,,1590,,,,768,2825,3180,3481,3512
+204,Benin,,TOTAL,Oueme,Naomi,BEN,male,,,751,,,,320,1189,1415,1535,1490
+204,Benin,,TOTAL,Donga,Naomi,BEN,female,,,1186,,,,1413,1477,1669,1873,1771
+204,Benin,,TOTAL,Donga,Naomi,BEN,male,,,374,,,,427,484,527,592,538
+231,Ethiopia,,Total,Addis Abeba,Naomi,ETH,female,,,,,,,,,57745,58819,
+231,Ethiopia,,Total,Addis Abeba,Naomi,ETH,male,,,,,,,,,34367,35517,
+231,Ethiopia,,TOTAL,Dire Dawa,Naomi,ETH,female,,,,,,,,,4198,4174,
+231,Ethiopia,,TOTAL,Dire Dawa,Naomi,ETH,male,,,,,,,,,2236,2168,
+231,Ethiopia,,TOTAL,Gambela,Naomi,ETH,female,,,,,,,,,4986,3490,
+231,Ethiopia,,TOTAL,Gambela,Naomi,ETH,male,,,,,,,,,2896,2623,
+231,Ethiopia,,TOTAL,Harari,Naomi,ETH,female,,,,,,,,,2778,2985,
+231,Ethiopia,,TOTAL,Harari,Naomi,ETH,male,,,,,,,,,1358,1467,
+332,Haiti,,Department,Sud-Est,Naomi,HTI,female,,,,,,687,792,1000,1024,1122,1168
+332,Haiti,,Department,Sud-Est,Naomi,HTI,male,,,,,,455,560,639,679,750,780
+332,Haiti,,Department,Artibonite,Naomi,HTI,female,,,,,,5990,7745,9282,7179,9819,10819
+332,Haiti,,Department,Artibonite,Naomi,HTI,male,,,,,,3200,4268,4959,4526,6091,6388
+332,Haiti,,Department,Centre,Naomi,HTI,female,,,,,,2252,2683,3147,2671,3733,3913
+332,Haiti,,Department,Centre,Naomi,HTI,male,,,,,,1406,1758,1961,1696,2244,2330
+332,Haiti,,Department,Grande-Anse,Naomi,HTI,female,,,,,,934,1040,1205,1246,1381,1540
+332,Haiti,,Department,Grande-Anse,Naomi,HTI,male,,,,,,596,685,780,793,962,1083
+332,Haiti,,Department,Nippes,Naomi,HTI,female,,,,,,1070,1268,1503,1503,1736,1885
+332,Haiti,,Department,Nippes,Naomi,HTI,male,,,,,,701,777,855,889,1050,1132
+332,Haiti,,Department,Nord,Naomi,HTI,female,,,,,,5366,6089,7119,6674,8320,9026
+332,Haiti,,Department,Nord,Naomi,HTI,male,,,,,,2983,3440,4066,3800,4902,5367
+332,Haiti,,Department,Nord-Est,Naomi,HTI,female,,,,,,1441,1872,2190,1969,2616,2913
+332,Haiti,,Department,Nord-Est,Naomi,HTI,male,,,,,,673,955,1075,1044,1385,1515
+332,Haiti,,Department,Nord-Ouest,Naomi,HTI,female,,,,,,1971,2442,2925,2970,3317,3481
+332,Haiti,,Department,Nord-Ouest,Naomi,HTI,male,,,,,,1023,1287,1541,1580,1779,2146
+332,Haiti,,Reste Ouest,Ouest,Naomi,HTI,female,,,,,,2994,4092,4844,4068,6212,7470
+332,Haiti,,Reste Ouest,Ouest,Naomi,HTI,male,,,,,,1764,2136,2531,2185,3382,4121
+332,Haiti,,Aire Metropolitaine,Ouest,Naomi,HTI,female,,,,,,16941,20195,21594,22894,24204,27479
+332,Haiti,,Aire Metropolitaine,Ouest,Naomi,HTI,male,,,,,,9237,10934,12039,13144,14370,16243
+332,Haiti,,Department,Sud,Naomi,HTI,female,,,,,,2629,2898,3119,3255,4023,4574
+332,Haiti,,Department,Sud,Naomi,HTI,male,,,,,,1636,1830,2234,2288,2867,3146
+516,Namibia,,Karas,,Naomi,NAM,female,,,,,1704,2156,2828,2767,2666,2983,3329
+516,Namibia,,Karas,,Naomi,NAM,male,,,,,1259,1627,1226,1668,1723,1758,1924
+516,Namibia,,Erongo,,Naomi,NAM,female,,,,,4003,4779,5144,6043,6148,5987,6836
+516,Namibia,,Erongo,,Naomi,NAM,male,,,,,3262,4286,3975,4405,4519,4344,4774
+516,Namibia,,Hardap,,Naomi,NAM,female,,,,,1020,1476,1429,1613,1761,1831,2235
+516,Namibia,,Hardap,,Naomi,NAM,male,,,,,739,1042,994,1078,1161,1272,1468
+516,Namibia,,Kavango East,,Naomi,NAM,female,,,,,3794,7963,7271,8377,8662,9652,10265
+516,Namibia,,Kavango East,,Naomi,NAM,male,,,,,1581,3281,2697,3091,3269,3644,4047
+516,Namibia,,Kavango West,,Naomi,NAM,female,,,,,612,1793,2396,2872,3301,3556,4155
+516,Namibia,,Kavango West,,Naomi,NAM,male,,,,,276,785,817,1062,1296,1407,1725
+516,Namibia,,Khomas,,Naomi,NAM,female,,,,,11914,10610,12523,12070,11958,14100,13962
+516,Namibia,,Khomas,,Naomi,NAM,male,,,,,8999,7685,6141,7685,7841,9237,8858
+516,Namibia,,Kunene,,Naomi,NAM,female,,,,,1301,1499,1600,1681,1779,1761,2307
+516,Namibia,,Kunene,,Naomi,NAM,male,,,,,694,893,860,900,991,972,1205
+516,Namibia,,Ohangwena,,Naomi,NAM,female,,,,,10208,7583,10508,13718,15171,16602,15612
+516,Namibia,,Ohangwena,,Naomi,NAM,male,,,,,4322,3893,4312,5805,6537,7185,7021
+516,Namibia,,Omaheke,,Naomi,NAM,female,,,,,1430,1337,776,1113,1264,1568,1487
+516,Namibia,,Omaheke,,Naomi,NAM,male,,,,,644,769,421,605,717,810,809
+516,Namibia,,Omusati,,Naomi,NAM,female,,,,,10905,12179,12770,14136,15833,17362,17306
+516,Namibia,,Omusati,,Naomi,NAM,male,,,,,4236,5150,5071,5695,6540,7130,7522
+516,Namibia,,Oshana,,Naomi,NAM,female,,,,,7903,9484,9395,9896,10699,12683,12750
+516,Namibia,,Oshana,,Naomi,NAM,male,,,,,3318,5193,3946,4213,4763,5561,5680
+516,Namibia,,Oshikoto,,Naomi,NAM,female,,,,,7218,7951,10147,11284,11540,12963,12933
+516,Namibia,,Oshikoto,,Naomi,NAM,male,,,,,3482,4251,4735,5179,5977,6231,6299
+516,Namibia,,Otjozondjupa,,Naomi,NAM,female,,,,,3182,3501,3763,4234,4724,5392,5619
+516,Namibia,,Otjozondjupa,,Naomi,NAM,male,,,,,2035,2518,2405,2586,2889,3286,3350
+516,Namibia,,Zambezi,,Naomi,NAM,female,,,,,3437,5311,4095,6543,6557,7554,8368
+516,Namibia,,Zambezi,,Naomi,NAM,male,,,,,1462,2452,1518,2708,2589,3144,3560
+566,Nigeria,,Remaining Pop,Abia,Naomi,NGA,female,2202,2572,3633,3227,8302,8636,9172,9708,10244,11531,12423
+566,Nigeria,,Remaining Pop,Abia,Naomi,NGA,male,1863,2175,1780,2777,3816,4411,5192,5974,6755,5250,5772
+566,Nigeria,,Remaining Pop,Adamawa,Naomi,NGA,female,5226,6104,8621,8956,10222,12228,14234,16241,18247,20253,21590
+566,Nigeria,,Remaining Pop,Adamawa,Naomi,NGA,male,5947,6941,5681,5907,5938,6728,7517,8307,9096,9886,9175
+566,Nigeria,,Remaining Pop,Akwa-Ibom,Naomi,NGA,female,15069,17600,24860,12357,16481,25711,36470,29345,30344,50541,106030
+566,Nigeria,,Remaining Pop,Akwa-Ibom,Naomi,NGA,male,13899,16223,13278,5920,7940,8746,9553,10359,11166,22984,58175
+566,Nigeria,,Remaining Pop,Anambra,Naomi,NGA,female,2570,3002,4234,9268,14302,15090,17175,18512,19849,21298,23342
+566,Nigeria,,Remaining Pop,Anambra,Naomi,NGA,male,1930,1996,2062,4262,6462,6860,7919,8483,9047,10011,11259
+566,Nigeria,,Remaining Pop,Bauchi,Naomi,NGA,female,3486,4072,5751,7040,7947,8487,8798,10314,11776,12246,15693
+566,Nigeria,,Remaining Pop,Bauchi,Naomi,NGA,male,2371,2767,2265,4404,3283,3207,3955,4591,5644,5616,6990
+566,Nigeria,,Remaining Pop,Benue,Naomi,NGA,female,69085,77720,86356,88567,90778,92989,95201,97412,99623,124493,143997
+566,Nigeria,,Remaining Pop,Benue,Naomi,NGA,male,8552,9728,10903,12079,19068,26056,29250,32444,35638,45131,54325
+566,Nigeria,,Remaining Pop,Borno,Naomi,NGA,female,3778,4412,6232,13025,6986,5702,6953,7980,8171,8361,8023
+566,Nigeria,,Remaining Pop,Borno,Naomi,NGA,male,3606,4209,3445,6704,2772,2829,3011,3192,3374,4269,4049
+566,Nigeria,,Remaining Pop,Bayelsa,Naomi,NGA,female,812,949,1340,1625,1828,2572,2808,3509,3887,4137,4840
+566,Nigeria,,Remaining Pop,Bayelsa,Naomi,NGA,male,610,712,583,763,772,1010,1209,1471,1565,1721,1981
+566,Nigeria,,Remaining Pop,CrossRiver,Naomi,NGA,female,3284,3835,5417,12521,11419,15054,15442,16882,18966,24518,36710
+566,Nigeria,,Remaining Pop,CrossRiver,Naomi,NGA,male,2873,3354,2745,4698,5075,6491,6663,7335,8401,12614,18382
+566,Nigeria,,Remaining Pop,Delta,Naomi,NGA,female,2830,3306,4669,9383,12046,14718,15644,16571,17497,18981,26924
+566,Nigeria,,Remaining Pop,Delta,Naomi,NGA,male,1906,2225,1821,4033,4816,5130,5599,6067,6536,7716,20538
+566,Nigeria,,Remaining Pop,Ebonyi,Naomi,NGA,female,724,845,1671,4058,4137,3620,4628,5668,5506,5254,5486
+566,Nigeria,,Remaining Pop,Ebonyi,Naomi,NGA,male,658,768,899,2069,1903,1701,1990,2558,2285,2256,2346
+566,Nigeria,,Remaining Pop,Edo,Naomi,NGA,female,5715,6896,8077,9258,10438,11619,12800,13981,15162,16575,18318
+566,Nigeria,,Remaining Pop,Edo,Naomi,NGA,male,4381,4563,4746,4928,5111,5293,5475,5658,5840,7001,6924
+566,Nigeria,,Remaining Pop,Ekiti,Naomi,NGA,female,533,622,879,1366,1674,2090,2312,2519,2514,2826,3030
+566,Nigeria,,Remaining Pop,Ekiti,Naomi,NGA,male,564,609,654,699,744,788,833,878,923,1055,1125
+566,Nigeria,,Remaining Pop,Enugu,Naomi,NGA,female,0,0,8474,8663,14353,14704,15056,15407,15758,15823,23663
+566,Nigeria,,Remaining Pop,Enugu,Naomi,NGA,male,0,0,5645,3443,5580,5777,5975,6172,6369,8866,13684
+566,Nigeria,,Remaining Pop,FCT,Naomi,NGA,female,9146,10683,15089,22488,25725,29468,35933,36631,40414,36203,52177
+566,Nigeria,,Remaining Pop,FCT,Naomi,NGA,male,8012,9351,7654,11881,12457,13391,17073,17766,18592,16878,22592
+566,Nigeria,,Remaining Pop,Gombe,Naomi,NGA,female,230,269,380,10449,11791,15569,15716,15864,16011,17296,18523
+566,Nigeria,,Remaining Pop,Gombe,Naomi,NGA,male,215,250,205,5002,6191,6815,6864,6913,6962,7980,9269
+566,Nigeria,,Remaining Pop,Imo,Naomi,NGA,female,1253,1463,2067,6678,10330,10717,11105,11492,11879,17065,20578
+566,Nigeria,,Remaining Pop,Imo,Naomi,NGA,male,1043,1217,996,3193,4602,4842,5081,5321,5560,8623,11095
+566,Nigeria,,Remaining Pop,Jigawa,Naomi,NGA,female,997,1165,1645,2980,3276,3303,3951,4667,5055,5454,5270
+566,Nigeria,,Remaining Pop,Jigawa,Naomi,NGA,male,1011,1180,966,1418,1583,1631,1854,2318,2512,2661,2743
+566,Nigeria,,Remaining Pop,Kebbi,Naomi,NGA,female,3169,3701,5228,3210,3927,4609,5300,6012,4276,4962,5335
+566,Nigeria,,Remaining Pop,Kebbi,Naomi,NGA,male,3539,4131,3381,1772,2034,2521,2850,3347,2203,2560,2998
+566,Nigeria,,Remaining Pop,Kaduna,Naomi,NGA,female,17034,19896,28102,22600,23840,27166,27931,32880,28441,37479,42502
+566,Nigeria,,Remaining Pop,Kaduna,Naomi,NGA,male,13699,15989,13087,13963,13672,13099,14432,15066,14043,17104,19245
+566,Nigeria,,Remaining Pop,Kano,Naomi,NGA,female,5510,6436,9090,13659,15420,16375,18159,20508,21585,22685,21424
+566,Nigeria,,Remaining Pop,Kano,Naomi,NGA,male,5740,6699,5483,7800,8768,9125,10058,10897,11611,11390,10921
+566,Nigeria,,Remaining Pop,Kogi,Naomi,NGA,female,3013,3519,5152,6786,8419,10052,11685,13319,14952,16665,15768
+566,Nigeria,,Remaining Pop,Kogi,Naomi,NGA,male,1992,2325,2819,3312,3806,4299,4793,5286,5780,6566,6218
+566,Nigeria,,Remaining Pop,Katsina,Naomi,NGA,female,2272,2654,3749,5147,5890,7068,7732,6887,6468,6799,7523
+566,Nigeria,,Remaining Pop,Katsina,Naomi,NGA,male,2387,2786,2280,3127,3890,4391,4699,2927,2835,3022,3200
+566,Nigeria,,Remaining Pop,Kwara,Naomi,NGA,female,2286,2552,2819,3085,3352,3733,4113,4494,4494,6092,6284
+566,Nigeria,,Remaining Pop,Kwara,Naomi,NGA,male,1074,1181,1288,1396,1503,1563,1622,1682,1682,2184,2172
+566,Nigeria,,Remaining Pop,Lagos,Naomi,NGA,female,18990,22180,31329,33009,33256,31258,39000,45006,52403,56797,72061
+566,Nigeria,,Remaining Pop,Lagos,Naomi,NGA,male,2135,2492,5265,8038,10811,13584,16357,19130,21903,28791,42237
+566,Nigeria,,Remaining Pop,Nasarawa,Naomi,NGA,female,2553,2982,4212,8548,9050,14556,30025,34169,34235,34300,36336
+566,Nigeria,,Remaining Pop,Nasarawa,Naomi,NGA,male,2201,2569,2103,5442,5762,7578,13634,14726,14903,15079,14847
+566,Nigeria,,Remaining Pop,Niger,Naomi,NGA,female,0,0,0,12676,12967,13257,13548,13839,14129,14420,16450
+566,Nigeria,,Remaining Pop,Niger,Naomi,NGA,male,0,0,0,5054,5241,5427,5614,5800,5987,6173,7574
+566,Nigeria,,Remaining Pop,Ogun,Naomi,NGA,female,2439,2849,4024,4983,7175,8383,9414,11978,11978,13932,14158
+566,Nigeria,,Remaining Pop,Ogun,Naomi,NGA,male,1537,1794,2185,2576,2967,3358,3749,4140,4140,4828,5077
+566,Nigeria,,Remaining Pop,Ondo,Naomi,NGA,female,3443,3861,4279,4697,5115,5534,5952,6370,6788,7682,8745
+566,Nigeria,,Remaining Pop,Ondo,Naomi,NGA,male,1689,1759,1829,1899,1969,2039,2109,2179,2249,2614,3158
+566,Nigeria,,Remaining Pop,Osun,Naomi,NGA,female,1292,1751,2210,2669,3128,3587,4046,4505,4964,5462,6084
+566,Nigeria,,Remaining Pop,Osun,Naomi,NGA,male,987,1152,1237,1322,1407,1493,1578,1663,1748,1819,2065
+566,Nigeria,,Remaining Pop,Oyo,Naomi,NGA,female,4574,5342,7546,8856,9765,10422,10866,13502,14333,15697,17254
+566,Nigeria,,Remaining Pop,Oyo,Naomi,NGA,male,3480,3792,4103,4415,4726,5038,5349,5661,5972,5832,6738
+566,Nigeria,,Remaining Pop,Plateau,Naomi,NGA,female,33,36,26254,20412,21999,23586,25173,26760,28347,28641,31187
+566,Nigeria,,Remaining Pop,Plateau,Naomi,NGA,male,26,29,10438,8273,8947,9621,10294,10968,11642,11825,12833
+566,Nigeria,,Remaining Pop,Rivers,Naomi,NGA,female,3604,4210,5946,8866,13336,16741,20146,23551,26956,30361,69538
+566,Nigeria,,Remaining Pop,Rivers,Naomi,NGA,male,3136,3660,2996,4285,6189,8378,10566,12755,14943,17132,52055
+566,Nigeria,,Remaining Pop,Sokoto,Naomi,NGA,female,1452,1696,2395,5674,5972,5171,5303,4196,4076,5079,3945
+566,Nigeria,,Remaining Pop,Sokoto,Naomi,NGA,male,1189,1388,1136,3228,3137,3376,3670,2137,1994,2500,2063
+566,Nigeria,,Remaining Pop,Taraba,Naomi,NGA,female,7936,9270,13093,17792,22119,23845,25570,27296,30747,31369,33622
+566,Nigeria,,Remaining Pop,Taraba,Naomi,NGA,male,6676,7792,6378,9192,11372,11633,11894,12154,12676,13038,14016
+566,Nigeria,,Remaining Pop,Yobe,Naomi,NGA,female,1090,1273,1798,1600,1396,2897,3470,4043,4217,4231,4472
+566,Nigeria,,Remaining Pop,Yobe,Naomi,NGA,male,1226,1431,1171,883,882,1652,1748,1845,1941,2531,2669
+566,Nigeria,,Remaining Pop,Zamfara,Naomi,NGA,female,592,692,977,1198,3137,2005,2371,2542,2517,2971,3273
+566,Nigeria,,Remaining Pop,Zamfara,Naomi,NGA,male,798,931,762,886,2050,1273,1219,1165,1111,1413,1618
+748,Swaziland,,Hhohho Region,,Naomi,SWZ,female,,,,,,24851,28665,32514,29835,32999,37189
+748,Swaziland,,Hhohho Region,,Naomi,SWZ,male,,,,,,14183,14228,16079,15014,17587,20710
+748,Swaziland,,Lubombo Region,,Naomi,SWZ,female,,,,,,16913,20128,20560,22070,22381,23107
+748,Swaziland,,Lubombo Region,,Naomi,SWZ,male,,,,,,9000,11622,11877,12485,11757,13103
+748,Swaziland,,Manzini Region,,Naomi,SWZ,female,,,,,,34516,40036,35733,39068,43517,46549
+748,Swaziland,,Manzini Region,,Naomi,SWZ,male,,,,,,17174,20251,17733,20205,22539,23550
+748,Swaziland,,Shiselweni Region,,Naomi,SWZ,female,,,,,,15434,18431,20508,20505,21520,21185
+748,Swaziland,,Shiselweni Region,,Naomi,SWZ,male,,,,,,7140,8414,9231,9420,10920,10961
+768,Togo,,TOTAL,Centrale,Naomi,TGO,both,,,,,,,,,3403,4054,4255
+768,Togo,,POLULATION TOTALE,Kara,Naomi,TGO,both,,,,,,,,,4979,5680,6075
+768,Togo,,Pop restante,Lome,Naomi,TGO,both,,,,,,,,,33565,39169,41985
+768,Togo,,TOTAL,Maritime sans Lome,Naomi,TGO,both,,,,,,,,,10271,12114,12463
+768,Togo,,POPULATION TOTALE,Plateaux,Naomi,TGO,both,,,,,,,,,6918,7501,8206
+768,Togo,,TOTAL,Savanes,Naomi,TGO,both,,,,,,,,,1831,1965,2633
+834,United Republic of Tanzania,,Central,,Naomi,TZA,female,,,,,,36026,45063,54629,62747,71596,79572
+834,United Republic of Tanzania,,Central,,Naomi,TZA,male,,,,,,15264,19038,23400,27682,32788,37581
+834,United Republic of Tanzania,,Coastal,,Naomi,TZA,female,,,,,,104392,146819,178162,209401,217019,224384
+834,United Republic of Tanzania,,Coastal,,Naomi,TZA,male,,,,,,37905,53702,64933,78716,90585,92918
+834,United Republic of Tanzania,,Lake,,Naomi,TZA,female,,,,,,89230,127516,156742,189933,223750,249295
+834,United Republic of Tanzania,,Lake,,Naomi,TZA,male,,,,,,41954,59584,75475,94906,119822,135108
+834,United Republic of Tanzania,,Northern,,Naomi,TZA,female,,,,,,45190,49728,58367,73975,73664,82454
+834,United Republic of Tanzania,,Northern,,Naomi,TZA,male,,,,,,16731,18303,21784,28308,28912,33833
+834,United Republic of Tanzania,,Southern Highland,,Naomi,TZA,female,,,,,,109393,147168,175137,196166,213377,230232
+834,United Republic of Tanzania,,Southern Highland,,Naomi,TZA,male,,,,,,53961,71116,88417,101144,114308,123241
+834,United Republic of Tanzania,,Western,,Naomi,TZA,female,,,,,,7568,12175,16109,20720,22158,24698
+834,United Republic of Tanzania,,Western,,Naomi,TZA,male,,,,,,3344,5534,8146,11146,12284,14204
+834,United Republic of Tanzania,,Zanzibar,,Naomi,TZA,female,,,,,1339,1510,1808,4360,3932,4392,4548
+834,United Republic of Tanzania,,Zanzibar,,Naomi,TZA,male,,,,,518,627,729,1860,1651,1824,1968
+834,United Republic of Tanzania,,Dodmoa,,Naomi,TZA,female,,,,,,10190,13466,16015,17579,20179,
+834,United Republic of Tanzania,,Dodmoa,,Naomi,TZA,male,,,,,,3758,4757,5806,6366,7558,
+834,United Republic of Tanzania,,Arusha,,Naomi,TZA,female,,,,,,10992,12026,13998,18805,17374,
+834,United Republic of Tanzania,,Arusha,,Naomi,TZA,male,,,,,,4190,4663,5332,7238,6818,
+834,United Republic of Tanzania,,Kilimanjaro,,Naomi,TZA,female,,,,,,12750,14441,16515,20284,20085,
+834,United Republic of Tanzania,,Kilimanjaro,,Naomi,TZA,male,,,,,,5270,5691,6679,8346,8409,
+834,United Republic of Tanzania,,Tanga,,Naomi,TZA,female,,,,,,17563,18440,22422,28775,28312,
+834,United Republic of Tanzania,,Tanga,,Naomi,TZA,male,,,,,,5997,6479,7925,10454,10712,
+834,United Republic of Tanzania,,Morogoro,,Naomi,TZA,female,,,,,,16999,20414,25520,30363,34905,
+834,United Republic of Tanzania,,Morogoro,,Naomi,TZA,male,,,,,,6689,7877,9800,12058,15527,
+834,United Republic of Tanzania,,Pwani,,Naomi,TZA,female,,,,,,12464,17156,20310,24732,26312,
+834,United Republic of Tanzania,,Pwani,,Naomi,TZA,male,,,,,,4258,5998,7490,9506,10962,
+834,United Republic of Tanzania,,Dar es Salaam,,Naomi,TZA,female,,,,,,58204,87089,103953,122002,122033,
+834,United Republic of Tanzania,,Dar es Salaam,,Naomi,TZA,male,,,,,,21182,32136,37653,45892,51801,
+834,United Republic of Tanzania,,Lindi,,Naomi,TZA,female,,,,,,6728,9067,10946,12850,13837,
+834,United Republic of Tanzania,,Lindi,,Naomi,TZA,male,,,,,,2193,3038,3716,4443,4958,
+834,United Republic of Tanzania,,Mtwara,,Naomi,TZA,female,,,,,,9997,13093,17433,19454,19932,
+834,United Republic of Tanzania,,Mtwara,,Naomi,TZA,male,,,,,,3583,4653,6274,6817,7337,
+834,United Republic of Tanzania,,Ruvuma,,Naomi,TZA,female,,,,,,15518,19610,23872,27188,29239,
+834,United Republic of Tanzania,,Ruvuma,,Naomi,TZA,male,,,,,,7294,8760,11359,13460,14967,
+834,United Republic of Tanzania,,Iringa,,Naomi,TZA,female,,,,,,21515,27968,31713,36118,41291,
+834,United Republic of Tanzania,,Iringa,,Naomi,TZA,male,,,,,,11559,12830,16098,18527,22521,
+834,United Republic of Tanzania,,Mbeya,,Naomi,TZA,female,,,,,,35312,48827,56233,62471,67513,
+834,United Republic of Tanzania,,Mbeya,,Naomi,TZA,male,,,,,,16973,24300,28561,32270,35188,
+834,United Republic of Tanzania,,Singida,,Naomi,TZA,female,,,,,,5909,7569,10246,11781,12695,
+834,United Republic of Tanzania,,Singida,,Naomi,TZA,male,,,,,,2534,2951,4033,4693,5263,
+834,United Republic of Tanzania,,Tabora,,Naomi,TZA,female,,,,,,19927,24028,28368,33387,38722,
+834,United Republic of Tanzania,,Tabora,,Naomi,TZA,male,,,,,,8972,11330,13561,16623,19967,
+834,United Republic of Tanzania,,Rukwa,,Naomi,TZA,female,,,,,,8416,11091,13526,16136,16389,
+834,United Republic of Tanzania,,Rukwa,,Naomi,TZA,male,,,,,,3651,5000,6634,8196,8493,
+834,United Republic of Tanzania,,Kigoma,,Naomi,TZA,female,,,,,,3759,6773,7340,9784,10754,
+834,United Republic of Tanzania,,Kigoma,,Naomi,TZA,male,,,,,,1366,2779,3124,4581,5689,
+834,United Republic of Tanzania,,Shinyaga,,Naomi,TZA,female,,,,,,20015,24416,30812,36995,36060,
+834,United Republic of Tanzania,,Shinyaga,,Naomi,TZA,male,,,,,,9655,11929,15665,19555,19527,
+834,United Republic of Tanzania,,Kagera,,Naomi,TZA,female,,,,,,17216,24701,30758,37694,47920,
+834,United Republic of Tanzania,,Kagera,,Naomi,TZA,male,,,,,,7759,12047,16113,21425,30350,
+834,United Republic of Tanzania,,Mwanza,,Naomi,TZA,female,,,,,,25061,33050,39345,46734,58370,
+834,United Republic of Tanzania,,Mwanza,,Naomi,TZA,male,,,,,,11265,14326,17705,21499,28808,
+834,United Republic of Tanzania,,Mara,,Naomi,TZA,female,,,,,,6193,17211,20259,24770,28656,
+834,United Republic of Tanzania,,Mara,,Naomi,TZA,male,,,,,,2832,7057,7907,9817,11947,
+834,United Republic of Tanzania,,Manyara,,Naomi,TZA,female,,,,,,3885,4821,5432,6111,7893,
+834,United Republic of Tanzania,,Manyara,,Naomi,TZA,male,,,,,,1274,1470,1848,2270,2973,
+834,United Republic of Tanzania,,Njombe,,Naomi,TZA,female,,,,,,17676,23589,28731,33631,36470,
+834,United Republic of Tanzania,,Njombe,,Naomi,TZA,male,,,,,,8171,12064,14773,17637,20928,
+834,United Republic of Tanzania,,Katavi,,Naomi,TZA,female,,,,,,3809,5402,8769,10936,11404,
+834,United Republic of Tanzania,,Katavi,,Naomi,TZA,male,,,,,,1978,2755,5022,6565,6595,
+834,United Republic of Tanzania,,Simiyu,,Naomi,TZA,female,,,,,,9794,12052,14279,16061,18079,
+834,United Republic of Tanzania,,Simiyu,,Naomi,TZA,male,,,,,,4681,6000,7434,8598,9683,
+834,United Republic of Tanzania,,Geita,,Naomi,TZA,female,,,,,,10951,16086,21289,27679,34665,
+834,United Republic of Tanzania,,Geita,,Naomi,TZA,male,,,,,,5762,8225,10651,14012,19507,
+834,United Republic of Tanzania,,Songwe,,Naomi,TZA,female,,,,,,10956,16083,21062,20622,22475,
+834,United Republic of Tanzania,,Songwe,,Naomi,TZA,male,,,,,,6313,8162,10992,11054,12211,
+894,Zambia,,Central,,Naomi,ZMB,female,,,,,,,,,66125,77874,83407
+894,Zambia,,Central,,Naomi,ZMB,male,,,,,,,,,42271,49563,52030
+894,Zambia,,Copperbelt,,Naomi,ZMB,female,,,,,,,,,112932,124578,141913
+894,Zambia,,Copperbelt,,Naomi,ZMB,male,,,,,,,,,65635,72454,83415
+894,Zambia,,Eastern,,Naomi,ZMB,female,,,,,,,,,51548,55614,64990
+894,Zambia,,Eastern,,Naomi,ZMB,male,,,,,,,,,29384,33871,37604
+894,Zambia,,Luapula,,Naomi,ZMB,female,,,,,,,,,27915,31756,32914
+894,Zambia,,Luapula,,Naomi,ZMB,male,,,,,,,,,15675,16964,18771
+894,Zambia,,Lusaka,,Naomi,ZMB,female,,,,,,,,,158345,174752,187546
+894,Zambia,,Lusaka,,Naomi,ZMB,male,,,,,,,,,91818,103170,118008
+894,Zambia,,Muchinga,,Naomi,ZMB,female,,,,,,,,,13626,14925,18561
+894,Zambia,,Muchinga,,Naomi,ZMB,male,,,,,,,,,8106,9026,10684
+894,Zambia,,Northern,,Naomi,ZMB,female,,,,,,,,,21938,25989,28259
+894,Zambia,,Northern,,Naomi,ZMB,male,,,,,,,,,12987,14929,16488
+894,Zambia,,Southern,,Naomi,ZMB,female,,,,,,,,,72462,75652,77862
+894,Zambia,,Southern,,Naomi,ZMB,male,,,,,,,,,41067,43690,45292
+894,Zambia,,Western,,Naomi,ZMB,female,,,,,,,,,40471,48834,52781
+894,Zambia,,Western,,Naomi,ZMB,male,,,,,,,,,20413,24824,27069
+894,Zambia,,North Western,,Naomi,ZMB,female,,,,,,,,,18387,20881,22224
+894,Zambia,,North Western,,Naomi,ZMB,male,,,,,,,,,9331,10561,11710
+716,Zimbabwe,,Total,Bulawayo,Naomi,ZWE,female,,,,,,39105,40018,42783,41197,40814,42183
+716,Zimbabwe,,Total,Bulawayo,Naomi,ZWE,male,,,,,,21856,21821,25594,26778,23641,25256
+716,Zimbabwe,,Total,Harare Chitungwiza,Naomi,ZWE,female,,,,,,65976,79317,92988,99257,94606,93827
+716,Zimbabwe,,Total,Harare Chitungwiza,Naomi,ZWE,male,,,,,,40414,48048,54788,61500,56628,61169
+716,Zimbabwe,,Total,Manicaland,Naomi,ZWE,female,,,,,,56507,63464,70673,70285,72262,73230
+716,Zimbabwe,,Total,Manicaland,Naomi,ZWE,male,,,,,,31933,34797,41340,40299,43623,46646
+716,Zimbabwe,,Total,Mashonaland Central,Naomi,ZWE,female,,,,,,38825,46469,48898,52482,52469,50950
+716,Zimbabwe,,Total,Mashonaland Central,Naomi,ZWE,male,,,,,,24065,27492,30782,33526,33887,35223
+716,Zimbabwe,,Total,Mashonaland East,Naomi,ZWE,female,,,,,,59290,60571,75869,81247,79367,85392
+716,Zimbabwe,,Total,Mashonaland East,Naomi,ZWE,male,,,,,,34809,35594,43409,47058,48288,53325
+716,Zimbabwe,,Total,Mashonaland West,Naomi,ZWE,female,,,,,,62878,72786,83155,83247,80712,79096
+716,Zimbabwe,,Total,Mashonaland West,Naomi,ZWE,male,,,,,,36887,40650,50629,50707,52741,50985
+716,Zimbabwe,,Total,Masvingo,Naomi,ZWE,female,,,,,,56003,64527,71601,73355,75350,76072
+716,Zimbabwe,,Total,Masvingo,Naomi,ZWE,male,,,,,,30620,33870,37436,40132,42553,45598
+716,Zimbabwe,,Total,Matabeleland North,Naomi,ZWE,female,,,,,,36601,39472,44319,44875,46273,48268
+716,Zimbabwe,,Total,Matabeleland North,Naomi,ZWE,male,,,,,,21740,23205,27630,28809,29175,30545
+716,Zimbabwe,,Total,Matabeleland South,Naomi,ZWE,female,,,,,,39065,44811,53938,55087,55210,58156
+716,Zimbabwe,,Total,Matabeleland South,Naomi,ZWE,male,,,,,,23760,25835,30341,31451,32683,33405
+716,Zimbabwe,,Total,Midlands,Naomi,ZWE,female,,,,,,62307,67943,78908,78738,80099,85212
+716,Zimbabwe,,Total,Midlands,Naomi,ZWE,male,,,,,,35566,38818,46709,46644,48979,53894
+454,Malawi,,Northern Region,,Naomi,MWI,female,,,,,,,,,,,51926.99696
+454,Malawi,,Northern Region,,Naomi,MWI,male,,,,,,,,,,,30193.00382
+454,Malawi,,Central Region,,Naomi,MWI,female,,,,,,,,,,,150354
+454,Malawi,,Central Region,,Naomi,MWI,male,,,,,,,,,,,84235
+454,Malawi,,Southern Region,,Naomi,MWI,female,,,,,,,,,,,337052.0017
+454,Malawi,,Southern Region,,Naomi,MWI,male,,,,,,,,,,,164964
+404,Kenya,,Coast,Coast,Naomi,KEN,female,,,,,,,,,52942,59621,63253
+404,Kenya,,Coast,Coast,Naomi,KEN,male,,,,,,,,,24874,24464,26896
+404,Kenya,,North Eastern,North Eastern,Naomi,KEN,female,,,,,,,,,1294,1595,1286
+404,Kenya,,North Eastern,North Eastern,Naomi,KEN,male,,,,,,,,,676,753,755
+404,Kenya,,Eastern,Eastern,Naomi,KEN,female,,,,,,,,,65297,69519,74928
+404,Kenya,,Eastern,Eastern,Naomi,KEN,male,,,,,,,,,26333,28667,31394
+404,Kenya,,Central,Central,Naomi,KEN,female,,,,,,,,,56384,59661,63917
+404,Kenya,,Central,Central,Naomi,KEN,male,,,,,,,,,25619,27945,29729
+404,Kenya,,Rift Valley,Rift Valley,Naomi,KEN,female,,,,,,,,,102353,110300,118763
+404,Kenya,,Rift Valley,Rift Valley,Naomi,KEN,male,,,,,,,,,46862,50351,55150
+404,Kenya,,Western,Western,Naomi,KEN,female,,,,,,,,,70368,74868,79760
+404,Kenya,,Western,Western,Naomi,KEN,male,,,,,,,,,29530,31890,33862
+404,Kenya,,Nyanza,Nyanza,Naomi,KEN,female,,,,,,,,,249492,262795,280336
+404,Kenya,,Nyanza,Nyanza,Naomi,KEN,male,,,,,,,,,119171,128890,138287
+404,Kenya,,Nairobi,Nairobi,Naomi,KEN,female,,,,,,,,,96412,104013,108175
+404,Kenya,,Nairobi,Nairobi,Naomi,KEN,male,,,,,,,,,47432,51649,54077
+508,Mozambique,,Gaza,SOUTH_Gaza,Naomi,MOZ,female,,,,,44329,60934,75449,104937,106828,115000,113973
+508,Mozambique,,Gaza,SOUTH_Gaza,Naomi,MOZ,male,,,,,17860,18912,24146,35558,36988,39009,47680
+508,Mozambique,,Inhambane,SOUTH_Inhambane,Naomi,MOZ,female,,,,,20714,26379,36248,46486,56374,61575,60170
+508,Mozambique,,Inhambane,SOUTH_Inhambane,Naomi,MOZ,male,,,,,7320,7122,9432,18451,13676,15769,19054
+508,Mozambique,,Sofala,CENTER_Sofala,Naomi,MOZ,female,,,,,33398,46368,58357,77903,77526,75947,74864
+508,Mozambique,,Sofala,CENTER_Sofala,Naomi,MOZ,male,,,,,15867,19409,22820,31834,31099,31153,34426
+508,Mozambique,,Manica,CENTER_Manica,Naomi,MOZ,female,,,,,24781,35419,41539,59117,60069,68047,60995
+508,Mozambique,,Manica,CENTER_Manica,Naomi,MOZ,male,,,,,12088,16046,19216,27411,26718,31349,28958
+508,Mozambique,,Tete,CENTER_Tete,Naomi,MOZ,female,,,,,16612,22698,28345,39251,38665,42061,48133
+508,Mozambique,,Tete,CENTER_Tete,Naomi,MOZ,male,,,,,17237,16642,16231,19198,19058,21220,24850
+508,Mozambique,,Remaining Pop,NORTH_Nampula,Naomi,MOZ,female,,,,,22341,31533,41666,62383,65747,70976,91553
+508,Mozambique,,Remaining Pop,NORTH_Nampula,Naomi,MOZ,male,,,,,11319,13745,18784,30160,32962,34106,49616
+508,Mozambique,,NORTH_Niassa,NORTH_Niassa,Naomi,MOZ,female,,,,,7908,8742,10748,17434,20128,21404,23149
+508,Mozambique,,NORTH_Niassa,NORTH_Niassa,Naomi,MOZ,male,,,,,4680,4573,4473,6663,8303,9060,10735
+508,Mozambique,,Maputo,SOUTH_Maputo,Naomi,MOZ,female,,,,,95123,110222,129761,176417,182580,205181,198457
+508,Mozambique,,Maputo,SOUTH_Maputo,Naomi,MOZ,male,,,,,43693,51824,60430,77299,80974,87821,99219
+508,Mozambique,,NORTH_Cabo Delgado,NORTH_Cabo Delgado,Naomi,MOZ,female,,,,,20318,28585,34328,34792,35481,45948,39631
+508,Mozambique,,NORTH_Cabo Delgado,NORTH_Cabo Delgado,Naomi,MOZ,male,,,,,9253,12042,13770,16689,19296,22149,23774
+508,Mozambique,,Zambezia,CENTER_Zambezi,Naomi,MOZ,female,,,,,47090,64649,84625,132857,147999,167788,171845
+508,Mozambique,,Zambezia,CENTER_Zambezi,Naomi,MOZ,male,,,,,20423,26582,34097,54753,65171,77457,96345
+508,Mozambique,,Gaza,,Naomi,MOZ,female,,,,,44329,60934,75449,104937,106828,115000,113973
+508,Mozambique,,Gaza,,Naomi,MOZ,male,,,,,17860,18912,24146,35558,36988,39009,47680
+508,Mozambique,,Inhambane,,Naomi,MOZ,female,,,,,20714,26379,36248,46486,56374,61575,60170
+508,Mozambique,,Inhambane,,Naomi,MOZ,male,,,,,7320,7122,9432,18451,13676,15769,19054
+508,Mozambique,,Sofala,,Naomi,MOZ,female,,,,,33398,46368,58357,77903,77526,75947,74864
+508,Mozambique,,Sofala,,Naomi,MOZ,male,,,,,15867,19409,22820,31834,31099,31153,34426
+508,Mozambique,,Manica,,Naomi,MOZ,female,,,,,24781,35419,41539,59117,60069,68047,60995
+508,Mozambique,,Manica,,Naomi,MOZ,male,,,,,12088,16046,19216,27411,26718,31349,28958
+508,Mozambique,,Tete,,Naomi,MOZ,female,,,,,16612,22698,28345,39251,38665,42061,48133
+508,Mozambique,,Tete,,Naomi,MOZ,male,,,,,17237,16642,16231,19198,19058,21220,24850
+508,Mozambique,,Nampula,,Naomi,MOZ,female,,,,,22341,31533,41666,62383,65747,70976,91553
+508,Mozambique,,Nampula,,Naomi,MOZ,male,,,,,11319,13745,18784,30160,32962,34106,49616
+508,Mozambique,,Niassa,,Naomi,MOZ,female,,,,,7908,8742,10748,17434,20128,21404,23149
+508,Mozambique,,Niassa,,Naomi,MOZ,male,,,,,4680,4573,4473,6663,8303,9060,10735
+508,Mozambique,,Maputo,,Naomi,MOZ,female,,,,,95123,110222,129761,176417,182580,205181,198457
+508,Mozambique,,Maputo,,Naomi,MOZ,male,,,,,43693,51824,60430,77299,80974,87821,99219
+508,Mozambique,,Cabo Delgado,,Naomi,MOZ,female,,,,,20318,28585,34328,34792,35481,45948,39631
+508,Mozambique,,Cabo Delgado,,Naomi,MOZ,male,,,,,9253,12042,13770,16689,19296,22149,23774
+508,Mozambique,,Zambezia,,Naomi,MOZ,female,,,,,47090,64649,84625,132857,147999,167788,171845
+508,Mozambique,,Zambezia,,Naomi,MOZ,male,,,,,20423,26582,34097,54753,65171,77457,96345

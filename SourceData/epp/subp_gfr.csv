@@ -1,0 +1,189 @@
+file,cc,country,eppregion,survyear,survtype,gfr
+108_Burundi,108,Burundi,N,2012,MIS,0.201
+108_Burundi,108,Burundi,R,2012,MIS,0.207
+108_Burundi,108,Burundi,U,2012,MIS,0.15
+120_Cameroon,120,Cameroon,N,2011,DHS,0.18
+120_Cameroon,120,Cameroon,R,2011,DHS,0.225
+120_Cameroon,120,Cameroon,U,2011,DHS,0.142
+132_Cabo Verde,132,Cabo Verde,N,2005,DHS,0.098
+132_Cabo Verde,132,Cabo Verde,R,2005,DHS,0.106
+132_Cabo Verde,132,Cabo Verde,U,2005,DHS,0.093
+140_Central African Republic,140,Central African Republic,N,1994,DHS,0.183
+140_Central African Republic,140,Central African Republic,R,1994,DHS,0.188
+140_Central African Republic,140,Central African Republic,U,1994,DHS,0.176
+148_Chad,148,Chad,N,2014,DHS,0.23
+148_Chad,148,Chad,R,2014,DHS,0.242
+148_Chad,148,Chad,U,2014,DHS,0.191
+178_Congo,178,Congo,N,2011,DHS,0.182
+178_Congo,178,Congo,R,2011,DHS,0.225
+178_Congo,178,Congo,U,2011,DHS,0.164
+180_Democratic Republic of the Congo,180,Democratic Republic of the Congo,N,2013,DHS,0.225
+180_Democratic Republic of the Congo,180,Democratic Republic of the Congo,R,2013,DHS,0.251
+180_Democratic Republic of the Congo,180,Democratic Republic of the Congo,U,2013,DHS,0.183
+204_Benin,204,Benin,N,2012,DHS,0.175
+204_Benin,204,Benin,R,2012,DHS,0.193
+204_Benin,204,Benin,U,2012,DHS,0.154
+226_Equatorial Guinea,226,Equatorial Guinea,N,2011,DHS,0.181
+226_Equatorial Guinea,226,Equatorial Guinea,R,2011,DHS,0.201
+226_Equatorial Guinea,226,Equatorial Guinea,U,2011,DHS,0.161
+231_Ethiopia,231,Ethiopia,N,2016,DHS,0.156
+231_Ethiopia,231,Ethiopia,R,2016,DHS,0.177
+231_Ethiopia,231,Ethiopia,U,2016,DHS,0.081
+232_Eritrea,232,Eritrea,N,2002,DHS,0.153
+232_Eritrea,232,Eritrea,R,2002,DHS,0.182
+232_Eritrea,232,Eritrea,U,2002,DHS,0.116
+24_Angola,24,Angola,N,2015,DHS,0.216
+24_Angola,24,Angola,R,2015,DHS,0.286
+24_Angola,24,Angola,U,2015,DHS,0.186
+266_Gabon,266,Gabon,N,2012,DHS,0.144
+266_Gabon,266,Gabon,R,2012,DHS,0.211
+266_Gabon,266,Gabon,U,2012,DHS,0.136
+270_Gambia,270,Gambia,N,2013,DHS,0.185
+270_Gambia,270,Gambia,R,2013,DHS,0.223
+270_Gambia,270,Gambia,U,2013,DHS,0.155
+288_Ghana,288,Ghana,N,2016,MIS,0.145
+288_Ghana,288,Ghana,R,2016,MIS,0.174
+288_Ghana,288,Ghana,U,2016,MIS,0.121
+324_Guinea,324,Guinea,N,2012,DHS,0.176
+324_Guinea,324,Guinea,R,2012,DHS,0.202
+324_Guinea,324,Guinea,U,2012,DHS,0.131
+384_Cote d'Ivoire,384,Cote d'Ivoire,N,2012,DHS,0.174
+384_Cote d'Ivoire,384,Cote d'Ivoire,R,2012,DHS,0.221
+384_Cote d'Ivoire,384,Cote d'Ivoire,U,2012,DHS,0.129
+404_Kenya,404,Kenya,N,2015,MIS,0.137
+404_Kenya,404,Kenya,R,2015,MIS,0.16
+404_Kenya,404,Kenya,U,2015,MIS,0.105
+426_Lesotho,426,Lesotho,N,2014,DHS,0.118
+426_Lesotho,426,Lesotho,R,2014,DHS,0.137
+426_Lesotho,426,Lesotho,U,2014,DHS,0.085
+430_Liberia,430,Liberia,N,2013,DHS,0.168
+430_Liberia,430,Liberia,R,2013,DHS,0.214
+430_Liberia,430,Liberia,U,2013,DHS,0.139
+450_Madagascar,450,Madagascar,N,2016,MIS,0.149
+450_Madagascar,450,Madagascar,R,2016,MIS,0.156
+450_Madagascar,450,Madagascar,U,2016,MIS,0.096
+454_Malawi,454,Malawi,N,2015,DHS,0.158
+454_Malawi,454,Malawi,R,2015,DHS,0.168
+454_Malawi,454,Malawi,U,2015,DHS,0.116
+454_Malawi,454,Malawi,Central Region,2015,DHS,0.156
+454_Malawi,454,Malawi,Northern Region,2015,DHS,0.155
+454_Malawi,454,Malawi,Southern Region,2015,DHS,0.162
+466_Mali,466,Mali,N,2015,MIS,0.222
+466_Mali,466,Mali,R,2015,MIS,0.24
+466_Mali,466,Mali,U,2015,MIS,0.166
+478_Mauritania,478,Mauritania,N,2011,MICS,0.159
+478_Mauritania,478,Mauritania,R,2011,MICS,0.177
+478_Mauritania,478,Mauritania,U,2011,MICS,0.139
+480_Mauritius,480,Mauritius,N,2015,WPP,0.051
+480_Mauritius,480,Mauritius,R,2015,WPP,0.051
+480_Mauritius,480,Mauritius,U,2015,WPP,0.051
+508_Mozambique,508,Mozambique,N,2011,DHS,0.206
+508_Mozambique,508,Mozambique,R,2011,DHS,0.228
+508_Mozambique,508,Mozambique,U,2011,DHS,0.165
+516_Namibia,516,Namibia,N,2013,DHS,0.125
+516_Namibia,516,Namibia,R,2013,DHS,0.156
+516_Namibia,516,Namibia,U,2013,DHS,0.103
+516_Namibia,516,Namibia,Erongo,2013,DHS,0.102
+516_Namibia,516,Namibia,Hardap,2013,DHS,0.13
+516_Namibia,516,Namibia,Karas,2013,DHS,0.117
+516_Namibia,516,Namibia,Kavango,2013,DHS,0.164
+516_Namibia,516,Namibia,Khomas,2013,DHS,0.09
+516_Namibia,516,Namibia,Kunene,2013,DHS,0.157
+516_Namibia,516,Namibia,Ohangwena,2013,DHS,0.175
+516_Namibia,516,Namibia,Omaheke,2013,DHS,0.16
+516_Namibia,516,Namibia,Omusati,2013,DHS,0.129
+516_Namibia,516,Namibia,Oshana,2013,DHS,0.093
+516_Namibia,516,Namibia,Oshikoto,2013,DHS,0.139
+516_Namibia,516,Namibia,Otjozondjupa,2013,DHS,0.141
+516_Namibia,516,Namibia,Zambezi,2013,DHS,0.152
+562_Niger,562,Niger,N,2012,DHS,0.269
+562_Niger,562,Niger,R,2012,DHS,0.286
+562_Niger,562,Niger,U,2012,DHS,0.193
+566_Nigeria,566,Nigeria,N,2015,MIS,0.179
+566_Nigeria,566,Nigeria,R,2015,MIS,0.193
+566_Nigeria,566,Nigeria,U,2015,MIS,0.158
+624_Guinea-Bissau,624,Guinea-Bissau,N,2014,MICS,0.159
+624_Guinea-Bissau,624,Guinea-Bissau,R,2014,MICS,0.204
+624_Guinea-Bissau,624,Guinea-Bissau,U,2014,MICS,0.114
+646_Rwanda,646,Rwanda,N,2015,DHS,0.142
+646_Rwanda,646,Rwanda,R,2015,DHS,0.146
+646_Rwanda,646,Rwanda,U,2015,DHS,0.124
+686_Senegal,686,Senegal,N,2016,DHS,0.156
+686_Senegal,686,Senegal,R,2016,DHS,0.196
+686_Senegal,686,Senegal,U,2016,DHS,0.113
+694_Sierra Leone,694,Sierra Leone,N,2016,MIS,0.157
+694_Sierra Leone,694,Sierra Leone,R,2016,MIS,0.177
+694_Sierra Leone,694,Sierra Leone,U,2016,MIS,0.131
+706_Somalia,706,Somalia,Puntland,2006,MICS,0.204
+706_Somalia,706,Somalia,Somaliland,2006,MICS,0.168
+706_Somalia,706,Somalia,South-Central,2006,MICS,0.236
+710_South Africa,710,South Africa,N,2015,DHS,0.094
+710_South Africa,710,South Africa,R,2015,DHS,0.109
+710_South Africa,710,South Africa,U,2015,DHS,0.087
+710_South Africa,710,South Africa,EC,2015,Thembisa,0.089
+710_South Africa,710,South Africa,FS,2015,Thembisa,0.092
+710_South Africa,710,South Africa,GP,2015,Thembisa,0.077
+710_South Africa,710,South Africa,KZN,2015,Thembisa,0.09
+710_South Africa,710,South Africa,LP,2015,Thembisa,0.107
+710_South Africa,710,South Africa,MP,2015,Thembisa,0.092
+710_South Africa,710,South Africa,NC,2015,Thembisa,0.094
+710_South Africa,710,South Africa,NW,2015,Thembisa,0.096
+710_South Africa,710,South Africa,WC,2015,Thembisa,0.081
+716_Zimbabwe,716,Zimbabwe,N,2015,DHS,0.144
+716_Zimbabwe,716,Zimbabwe,R,2015,DHS,0.166
+716_Zimbabwe,716,Zimbabwe,U,2015,DHS,0.11
+728_South Sudan,728,South Sudan,N,2010,MICS,0.237
+728_South Sudan,728,South Sudan,R,2010,MICS,0.237
+728_South Sudan,728,South Sudan,U,2010,MICS,0.237
+72_Botswana,72,Botswana,N,2008,MICS,0.103
+72_Botswana,72,Botswana,R,2008,MICS,0.13
+72_Botswana,72,Botswana,U,2008,MICS,0.088
+748_Swaziland,748,Swaziland,N,2014,MICS,0.117
+748_Swaziland,748,Swaziland,R,2014,MICS,0.122
+748_Swaziland,748,Swaziland,U,2014,MICS,0.106
+748_Swaziland,748,Swaziland,Hhohho Region,2006,DHS,0.132
+748_Swaziland,748,Swaziland,Lubombo Region,2006,DHS,0.142
+748_Swaziland,748,Swaziland,Manzini Region,2006,DHS,0.132
+748_Swaziland,748,Swaziland,Shiselweni Region,2006,DHS,0.149
+768_Togo,768,Togo,N,2013,DHS,0.163
+768_Togo,768,Togo,R,2013,DHS,0.194
+768_Togo,768,Togo,U,2013,DHS,0.128
+800_Uganda,800,Uganda,N,2014,MIS,0.204
+800_Uganda,800,Uganda,R,2014,MIS,0.222
+800_Uganda,800,Uganda,U,2014,MIS,0.145
+834_United Republic of Tanzania,834,United Republic of Tanzania,Arusha,2015,DHS,0.144
+834_United Republic of Tanzania,834,United Republic of Tanzania,Dar es Salaam,2015,DHS,0.134
+834_United Republic of Tanzania,834,United Republic of Tanzania,Dodoma,2015,DHS,0.195
+834_United Republic of Tanzania,834,United Republic of Tanzania,Geita,2015,DHS,0.219
+834_United Republic of Tanzania,834,United Republic of Tanzania,Iringa,2015,DHS,0.147
+834_United Republic of Tanzania,834,United Republic of Tanzania,Kagera,2015,DHS,0.219
+834_United Republic of Tanzania,834,United Republic of Tanzania,Katavi,2015,DHS,0.178
+834_United Republic of Tanzania,834,United Republic of Tanzania,Kigoma,2015,DHS,0.229
+834_United Republic of Tanzania,834,United Republic of Tanzania,Kilimanjaro,2015,DHS,0.144
+834_United Republic of Tanzania,834,United Republic of Tanzania,Lindi,2015,DHS,0.13
+834_United Republic of Tanzania,834,United Republic of Tanzania,Manyara,2015,DHS,0.195
+834_United Republic of Tanzania,834,United Republic of Tanzania,Mara,2015,DHS,0.219
+834_United Republic of Tanzania,834,United Republic of Tanzania,Mbeya,2015,DHS,0.178
+834_United Republic of Tanzania,834,United Republic of Tanzania,Morogoro,2015,DHS,0.134
+834_United Republic of Tanzania,834,United Republic of Tanzania,Mtwara,2015,DHS,0.13
+834_United Republic of Tanzania,834,United Republic of Tanzania,Mwanza,2015,DHS,0.219
+834_United Republic of Tanzania,834,United Republic of Tanzania,Njombe,2015,DHS,0.147
+834_United Republic of Tanzania,834,United Republic of Tanzania,Pwani,2015,DHS,0.134
+834_United Republic of Tanzania,834,United Republic of Tanzania,Rukwa,2015,DHS,0.178
+834_United Republic of Tanzania,834,United Republic of Tanzania,Ruvuma,2015,DHS,0.147
+834_United Republic of Tanzania,834,United Republic of Tanzania,Shinyaga,2015,DHS,0.219
+834_United Republic of Tanzania,834,United Republic of Tanzania,Simiyu,2015,DHS,0.219
+834_United Republic of Tanzania,834,United Republic of Tanzania,Singida,2015,DHS,0.195
+834_United Republic of Tanzania,834,United Republic of Tanzania,Songwe,2015,DHS,0.178
+834_United Republic of Tanzania,834,United Republic of Tanzania,Tabora,2015,DHS,0.229
+834_United Republic of Tanzania,834,United Republic of Tanzania,Tanga,2015,DHS,0.144
+834_United Republic of Tanzania,834,United Republic of Tanzania,Zanzibar,2015,DHS,0.175
+854_Burkina Faso,854,Burkina Faso,N,2014,MIS,0.189
+854_Burkina Faso,854,Burkina Faso,R,2014,MIS,0.212
+854_Burkina Faso,854,Burkina Faso,U,2014,MIS,0.136
+894_Zambia,894,Zambia,N,2013,DHS,0.184
+894_Zambia,894,Zambia,R,2013,DHS,0.226
+894_Zambia,894,Zambia,U,2013,DHS,0.135
+332_Haiti,332,Haiti,N,2016,DHS,0.101
+332_Haiti,332,Haiti,U,2016,DHS,0.073
+332_Haiti,332,Haiti,R,2016,DHS,0.127
