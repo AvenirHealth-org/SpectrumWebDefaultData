@@ -17,7 +17,8 @@ import SpectrumCommon.Const.IH.IHDatabaseKeys as ihdbk
 IH_ISO_NUMERIC_COUNTRY_CODE = '<ISO Numeric Country Code>'  
 IH_ISO_ALPHA_3_COUNTRY_CODE = '<ISO Alpha-3 Country Code>'
 IH_COUNTRY_NAME             = '<Country Name>'
-IH_DATA                     = '<Data>'
+IH_EXCHANGE_RATE            = '<Exchange Rate>'
+IH_INFLATION_RATE           = '<Inflation Rate>'
 IH_YEARS                    = '<Years>'
 
 def create_exchange_rate_DB_IH(version = str):
@@ -39,7 +40,9 @@ def create_exchange_rate_DB_IH(version = str):
     col += 1
     iso_alpha_3_country_code_col = col
     col += 1
-    data_col = col
+    exchange_rate_col = col
+    col += 1
+    inflation_rate_col = col
 
     row = 3
     first_data_row = row
@@ -49,7 +52,8 @@ def create_exchange_rate_DB_IH(version = str):
 
         country_dict = {}
         country_dict[ihdbk.IH_ISO_ALPHA_3_COUNTRY_CODE_KEY_EXDB] = row[iso_alpha_3_country_code_col - 1]
-        country_dict[ihdbk.IH_EXCHANGE_RATE_KEY_EXDB] = row[data_col - 1]
+        country_dict[ihdbk.IH_EXCHANGE_RATE_KEY_EXDB] = row[exchange_rate_col - 1]
+        country_dict[ihdbk.IH_INFLATION_RATE_KEY_EXDB] = row[inflation_rate_col - 1]
 
         country_list.append(country_dict)
 
