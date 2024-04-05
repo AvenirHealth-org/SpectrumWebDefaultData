@@ -136,6 +136,7 @@ IV_HIDE_TREAT_INPUTS_IH             = '<UH - Hide Treatment Inputs>'
 IV_HIDE_DELIV_CHANNELS_IH           = '<UH - Hide Delivery Channels>'
 IV_HIDE_RESULTS_IH                  = '<UH - Hide Results>'
 IV_CALC_PINS_ALL_YEARS_LOCKED_IH    = '<UH - Calculate PINs for All Years, Locked>'
+IV_CALC_PINS_ALL_YEARS_LOCKED_LIST  = '<UH - Calculate PINs for All Years, Locked, LiST>'
 IV_CALC_PINS_ALL_YEARS_OVERRIDE_IH  = '<UH - Calculate PINs for All Years, Overridable>'
 IV_CALC_PINS_TWO_PLUS_LOCKED_IH     = '<UH - Calculate PINs for Year Two Forward>'
 IV_MULTIPLY_PINS_100_IH             = '<UH - Multiply PINs by 100>'
@@ -144,7 +145,7 @@ IV_MALARIA_PINS_IH                  = '<UH - Malaria PINs>'
 
 # TB-specific columns
 
-# LiST-specific columns
+# LiST (impact)-specific columns
 IV_NUTRITION_CS          = '<CS - Is nutrition>'
 IV_BIRTH_OUTCOME_CS      = '<CS - Is birth outcome>'
 IV_INTERV_TYPE_CS        = '<CS - Intervention type>'
@@ -286,13 +287,14 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
     hide_deliv_channels_col_IH = gbc.GB_NOT_FOUND
     hide_results_col_IH = gbc.GB_NOT_FOUND
     calc_pins_all_years_locked_col_IH = gbc.GB_NOT_FOUND
+    calc_pins_all_years_locked_col_LiST = gbc.GB_NOT_FOUND
     calc_pins_all_years_override_col_IH = gbc.GB_NOT_FOUND
     calc_pins_two_plus_locked_col_IH = gbc.GB_NOT_FOUND
     multiply_pins_100_col_IH = gbc.GB_NOT_FOUND
     pins_over_100_col_IH = gbc.GB_NOT_FOUND
     malaria_pins_col_IH = gbc.GB_NOT_FOUND
     
-    # LiST-specific columns
+    # LiST (impact)-specific columns
 
     nutrition_col_CS = gbc.GB_NOT_FOUND
     birth_outcome_col_CS = gbc.GB_NOT_FOUND
@@ -580,6 +582,9 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
         elif tag == IV_CALC_PINS_ALL_YEARS_LOCKED_IH:    
             calc_pins_all_years_locked_col_IH = c
 
+        elif tag == IV_CALC_PINS_ALL_YEARS_LOCKED_LIST:    
+            calc_pins_all_years_locked_col_LiST = c
+
         elif tag == IV_CALC_PINS_ALL_YEARS_OVERRIDE_IH:    
             calc_pins_all_years_override_col_IH = c
 
@@ -648,7 +653,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
         elif tag == IV_IS_STUNT_INTERV_CS:    
             is_stunt_interv_col_CS = c
 
-    num_deliv_chan = ivcl.IV_IH_NUM_DEFAULT_DELIV_CHANS_COSTED + ivcl.IV_IC_NUM_DELIV_CHANS
+    num_deliv_chan_all = ivcl.IV_IH_NUM_DEFAULT_DELIV_CHANS_COSTED + ivcl.IV_IC_NUM_DELIV_CHANS
 
     # IC delivery channels come after the IH ones
     dc1_IC = ivcl.IV_IH_NUM_DEFAULT_DELIV_CHANS_COSTED + 1
@@ -674,7 +679,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
             interv_dict[ivdbk.IV_MST_ID_KEY_IDB] = row[mstID_col - 1]
             #interv_dict[ivdbk.IV_MODULES_KEY] = modules_str
 
-            # IHT
+            # Only used for IHT
 
             if mod_ID == gbc.GB_IH:
 
@@ -691,7 +696,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
                 # Currently shares the same list of targ pops as TI
                 interv_dict[ivdbk.IV_TARG_POP_MST_ID_KEY_IDB] = row[targ_pop_mstID_col - 1]
 
-            # TB Costing
+            # only used for TB
 
             elif mod_ID == gbc.GB_TI:
             
@@ -708,7 +713,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
                 # Currently shares the same list of targ pops as IH
                 interv_dict[ivdbk.IV_TARG_POP_MST_ID_KEY_IDB] = row[targ_pop_mstID_col - 1]
             
-            # LiST Costing
+            # Only used for LiST
 
             elif mod_ID == gbc.GB_CS:
             
@@ -753,7 +758,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
 
             dc_col = perc_deliv_community_curr_year_col
 
-            perc_deliv_list = np.full((num_deliv_chan, ivcl.IV_IC_NUM_YEAR_ENDPOINTS), 0.0).tolist()
+            perc_deliv_list = np.full((num_deliv_chan_all, ivcl.IV_IC_NUM_YEAR_ENDPOINTS), 0.0).tolist()
 
             # IH delivery channels by year endpoint
             for dc in GBRange(1, ivcl.IV_IH_NUM_DEFAULT_DELIV_CHANS_COSTED):
@@ -923,14 +928,20 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
             if (hide_results_col_IH != gbc.GB_NOT_FOUND) and (row[hide_results_col_IH - 1] == 1):
                 interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_HIDE_RESULTS)
 
-            if (calc_pins_all_years_locked_col_IH != gbc.GB_NOT_FOUND) and (row[calc_pins_all_years_locked_col_IH - 1] == 1):
-                interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_ALL_YEARS_LOCKED)
+            # As of 4/4/2024, LiST interventions are either not locked or locked at all years and not overrideable. IHT and TB share the original three options 
+            # (locked all years, not overridable; locked all years, overridable; locked year 2+, not overridable)
+            if mod_ID == gbc.GB_CS:
+                if (calc_pins_all_years_locked_col_LiST != gbc.GB_NOT_FOUND) and (row[calc_pins_all_years_locked_col_LiST - 1] == 1):
+                    interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_ALL_YEARS_LOCKED)
+            else:
+                if (calc_pins_all_years_locked_col_IH != gbc.GB_NOT_FOUND) and (row[calc_pins_all_years_locked_col_IH - 1] == 1):
+                    interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_ALL_YEARS_LOCKED)
 
-            if (calc_pins_all_years_override_col_IH != gbc.GB_NOT_FOUND) and (row[calc_pins_all_years_override_col_IH - 1] == 1): 
-                interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_ALL_YEARS_OVERRIDE)
+                if (calc_pins_all_years_override_col_IH != gbc.GB_NOT_FOUND) and (row[calc_pins_all_years_override_col_IH - 1] == 1): 
+                    interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_ALL_YEARS_OVERRIDE)
 
-            if (calc_pins_two_plus_locked_col_IH != gbc.GB_NOT_FOUND) and (row[calc_pins_two_plus_locked_col_IH - 1] == 1):
-                interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_TWO_PLUS_LOCKED)
+                if (calc_pins_two_plus_locked_col_IH != gbc.GB_NOT_FOUND) and (row[calc_pins_two_plus_locked_col_IH - 1] == 1):
+                    interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_CALC_PINS_TWO_PLUS_LOCKED)
 
             if (multiply_pins_100_col_IH != gbc.GB_NOT_FOUND) and (row[multiply_pins_100_col_IH - 1] == 1):  
                 interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_MULTIPLY_PINS_100)
