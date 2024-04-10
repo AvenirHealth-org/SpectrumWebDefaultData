@@ -509,6 +509,51 @@ def create_GNI_Per_Cap():
             
 #####################################################################################################################
 #                                                                                                                   #
+#                                          Create Economic Indicators                                               #
+#                                                                                                                   #
+#####################################################################################################################
+
+def create_Economic_Indicators():
+    xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
+
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
+
+    for sheetName in xlsx.sheet_names:      
+        if sheetName in ['Economic indicators']:
+            sheet = xlsx.parse(sheetName, header=None)
+            
+            dataFirstRow = 1
+            dataFinalRow = len(sheet.values) - 1
+
+            dataStartCol = 3
+            dataFinalCol = len(sheet.values[2]) - 1
+            
+            countries = {}
+            
+            for row in GBRange(dataFirstRow, dataFinalRow):
+                
+                name = getVal(sheet, row, 1)
+                
+                ISO3 = getVal(sheet, row, 0)
+                
+                ISO3_Alpha = -1
+                for i in GBRange(0, len(GBModData)-1):
+                    if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                        ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+                
+                countries[ISO3_Alpha] = {
+                    'ISO3_Alpha' : ISO3_Alpha,
+                    'GDP per capita' : getVal(sheet, row, 3),
+                    'GDP per worker' : getVal(sheet, row, 4),
+                    'Labor force participation rate (15-64)' : getVal(sheet, row, 5),
+                    'Female labor force participation rate (15-64)' : getVal(sheet, row, 6),
+                    'Percent of GDP allocated to wages' : getVal(sheet, row, 7),
+                }                      
+
+            createCountryFiles(Economic_Indicators, countries)
+            
+#####################################################################################################################
+#                                                                                                                   #
 #                                               Create Readiness                                                    #
 #                                                                                                                   #
 #####################################################################################################################
