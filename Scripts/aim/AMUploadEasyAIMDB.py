@@ -91,6 +91,13 @@ def write_easyAIM_db(version, country=''):
             FName = formatCountryFName(ISO3_Alpha, version)
             with open(os.path.join(easyaim_json_path, FName), 'w') as f:
                 ujson.dump(countryData, f)
+            # Sample country copies Kenya
+            if ISO3_Alpha == 'KEN':
+                log('Writing Sample Country')
+                FName = formatCountryFName('SAMP', version)
+                with open(os.path.join(easyaim_json_path, FName), 'w') as f:
+                    ujson.dump(countryData, f)
+
 
 def upload_easyAIM_db(version):  
     uploadFilesInDir('aim', easyaim_json_path, version, pathMod = 'easyAIM/')
