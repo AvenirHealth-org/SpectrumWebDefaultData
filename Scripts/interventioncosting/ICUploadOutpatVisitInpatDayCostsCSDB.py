@@ -77,24 +77,20 @@ def create_outpat_visit_inpat_day_costs_CS_DB_IC(version = str):
 
         country_dict = {}
 
-        other_recurrent_costs = np.full((icc.IC_NUM_VISIT_TYPES, iccl.IC_IH_NUM_DEFAULT_DELIV_CHANS_COSTED), 0.0).tolist()
-        capital_costs = np.full((icc.IC_NUM_VISIT_TYPES, iccl.IC_IH_NUM_DEFAULT_DELIV_CHANS_COSTED), 0.0).tolist()
+        other_recurrent_costs = np.full((icc.IC_NUM_VISIT_TYPES, iccl.IC_IH_NUM_DEFAULT_DELIV_CHANS_COSTED_CS), 0.0).tolist()
+        capital_costs = np.full((icc.IC_NUM_VISIT_TYPES, iccl.IC_IH_NUM_DEFAULT_DELIV_CHANS_COSTED_CS), 0.0).tolist()
 
-        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_OUTREACH_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col - 1]
-        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_GEN_OUTPATIENT_SERV_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col]
-        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_FIRST_REFERRAL_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col + 1]
-        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_SEC_REFERRAL_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col + 2]
-        other_recurrent_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_GEN_OUTPATIENT_SERV_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col + 3]
-        other_recurrent_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_FIRST_REFERRAL_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col + 4]
-        other_recurrent_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_SEC_REFERRAL_CHAN_CURR_ID - 1] = row[other_recurrent_costs_col + 5]
+        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_OUTREACH_CHAN_CURR_ID_CS - 1] = row[other_recurrent_costs_col - 1]
+        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_CLINICAL_CURR_ID_CS - 1] = row[other_recurrent_costs_col]
+        other_recurrent_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_HOSPITAL_CHAN_CURR_ID_CS - 1] = row[other_recurrent_costs_col + 1]
+        other_recurrent_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_CLINICAL_CURR_ID_CS - 1] = row[other_recurrent_costs_col + 2]
+        other_recurrent_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_HOSPITAL_CHAN_CURR_ID_CS - 1] = row[other_recurrent_costs_col + 3]
 
-        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_OUTREACH_CHAN_CURR_ID - 1] = row[capital_costs_col - 1]
-        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_GEN_OUTPATIENT_SERV_CHAN_CURR_ID - 1] = row[capital_costs_col]
-        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_FIRST_REFERRAL_CHAN_CURR_ID - 1] = row[capital_costs_col + 1]
-        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_SEC_REFERRAL_CHAN_CURR_ID - 1] = row[capital_costs_col + 2]
-        capital_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_GEN_OUTPATIENT_SERV_CHAN_CURR_ID - 1] = row[capital_costs_col + 3]
-        capital_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_FIRST_REFERRAL_CHAN_CURR_ID - 1] = row[capital_costs_col + 4]
-        capital_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_SEC_REFERRAL_CHAN_CURR_ID - 1] = row[capital_costs_col + 5]
+        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_OUTREACH_CHAN_CURR_ID_CS - 1] = row[capital_costs_col - 1]
+        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_CLINICAL_CURR_ID_CS - 1] = row[capital_costs_col]
+        capital_costs[icc.IC_OUTPATIENT_VISIT_CURR_ID - 1][iccl.IC_IH_HOSPITAL_CHAN_CURR_ID_CS - 1] = row[capital_costs_col + 1]
+        capital_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_CLINICAL_CURR_ID_CS - 1] = row[capital_costs_col + 2]
+        capital_costs[icc.IC_INPATIENT_DAY_CURR_ID - 1][iccl.IC_IH_HOSPITAL_CHAN_CURR_ID_CS - 1] = row[capital_costs_col + 3]
 
         country_dict[icdbc.IC_ISO_ALPHA_3_COUNTRY_CODE_KEY_OVIDCCSDB] = row[iso_alpha_3_country_code_col - 1]
         country_dict[icdbc.IC_OTHER_RECURRENT_COSTS_KEY_OVIDCCSDB] = other_recurrent_costs
