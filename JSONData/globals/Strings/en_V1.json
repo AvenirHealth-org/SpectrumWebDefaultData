@@ -2823,5 +2823,7 @@
   "GB_stZidovudineAztTabletCapsule300Mg": "Zidovudine (AZT), tablet/capsule, 300 mg ",
   "GB_stZincFortificationSuppOnePersonAnnualSupply": "Zinc fortification supplies (one person, annual supply)",
   "GB_stZincOxideOintment10": "Zinc oxide ointment, 10%",
-  "GB_stZincTablet20Mg": "Zinc, tablet, 20 mg"
+  "GB_stZincTablet20Mg": "Zinc, tablet, 20 mg",
+  "GB_stUASuccess": "UA run successful",
+  "GB_stUANoSPU": "No SPU file found"
 }
