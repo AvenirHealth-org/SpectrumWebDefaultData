@@ -53,15 +53,26 @@ def create_PPLI_phase_DB_PC(version = str):
     row = 2
     first_data_row = row
 
+    curr_country_alpha_3 = ''
+
     # Get each row from the sheet and create a dictionary for each each country
     for row in islice(sheet.values, first_data_row - 1, num_rows):
 
-        country_dict = {}
-        country_dict[pcdbk.PC_ISO_ALPHA_3_COUNTRY_CODE_KEY_PPLIPDB] = row[iso_alpha_3_country_code_col - 1]
-        country_dict[pcdbk.PC_PHASE_INTENSITY_ROW_ID_KEY_PPLIPDB] = row[phase_intensity_row_ID_col - 1]
-        country_dict[pcdbk.PC_PHASE_ID_KEY_PPLIPDB] = row[phase_ID_col - 1]
+        row_country_alpha_3 = row[iso_alpha_3_country_code_col - 1]
 
-        country_list.append(country_dict)
+        # If we're on a new country, initialize a new country dict and add it to the country list
+        if curr_country_alpha_3 != row_country_alpha_3:
+            country_dict = {}
+            country_dict[pcdbk.PC_ISO_ALPHA_3_COUNTRY_CODE_KEY_PPLIPDB] = row[iso_alpha_3_country_code_col - 1]
+            country_dict[pcdbk.PC_PHASE_INTENSITY_RECORDS] = []
+            country_list.append(country_dict)
+            curr_country_alpha_3 = row_country_alpha_3
+
+        phase_intensity_rec = {
+            pcdbk.PC_PHASE_INTENSITY_ROW_ID_KEY_PPLIPDB : row[phase_intensity_row_ID_col - 1],
+            pcdbk.PC_PHASE_ID_KEY_PPLIPDB               : row[phase_ID_col - 1]
+        }
+        country_dict[pcdbk.PC_PHASE_INTENSITY_RECORDS].append(phase_intensity_rec)
 
     PC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + pcc.PC_PPLI_PHASES_DB_DIR
     os.makedirs(PC_JSON_data_path + '\\', exist_ok = True)
