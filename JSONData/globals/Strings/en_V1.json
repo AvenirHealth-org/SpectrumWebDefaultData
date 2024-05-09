@@ -2824,6 +2824,6 @@
   "GB_stZincFortificationSuppOnePersonAnnualSupply": "Zinc fortification supplies (one person, annual supply)",
   "GB_stZincOxideOintment10": "Zinc oxide ointment, 10%",
   "GB_stZincTablet20Mg": "Zinc, tablet, 20 mg",
-  "GB_stUASuccess": "UA run successful",
-  "GB_stUANoSPU": "No SPU file found"
+  "GB_stUASuccess": "Uncertainty Analysis was successful",
+  "GB_stUANoSPU": "Uncertainty analysis not run, no .SPU file"
 }
