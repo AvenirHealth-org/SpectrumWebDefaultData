@@ -176,6 +176,37 @@ def readDHSPrevalenceByAge(countries, sheet, sheetName):
         for subnatCode in localCountries[countryCode]:
             addDataByCountryCode(countryCode, countries, sheetName, localCountries[countryCode][subnatCode], subnatCode)
 
+def readAgeIncidencePriors(AMModDataGlobal, sheet, sheetName):
+    ColPriorSite = 0
+    ColPriorData = 3
+    NumAgeParam  = 6
+    
+    AMModDataGlobal[sheetName] = []
+
+    row = 1
+    while (row < len(sheet.values)):
+        if (sheet.values[row][ColPriorSite].strip() != ''):
+            site = sheet.values[row][ColPriorSite].strip()
+
+            InciMu = np.zeros(NumAgeParam)
+            for j in GBRange(0, NumAgeParam - 1):
+                InciMu[j] = sheet.values[row][ColPriorData + j]
+            row += 1
+            
+            InciCv = np.zeros((NumAgeParam, NumAgeParam))
+            for j in GBRange(0, NumAgeParam - 1):
+                for k in GBRange(0, NumAgeParam - 1):
+                    InciCv[j, k] = sheet.values[row][ColPriorData + k]
+                row += 1
+            AMModDataGlobal[sheetName].append(
+                {
+                    'site' : site,
+                    'InciMu' : InciMu.tolist(),
+                    'InciCv' : InciCv.tolist(),
+                }
+            )
+        else:
+            row += 1
 
 def getValuesNotByYear(countries, sheet, sheetName, headerRow = 0, startRow = 1):
     startCol = 4 
@@ -892,6 +923,8 @@ def write_aim_db(version, country=''):
             readARTmortalityTrends(AMModDataGlobal, sheet, sheetName)
         elif (sheetName == 'DHSPrevalenceByAge'):
             readDHSPrevalenceByAge(countries, sheet, sheetName)
+        elif (sheetName == 'AgeIncidencePriors'):
+            readAgeIncidencePriors(AMModDataGlobal, sheet, sheetName)
         elif (sheetName == '45q15WPP'):
             getValuesNotByYear(countries, sheet, sheetName)
         elif (sheetName == 'AgeRatioPatternsIncidence'):
@@ -952,10 +985,16 @@ def write_aim_db(version, country=''):
         if ISO3_Alpha != 'notFound':
             # for subnatCode in countries[countryCode]:                
             countryData = countries[countryCode]
-            log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + countries[countryCode]['subnatCode'])
+            log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + str(countries[countryCode]['subnatCode']))
             FName = formatCountryFName(ISO3_Alpha, version, countries[countryCode]['subnatCode'])
             with open(os.path.join(aim_json_country_path, FName), 'w') as f:
                 ujson.dump(countryData, f)
+            # Sample country copies Kenya
+            if ISO3_Alpha == 'KEN':
+                log('Writing Sample Country')
+                FName = formatCountryFName('SAMP', version)
+                with open(os.path.join(aim_json_country_path, FName), 'w') as f:
+                    ujson.dump(countryData, f)
 
 def upload_aim_db(version): 
     uploadFilesInDir('aim', aim_json_path, version) 
