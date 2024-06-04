@@ -2825,5 +2825,9 @@
   "GB_stZincOxideOintment10": "Zinc oxide ointment, 10%",
   "GB_stZincTablet20Mg": "Zinc, tablet, 20 mg",
   "GB_stUASuccess": "Uncertainty Analysis was successful",
-  "GB_stUANoSPU": "Uncertainty analysis not run, no .SPU file"
+  "GB_stUANoSPU": "Uncertainty analysis not run, no .SPU file",
+  "GB_stAgUANoUA": "Uncertainty analysis not run",
+  "GB_stAgUAYearMismatch": "UA Aggregate data capture year does not match first projection",
+  "GB_stAgUANumRunsMismatch": "UA number of iterations does not match first projection",
+  "GB_stBaseAgUANoUA": "Uncertainty analysis not run in first projection"
 }
