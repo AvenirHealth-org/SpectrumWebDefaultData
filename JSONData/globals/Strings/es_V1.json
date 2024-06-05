@@ -2816,5 +2816,7 @@
   "GB_stZidovudineAztTabletCapsule300Mg": "Zidovudina (AZT), comprimido/cápsula, 300 mg",
   "GB_stZincFortificationSuppOnePersonAnnualSupply": "Suministros de fortificación de zinc (una persona, suministro anual)",
   "GB_stZincOxideOintment10": "Ungüento de óxido de zinc, 10%",
-  "GB_stZincTablet20Mg": "Zinc, comprimido, 20 mg"
+  "GB_stZincTablet20Mg": "Zinc, comprimido, 20 mg",
+  "GB_stUASuccess": "El análisis de incertidumbre se ha realizado correctamente",
+  "GB_stUANoSPU": "Análisis de incertidumbre no ejecutado, no hay archivo .SPU"
 }
