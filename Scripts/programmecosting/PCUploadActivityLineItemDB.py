@@ -26,8 +26,8 @@ PC_COSTING_SUBSECT_ID   = '<Costing Subsection ID>'
 PC_COSTING_SUBSECT_NAME = '<Costing Subsection Name>' 
 PC_ACT_ID               = '<Activity ID>' 
 PC_ACT_NAME             = '<Activity Name>' 
-PC_ACT_LINE_ITEM_ID     = '<Activity Line Item ID>' 
-PC_ACT_LINE_ITEM_NAME   = '<Activity Line Item Name>' 
+PC_COST_INPUT_ID        = '<Cost Input ID>' 
+PC_COST_INPUT_NAME      = '<Cost Input Name>' 
 PC_NUM_UNITS            = '<Number of Units>' 
 PC_DURATION             = '<Duration>' 
 PC_FREQUENCY            = '<Frequency>' 
@@ -65,7 +65,7 @@ def create_activity_line_item_DB_PC(version = str):
     # cost_cat_section_name_col = gbc.GB_NOT_FOUND
     act_ID_col = gbc.GB_NOT_FOUND
     #act_name_col = gbc.GB_NOT_FOUND
-    act_line_item_ID_col = gbc.GB_NOT_FOUND
+    cost_input_ID_col = gbc.GB_NOT_FOUND
     frequency_col = gbc.GB_NOT_FOUND
     num_units_col = gbc.GB_NOT_FOUND
     duration_col = gbc.GB_NOT_FOUND
@@ -101,8 +101,8 @@ def create_activity_line_item_DB_PC(version = str):
         # elif tag == PC_ACT_NAME:
         #     act_name_col = c
 
-        elif tag == PC_ACT_LINE_ITEM_ID:
-            act_line_item_ID_col = c
+        elif tag == PC_COST_INPUT_ID:
+            cost_input_ID_col = c
 
         # elif tag == PC_ACT_INPUT_NAME:
         #     act_input_name_col = c
@@ -128,7 +128,7 @@ def create_activity_line_item_DB_PC(version = str):
         act_line_item_dict[pcdbk.PC_COSTING_SECT_ID_KEY_ALIDB] = str(row[costing_sect_ID_col - 1])
         act_line_item_dict[pcdbk.PC_COSTING_SUBSECT_ID_KEY_ALIDB] = str(row[costing_subsect_ID_col - 1])
         act_line_item_dict[pcdbk.PC_ACT_ID_KEY_ALIDB] = str(row[act_ID_col - 1])
-        act_line_item_dict[pcdbk.PC_ACT_LINE_ITEM_ID_KEY_ALIDB] = str(row[act_line_item_ID_col - 1])
+        act_line_item_dict[pcdbk.PC_COST_INPUT_ID_KEY_ALIDB] = str(row[cost_input_ID_col - 1])
         act_line_item_dict[pcdbk.PC_NUM_UNITS_KEY_ALIDB] = row[num_units_col - 1]
         act_line_item_dict[pcdbk.PC_DURATION_KEY_ALIDB] = row[duration_col - 1]
         act_line_item_dict[pcdbk.PC_FREQUENCY_KEY_ALIDB] = row[frequency_col - 1]
