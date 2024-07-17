@@ -19,7 +19,7 @@ import SpectrumCommon.Const.PC.PCDatabaseKeys as pcdbk
 PC_ISO_NUMERIC_COUNTRY_CODE = '<ISO Numeric Country Code>'  
 PC_ISO_ALPHA_3_COUNTRY_CODE = '<ISO Alpha-3 Country Code>'
 PC_COUNTRY_NAME             = '<Country Name>'
-PC_PRICE_ELASTICITY_PARAMS  = '<Price Elasticity Parameters'
+PC_PRICE_ELASTICITY_PARAMS  = '<Price Elasticity Parameters>'
 
 def create_PPLI_taxation_DB_PC(version = str):
 

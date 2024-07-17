@@ -100,7 +100,7 @@ def create_PPLI_phase_DB_PC(version = str):
         if curr_country_alpha_3 != row_country_alpha_3:
             country_dict = {}
             country_dict[pcdbk.PC_ISO_ALPHA_3_COUNTRY_CODE_KEY_PPLIPDB] = row[iso_alpha_3_country_code_col - 1]
-            country_dict[pcdbk.PC_PHASE_INTENSITY_RECORDS] = []
+            country_dict[pcdbk.PC_PHASE_INTENSITY_RECORDS_KEY_PPLIPDB] = []
             country_list.append(country_dict)
             curr_country_alpha_3 = row_country_alpha_3
 
@@ -111,7 +111,7 @@ def create_PPLI_phase_DB_PC(version = str):
             pcdbk.PC_COSTING_SUBSECT_ID_KEY_PPLIPDB     : row[costing_subsect_ID_col - 1],
             pcdbk.PC_PHASE_ID_KEY_PPLIPDB               : row[phase_ID_col - 1],
         }
-        country_dict[pcdbk.PC_PHASE_INTENSITY_RECORDS].append(phase_intensity_rec)
+        country_dict[pcdbk.PC_PHASE_INTENSITY_RECORDS_KEY_PPLIPDB].append(phase_intensity_rec)
 
     PC_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + pcc.PC_PPLI_PHASES_DB_DIR
     os.makedirs(PC_JSON_data_path + '\\', exist_ok = True)
