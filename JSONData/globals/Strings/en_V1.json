@@ -2823,5 +2823,14 @@
   "GB_stZidovudineAztTabletCapsule300Mg": "Zidovudine (AZT), tablet/capsule, 300 mg ",
   "GB_stZincFortificationSuppOnePersonAnnualSupply": "Zinc fortification supplies (one person, annual supply)",
   "GB_stZincOxideOintment10": "Zinc oxide ointment, 10%",
-  "GB_stZincTablet20Mg": "Zinc, tablet, 20 mg"
+  "GB_stZincTablet20Mg": "Zinc, tablet, 20 mg",
+  "GB_stUASuccess": "Uncertainty Analysis was successful",
+  "GB_stUANoSPU": "Uncertainty analysis not run, no .SPU file",
+  "GB_stAgUANoUA": "Uncertainty analysis not run",
+  "GB_stAgUAYearMismatch": "UA Aggregate data capture year does not match first projection",
+  "GB_stAgUANumRunsMismatch": "UA number of iterations does not match first projection",
+  "GB_stBaseAgUANoUA": "UA not run in first projection",
+  "GB_stAgDataCaptureYear": "UA Aggregate data capture year:",
+  "GB_stNumUAIterations": "Number of UA iterations:",
+  "GB_stUASettingsMatch": "UA settings match first projection"
 }

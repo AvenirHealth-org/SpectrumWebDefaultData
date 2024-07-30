@@ -488,8 +488,6 @@ def create_GNI_Per_Cap():
             
             for row in GBRange(dataFirstRow, dataFinalRow):
                 
-                name = getVal(sheet, row, 1)
-                
                 ISO3 = getVal(sheet, row, 0)
                 
                 ISO3_Alpha = -1
@@ -497,12 +495,12 @@ def create_GNI_Per_Cap():
                     if GBModData[i]['ISO3_Numeric'] == int(ISO3):
                         ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
                 
-                countries[name] = {'ISO3_Alpha' : ISO3_Alpha}
+                countries[ISO3_Alpha] = {'ISO3_Alpha' : ISO3_Alpha}
 
                 i = 0
                 for col in GBRange(dataStartCol, dataFinalCol):
                     years = getVal(sheet, 0, col)
-                    countries[name][years] = getVal(sheet, row, col)
+                    countries[ISO3_Alpha][years] = getVal(sheet, row, col)
                     i += 1         
 
             createCountryFiles(GNI_Per_Cap, countries)
