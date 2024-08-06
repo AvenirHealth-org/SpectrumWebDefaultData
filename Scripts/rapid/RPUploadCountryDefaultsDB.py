@@ -91,6 +91,15 @@ RP_DB_tag_columns = {
     rpdbc.RP_1_DEGREE_ON_ENERGY_DB_TAG              : gbc.GB_NOT_FOUND,
 }
 
+# List of all columns that can be strings. All others should be numbers
+RP_DB_string_type_tags = [
+    rpdbc.RP_ISO_ALPHA_3_COUNTRY_CODE_DB_TAG, 
+    rpdbc.RP_COUNTRY_NAME_DB_TAG, 
+    rpdbc.RP_CLASSIFICATION_DB_TAG,
+    rpdbc.RP_REGION_DB_TAG,
+    rpdbc.RP_DOMINANT_CROP_DB_TAG
+]
+
 def create_country_defaults_DB_RP(version = str):
 
     log('Creating RP country defaults DB')
@@ -127,7 +136,14 @@ def create_country_defaults_DB_RP(version = str):
                     # If a field was set up for the key (fields may not be set up for columns we don't care about), save the
                     # value from the column we're at to the appropriate key in the country dict.
                     if rpdbc.RP_DB_tag_fields[tag] != gbc.GB_NOT_FOUND:
-                        country_dict[rpdbc.RP_DB_tag_fields[tag]] = row[RP_DB_tag_columns[tag] - 1]
+                        value = row[RP_DB_tag_columns[tag] - 1]
+
+                        # If the tag is for a field with a non string-type value and the value is either a string or None, change it to 0
+                        if not (tag in RP_DB_string_type_tags):
+                            if isinstance(value, str) or (value == None):
+                                value = 0
+
+                        country_dict[rpdbc.RP_DB_tag_fields[tag]] = value
 
             country_list.append(country_dict)
 
