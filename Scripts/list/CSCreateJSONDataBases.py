@@ -682,7 +682,7 @@ def create_dataByCountry(mode):
     GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
 
     for sheetName in xlsx.sheet_names:
-        if sheetName not in ['DataByCountry_Countries', 'Regional_values', '5733']:
+        if sheetName not in ['DataByCountry_Countries', 'Regional_values']:
             sheet = xlsx.parse(sheetName, header=None)
 
             dataFirstRow = 7
