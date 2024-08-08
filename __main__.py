@@ -2,6 +2,7 @@ import DefaultData.Scripts.globals as globals
 import DefaultData.Scripts.aim as aim
 import DefaultData.Scripts.demproj as demproj
 import DefaultData.Scripts.famplan as famplan
+import DefaultData.Scripts.rapid as rapid
 import DefaultData.Scripts.tuberculosis as tuberculosis
 import DefaultData.Scripts.interventions as interventions
 import DefaultData.Scripts.interventioncosting as interventioncosting
@@ -15,6 +16,7 @@ import DefaultData.Scripts.budgetmapping as budgetmapping
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP.DPConst import *
 from SpectrumCommon.Const.FP import *
+from SpectrumCommon.Const.RP.RPConst import *
 from SpectrumCommon.Const.CS.CSConst import *
 from SpectrumCommon.Const.IV.IVConst import *
 from SpectrumCommon.Const.IC.ICConst import *
@@ -56,14 +58,17 @@ store_keys_in_env()
 # aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
 # ####### FamPlan #######
-# famplan.create_famplan_db('V7', FP_Interpolated) 
-# famplan.create_famplan_db('V5', FP_Uninterpolated)
-# famplan.upload_famplan_db('V7', FP_Interpolated) 
-# famplan.upload_famplan_db('V5', FP_Uninterpolated)
+# famplan.create_famplan_db('V8', FP_Interpolated) 
+# famplan.create_famplan_db('V6', FP_Uninterpolated)
+# famplan.upload_famplan_db('V8', FP_Interpolated) 
+# famplan.upload_famplan_db('V6', FP_Uninterpolated)
 # famplan.create_famplan_effectiveness('V2')
 # famplan.create_famplan_db('V5', FP_Interpolated) 
 # famplan.create_famplan_db('V3', FP_Uninterpolated)
 # famplan.create_famplan_effectiveness('V2')
+
+# rapid.create_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
+# rapid.upload_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
 
 ####### Tuberculosis #######
 # tuberculosis.create_TB_WHOCountryData('V3')
@@ -74,6 +79,8 @@ store_keys_in_env()
 
 # tuberculosis.create_TB_fort_outputs('V4')
 # tuberculosis.upload_tb_fort_outputs_db('V4')
+
+# tuberculosis.upload_TB_DyanmicalModelData('V1')
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
