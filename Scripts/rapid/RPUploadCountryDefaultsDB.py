@@ -81,6 +81,7 @@ RP_DB_tag_columns = {
     rpdbc.RP_LABOR_MALES_DB_TAG                     : gbc.GB_NOT_FOUND,
     rpdbc.RP_LABOR_FEMALES_DB_TAG                   : gbc.GB_NOT_FOUND,
     rpdbc.RP_LABOR_BOTH_DB_TAG                      : gbc.GB_NOT_FOUND,
+    rpdbc.RP_GDP_BOOST_PERC_CHANGE_CDR_DB_TAG       : gbc.GB_NOT_FOUND,
     rpdbc.RP_YOUTH_NEED_ALL_DB_TAG                  : gbc.GB_NOT_FOUND,
     rpdbc.RP_YOUTH_NEED_MALE_DB_TAG                 : gbc.GB_NOT_FOUND,
     rpdbc.RP_YOUTH_NEED_FEMALE_DB_TAG               : gbc.GB_NOT_FOUND,
