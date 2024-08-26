@@ -507,51 +507,6 @@ def create_GNI_Per_Cap():
             
 #####################################################################################################################
 #                                                                                                                   #
-#                                          Create Economic Indicators                                               #
-#                                                                                                                   #
-#####################################################################################################################
-
-def create_Economic_Indicators():
-    xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
-
-    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
-
-    for sheetName in xlsx.sheet_names:      
-        if sheetName in ['Economic indicators']:
-            sheet = xlsx.parse(sheetName, header=None)
-            
-            dataFirstRow = 1
-            dataFinalRow = len(sheet.values) - 1
-
-            dataStartCol = 3
-            dataFinalCol = len(sheet.values[2]) - 1
-            
-            countries = {}
-            
-            for row in GBRange(dataFirstRow, dataFinalRow):
-                
-                name = getVal(sheet, row, 1)
-                
-                ISO3 = getVal(sheet, row, 0)
-                
-                ISO3_Alpha = -1
-                for i in GBRange(0, len(GBModData)-1):
-                    if GBModData[i]['ISO3_Numeric'] == int(ISO3):
-                        ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
-                
-                countries[ISO3_Alpha] = {
-                    'ISO3_Alpha' : ISO3_Alpha,
-                    'GDP per capita' : getVal(sheet, row, 3),
-                    'GDP per worker' : getVal(sheet, row, 4),
-                    'Labor force participation rate (15-64)' : getVal(sheet, row, 5),
-                    'Female labor force participation rate (15-64)' : getVal(sheet, row, 6),
-                    'Percent of GDP allocated to wages' : getVal(sheet, row, 7),
-                }                      
-
-            createCountryFiles(Economic_Indicators, countries)
-            
-#####################################################################################################################
-#                                                                                                                   #
 #                                               Create Readiness                                                    #
 #                                                                                                                   #
 #####################################################################################################################
@@ -648,6 +603,74 @@ def create_CSection_Cov():
     
 #####################################################################################################################
 #                                                                                                                   #
+#                                     Create Diarrhea shigella distribution                                         #
+#                                                                                                                   #
+#####################################################################################################################
+
+def create_DiarrShigella():
+    xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
+
+    GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
+
+    for sheetName in xlsx.sheet_names:     
+        if sheetName in ['Diarrhea shigella distribution']:
+            sheet = xlsx.parse(sheetName, header=None)
+
+            dataFirstRow = 2
+            dataFinalRow = len(sheet.values) - 1
+                        
+            countries = {}
+            
+            dataStartCol = 3
+            dataFinalCol = len(sheet.values[2]) - 1
+            
+            for row in GBRange(dataFirstRow, dataFinalRow):                            
+
+                ISO3 = getVal(sheet, row, 0)
+            
+                ISO3_Alpha = -1
+                for i in GBRange(0, len(GBModData)-1):
+                    if GBModData[i]['ISO3_Numeric'] == int(ISO3):
+                        ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
+                
+                
+                if not(ISO3_Alpha in countries):
+                    countries[ISO3_Alpha] = {
+                        'ISO3_Alpha' : ISO3_Alpha
+                        }
+
+                tagRecords = []
+                
+                for col in GBRange(dataStartCol, dataFinalCol):
+                    cellVal = getVal(sheet, 0, col)
+                    if '<' in cellVal:
+                        tagRecords.append({"tag" : cellVal, "firstCol" : col})
+                        
+                finalTagIndex = len(tagRecords) - 1
+                for i in GBRange(0, finalTagIndex - 1):
+                    tagRecords[i]["finalCol"] = tagRecords[i + 1]["firstCol"] - 1      
+                tagRecords[finalTagIndex]["finalCol"] = dataFinalCol            
+
+                for tagRecord in tagRecords:
+                    
+                    tag = tagRecord["tag"]
+                    firstCol = tagRecord["firstCol"]  
+                    finalCol = tagRecord["finalCol"]             
+
+                    key1 = ''
+
+                    countries[ISO3_Alpha][tag] = {}
+                    
+                    for col in GBRange(firstCol, finalCol):
+                        value = getFloat(sheet, row, col)
+                        key1 = getVal(sheet, 1, col)
+                        countries[ISO3_Alpha][tag][key1] = value
+        
+            trimDict(countries)
+            createCountryFiles(DiarrShigella, countries) 
+    
+#####################################################################################################################
+#                                                                                                                   #
 #                                            DBC helper functions                                                   #
 #                                                                                                                   #
 #####################################################################################################################
@@ -682,7 +705,7 @@ def create_dataByCountry(mode):
     GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
 
     for sheetName in xlsx.sheet_names:
-        if sheetName not in ['DataByCountry_Countries', 'Regional_values', '5733']:
+        if sheetName not in ['DataByCountry_Countries', 'Regional_values']:
             sheet = xlsx.parse(sheetName, header=None)
 
             dataFirstRow = 7

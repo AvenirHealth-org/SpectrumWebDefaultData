@@ -29,6 +29,7 @@ def writeGBCountryListMaster(version):
             17: GB_MA,
             18: GB_SI,
             19: GB_GC,
+            20: GB_RP,
         }
         return cases[col]
 
@@ -53,22 +54,23 @@ def writeGBCountryListMaster(version):
                     'currencyName': getCell(row, 7),
                     'UPDFileName':  getCell(row, 8),
                     'EPPFileName':  getCell(row, 9),
-                    'modsWithDefaultData': [MapDefaultColToModID(c) for c in range(10, 20) if getCell(row, c) == 1]+[GB_GB, GB_DP],
+                    'modsWithDefaultData': [MapDefaultColToModID(c) for c in range(10, 21) if getCell(row, c) == 1]+[GB_GB, GB_DP],
                     'sources': {
-                        'DPSource': getCell(row, 20),
-                        'AMSource': getCell(row, 21),
-                        'FPSource': getCell(row, 22),
-                        'CSSource': getCell(row, 23),
-                        'HVSource': getCell(row, 24),
-                        'RNSource': getCell(row, 25),
-                        'TBSource': getCell(row, 26),
-                        'NCSource': getCell(row, 27),
-                        'MASource': getCell(row, 28),
-                        'SISource': getCell(row, 29),
-                        'GCSource': getCell(row, 30),
+                        'DPSource': getCell(row, 21),
+                        'AMSource': getCell(row, 22),
+                        'FPSource': getCell(row, 23),
+                        'CSSource': getCell(row, 24),
+                        'HVSource': getCell(row, 25),
+                        'RNSource': getCell(row, 26),
+                        'TBSource': getCell(row, 27),
+                        'NCSource': getCell(row, 28),
+                        'MASource': getCell(row, 29),
+                        'SISource': getCell(row, 30),
+                        'GCSource': getCell(row, 31),
+                        'RPSource': getCell(row, 32),
                     },
-                    'NCRegionCode': getCell(row, 31),
-                    'equityTool':   getCell(row, 32)
+                    'NCRegionCode': getCell(row, 33),
+                    'equityTool':   getCell(row, 34)
             })
         else:
             if (countries[-1]['ISO3_Alpha'] == getCell(row, 2)):
