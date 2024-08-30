@@ -58,15 +58,11 @@ store_keys_in_env()
 # aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
 # ####### FamPlan #######
-# famplan.create_famplan_db('V8', FP_Interpolated) 
-# famplan.create_famplan_db('V6', FP_Uninterpolated)
-# famplan.upload_famplan_db('V8', FP_Interpolated) 
-# famplan.upload_famplan_db('V6', FP_Uninterpolated)
-# famplan.create_famplan_effectiveness('V2')
-# famplan.create_famplan_db('V5', FP_Interpolated) 
-# famplan.create_famplan_db('V3', FP_Uninterpolated)
-# famplan.create_famplan_effectiveness('V2')
+# for mode in [FP_All, FP_MAR, FP_MARUMSA, FP_AllUninterpolated, FP_MARUninterpolated, FP_MARUMSAUninterpolated]:
+#     famplan.create_famplan_db(FP_DB_Version[mode], mode) 
+#     famplan.upload_famplan_db(FP_DB_Version[mode], mode)
 
+####### Rapid #######
 # rapid.create_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
 # rapid.upload_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
 # rapid.create_contraceptive_use_DBs_RP(RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION, RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION)
