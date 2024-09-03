@@ -47,26 +47,25 @@ def write_CSAVR_db(version, country=''):
                 rowData[fitType] = {}
             rowData[fitType][param] = data
 
-        addDataByCountryCode(countryCode, countries, rowData, subnatCode)
+        addDataByCountryCode(countryCode, countries, 'CSAVRParameters', rowData, subnatCode)
 
     log('Writing global data')
     FName = formatCountryFName('Global', version)
     os.makedirs(CSAVR_json_path, exist_ok=True)
     with open(os.path.join(CSAVR_json_path, FName), 'w') as f:
-        ujson.dump(countries[0][0], f)
+        ujson.dump(countries['0']['CSAVRParameters'], f)
 
     os.makedirs(CSAVR_json_country_path, exist_ok=True)
     for countryCode in countries:
-        ISO3_Alpha = get_country_ISO3Alpha(countryCode)
+        ISO3_Alpha = get_country_ISO3Alpha(int(countryCode))
 
         if ISO3_Alpha != 'notFound':
-            for subnatCode in countries[countryCode]:
-                country = countries[countryCode][subnatCode]
+            country = countries[countryCode]['CSAVRParameters']
 
-                log('Writing ' + get_country_details(ISO3_Alpha)['name'] + ' ' + str(subnatCode))
-                FName = formatCountryFName(ISO3_Alpha, version, subnatCode)
-                with open(os.path.join(CSAVR_json_country_path, FName), 'w') as f:
-                    ujson.dump(country, f)
+            log('Writing ' + get_country_details(ISO3_Alpha)['name'])
+            FName = formatCountryFName(ISO3_Alpha, version)
+            with open(os.path.join(CSAVR_json_country_path, FName), 'w') as f:
+                ujson.dump(country, f)
             
 def upload_CSAVR_db(version): 
     uploadFilesInDir('aim', CSAVR_json_path, version, pathMod = 'CSAVR/') 

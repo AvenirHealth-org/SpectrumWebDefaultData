@@ -109,8 +109,22 @@ def create_famplan_db(version, mode, country=''):
     for r in range(0, sheet.shape[0]):
         country_iso = sheet.iat[r, 0]
         country_name = sheet.iat[r, 2]
-        note = str(sheet.iat[r, 3])
-        proxy_note = str(sheet.iat[r, 4])
+        
+        if mode in [FP_MAR, FP_MARUninterpolated]:
+            noteCol = 3
+            proxyCol = 6
+        
+        if mode in [FP_MARUMSA, FP_MARUMSAUninterpolated]:
+            noteCol = 4
+            proxyCol = 7
+        
+        if mode in [FP_All, FP_AllUninterpolated]:
+            noteCol = 5
+            proxyCol = 8
+        
+        note = str(sheet.iat[r, noteCol])
+        proxy_note = str(sheet.iat[r, proxyCol])
+        
         source = ''
         if note!='nan':
             source += note+' '
@@ -121,9 +135,7 @@ def create_famplan_db(version, mode, country=''):
             countries[country_iso]['mainDataSources'] = source        
 
     #age data, Uninterpolated data is for Explore LiST 
-    sheetName = 'Age Data' if mode == FP_Interpolated else 'Age Data (Uninterpolated)'
-    
-    sheet = fp_xlsx.parse(sheetName)
+    sheet = fp_xlsx.parse(FP_DB_SheetName[mode])
     for r in range(0, sheet.shape[0]):
         country_iso = sheet.iat[r, 0]
         country_name = sheet.iat[r, 2]
@@ -145,11 +157,11 @@ def create_famplan_db(version, mode, country=''):
         for c in range(5, sheet.shape[1]):
             value = sheet.iat[r, c]
             if str(value).upper()==GB_Nan:           
-                value = 0 if mode == FP_Interpolated else -1
+                value = 0 if mode in [FP_All, FP_MAR, FP_MARUMSA] else -1
             age_array.append(value)
         countries[country_iso][key].append(age_array)
         
-    dir = FP_InterpDir if mode == FP_Interpolated else FP_Uninterp
+    dir = FP_DB_Dir[mode] + '/' + FP_DB_SubDir[mode]
 
     famplan_json_path  = default_path +'\\JSONData\\famplan\\'
     for country_iso in countries:    
@@ -166,7 +178,8 @@ def upload_famplan_db(version, mode):
     connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     countries = []
     
-    dir = FP_InterpDir if mode == FP_Interpolated else FP_Uninterp
+    dir = FP_DB_Dir[mode] + '/' + FP_DB_SubDir[mode]
+
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+f'\\JSONData\\famplan\\{dir}\\'
     for subdir, dirs, files in os.walk(json_path):
