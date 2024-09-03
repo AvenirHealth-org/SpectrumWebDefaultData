@@ -13,7 +13,7 @@ import SpectrumCommon.Const.GB as gbc
 import SpectrumCommon.Const.RP.RPConst as rpc
 import SpectrumCommon.Const.RP.RPDatabaseConst as rpdbc 
 
-def create_contraceptive_use_DBs_RP(med_version = str, acc_version = str):
+def create_contraceptive_use_DBs_RP():
 
     log('Creating RP contraceptive use DBs')
 
@@ -22,12 +22,12 @@ def create_contraceptive_use_DBs_RP(med_version = str, acc_version = str):
         if DB_type == rpdbc.RP_MEDIAN_DB:
             DB_name = rpc.RP_CONTRACEPTIVE_USE_MED_DB_NAME
             DB_dir = rpc.RP_CONTRACEPTIVE_USE_MED_DB_DIR
-            DB_version = med_version
+            DB_version = rpc.RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION
 
         else:
             DB_name = rpc.RP_CONTRACEPTIVE_USE_ACC_DB_NAME
             DB_dir = rpc.RP_CONTRACEPTIVE_USE_ACC_DB_DIR
-            DB_version = acc_version
+            DB_version = rpc.RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION
 
         country_list = []
         wb = load_workbook(ddu.get_source_data_path(gbc.GB_RP) + '\RPModData.xlsx')
@@ -68,12 +68,12 @@ def create_contraceptive_use_DBs_RP(med_version = str, acc_version = str):
 
     log('Finished RP contraceptive use DBs')
 
-def upload_contraceptive_use_DBs_RP(med_version = str, acc_version = str):
+def upload_contraceptive_use_DBs_RP():
     walk_path = ddu.get_JSON_data_path(gbc.GB_RP) + '\\' + rpc.RP_CONTRACEPTIVE_USE_MED_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_RP_CONTAINER, walk_path, med_version, rpc.RP_CONTRACEPTIVE_USE_MED_DB_DIR + '\\')
+    ddu.uploadFilesInDir(gbc.GB_RP_CONTAINER, walk_path, rpc.RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION, rpc.RP_CONTRACEPTIVE_USE_MED_DB_DIR + '\\')
 
     walk_path = ddu.get_JSON_data_path(gbc.GB_RP) + '\\' + rpc.RP_CONTRACEPTIVE_USE_ACC_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_RP_CONTAINER, walk_path, acc_version, rpc.RP_CONTRACEPTIVE_USE_ACC_DB_DIR + '\\')
+    ddu.uploadFilesInDir(gbc.GB_RP_CONTAINER, walk_path, rpc.RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION, rpc.RP_CONTRACEPTIVE_USE_ACC_DB_DIR + '\\')
 
     log('Uploaded RP contraceptive use DBs')
             

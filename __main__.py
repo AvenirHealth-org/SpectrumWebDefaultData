@@ -67,8 +67,10 @@ store_keys_in_env()
 # rapid.upload_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
 # rapid.create_country_defaults_sources_DB_RP(RP_COUNTRY_DEFAULTS_SOURCES_DB_CURR_VERSION)
 # rapid.upload_country_defaults_sources_DB_RP(RP_COUNTRY_DEFAULTS_SOURCES_DB_CURR_VERSION)
-# rapid.create_contraceptive_use_DBs_RP(RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION, RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION)
-# rapid.upload_contraceptive_use_DBs_RP(RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION, RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION)
+# rapid.create_contraceptive_use_DBs_RP()
+# rapid.upload_contraceptive_use_DBs_RP()
+# rapid.create_SSP_temperature_DBs_RP()
+# rapid.upload_SSP_temperature_DBs_RP()
 
 ####### Tuberculosis #######
 # tuberculosis.create_TB_WHOCountryData('V3')
