@@ -14,22 +14,13 @@ import SpectrumCommon.Const.GB as gbc
 import SpectrumCommon.Const.RP.RPConst as rpc
 import SpectrumCommon.Const.RP.RPDatabaseConst as rpdbc 
 
-# List of all columns that can be strings. All others should be numbers
-RP_DB_string_type_tags = [
-    rpdbc.RP_ISO_ALPHA_3_COUNTRY_CODE_TAG_CDDB, 
-    rpdbc.RP_COUNTRY_NAME_TAG_CDDB, 
-    rpdbc.RP_CLASSIFICATION_TAG_CDDB,
-    rpdbc.RP_REGION_TAG_CDDB,
-    rpdbc.RP_DOMINANT_CROP_TAG_CDDB
-]
+def create_country_defaults_sources_DB_RP(version = str):
 
-def create_country_defaults_DB_RP(version = str):
-
-    log('Creating RP country defaults DB')
+    log('Creating RP country defaults sources DB')
 
     country_list = []
     wb = load_workbook(ddu.get_source_data_path(gbc.GB_RP) + '\RPModData.xlsx')
-    sheet = wb[rpc.RP_COUNTRY_DEFAULTS_DB_NAME]
+    sheet = wb[rpc.RP_COUNTRY_DEFAULTS_SOURCES_DB_NAME]
     
     tag_row = 1
     first_data_row = 2
@@ -62,17 +53,11 @@ def create_country_defaults_DB_RP(version = str):
                     # value from the column we're at to the appropriate key in the country dict.
                     if rpdbc.RP_tag_fields_CDDB[tag] != gbc.GB_NOT_FOUND:
                         value = row[DB_tag_columns[tag] - 1]
-
-                        # If the tag is for a field with a non string-type value and the value is either a string or None, change it to 0
-                        if not (tag in RP_DB_string_type_tags):
-                            if isinstance(value, str) or (value == None):
-                                value = 0
-
                         country_dict[rpdbc.RP_tag_fields_CDDB[tag]] = value
 
             country_list.append(country_dict)
 
-    RP_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_RP) + '\\' + rpc.RP_COUNTRY_DEFAULTS_DB_DIR
+    RP_JSON_data_path = ddu.get_JSON_data_path(gbc.GB_RP) + '\\' + rpc.RP_COUNTRY_DEFAULTS_SOURCES_DB_DIR
     os.makedirs(RP_JSON_data_path + '\\', exist_ok = True)
     
     for country_obj in country_list:    
@@ -80,10 +65,10 @@ def create_country_defaults_DB_RP(version = str):
         with open(RP_JSON_data_path + '\\' + iso3 + '_' + version + '.' + gbc.GB_JSON, 'w') as f:
             ujson.dump(country_obj, f)
 
-    log('Finished RP country defaults DB')
+    log('Finished RP country defaults sources DB')
 
-def upload_country_defaults_DB_RP(version):
-    walk_path = ddu.get_JSON_data_path(gbc.GB_RP) + '\\' + rpc.RP_COUNTRY_DEFAULTS_DB_DIR + '\\'
-    ddu.uploadFilesInDir(gbc.GB_RP_CONTAINER, walk_path, version, rpc.RP_COUNTRY_DEFAULTS_DB_DIR + '\\')
-    log('Uploaded RP country defaults DB')
+def upload_country_defaults_sources_DB_RP(version):
+    walk_path = ddu.get_JSON_data_path(gbc.GB_RP) + '\\' + rpc.RP_COUNTRY_DEFAULTS_SOURCES_DB_DIR + '\\'
+    ddu.uploadFilesInDir(gbc.GB_RP_CONTAINER, walk_path, version, rpc.RP_COUNTRY_DEFAULTS_SOURCES_DB_DIR + '\\')
+    log('Uploaded RP country defaults sources DB')
             

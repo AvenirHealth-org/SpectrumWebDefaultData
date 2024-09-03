@@ -69,6 +69,8 @@ store_keys_in_env()
 
 # rapid.create_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
 # rapid.upload_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
+# rapid.create_country_defaults_sources_DB_RP(RP_COUNTRY_DEFAULTS_SOURCES_DB_CURR_VERSION)
+# rapid.upload_country_defaults_sources_DB_RP(RP_COUNTRY_DEFAULTS_SOURCES_DB_CURR_VERSION)
 # rapid.create_contraceptive_use_DBs_RP(RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION, RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION)
 # rapid.upload_contraceptive_use_DBs_RP(RP_CONTRACEPTIVE_USE_MED_DB_CURR_VERSION, RP_CONTRACEPTIVE_USE_ACC_DB_CURR_VERSION)
 
