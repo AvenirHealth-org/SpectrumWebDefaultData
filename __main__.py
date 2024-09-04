@@ -71,6 +71,8 @@ store_keys_in_env()
 # rapid.upload_contraceptive_use_DBs_RP()
 # rapid.create_SSP_temperature_DBs_RP()
 # rapid.upload_SSP_temperature_DBs_RP()
+# rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
+# rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
 ####### Tuberculosis #######
 # tuberculosis.create_TB_WHOCountryData('V3')
