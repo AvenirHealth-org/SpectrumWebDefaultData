@@ -130,7 +130,7 @@ def upload_TB_DyanmicalModelData(version):
         # for file in ('IND_V3.JSON'):
             FQName = os.path.join(subdir, file)
             if version in FQName:
-                logging.debug(FQName)
+                print(FQName)
                 GB_upload_file(connection, 'tuberculosis', 'dynamicalmodel\\countries\\'+file, FQName)
         
     logging.debug('Uploaded TB who db json')
