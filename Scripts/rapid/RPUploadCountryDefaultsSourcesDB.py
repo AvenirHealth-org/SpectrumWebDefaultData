@@ -53,6 +53,10 @@ def create_country_defaults_sources_DB_RP(version = str):
                     # value from the column we're at to the appropriate key in the country dict.
                     if rpdbc.RP_tag_fields_CDDB[tag] != gbc.GB_NOT_FOUND:
                         value = row[DB_tag_columns[tag] - 1]
+
+                        # Change blank values (None) to strings
+                        if value == None:
+                            value = ''
                         country_dict[rpdbc.RP_tag_fields_CDDB[tag]] = value
 
             country_list.append(country_dict)
