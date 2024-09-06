@@ -17,9 +17,9 @@ def create_TB_fort_input(version):
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
 
     failed_countries = []
-    # for country_cell in xlsx['Countries']['C']:
-        # iso3=country_cell.value
-    for iso3 in  ('KEN', ):
+    for country_cell in xlsx['Countries']['C']:
+        iso3=country_cell.value
+    # for iso3 in  ('BGD', ):
         if iso3=='iso3':
             continue
         try:
@@ -97,25 +97,29 @@ def create_TB_fort_input(version):
             fort_input["hRi"]  = [1]*num_years
             fort_input["oRt"]  = [1]*num_years    
             
-            who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V3.JSON')    
+            # who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V4.JSON')    
             
-            #Scale up fort notifications to match Noti_Distribution WHO notifications
-            noti_scale  = who_db['Noti_Distribution']['c_notification']/fort_input["nHat"][2022-2000]
-            fort_input["nHat"] = (np.array(fort_input["nHat"])*noti_scale).tolist()   
+            # #Scale up fort notifications to match Noti_Distribution WHO notifications
+            # noti_scale  = who_db['Noti_Distribution']['c_notification']/fort_input["nHat"][2022-2000]
+            # fort_input["nHat"] = (np.array(fort_input["nHat"])*noti_scale).tolist()   
 
-            PropHIVp         = who_db['Noti_Distribution']['newrel_hivpos_perc']
-            PropHIVn         = 1 - PropHIVp
-            PropHIVponART    = who_db['Noti_Distribution']['newrel_art_perc']
+            # PropHIVp         = who_db['Noti_Distribution']['newrel_hivpos_perc']
+            # PropHIVn         = 1 - PropHIVp
+            # PropHIVponART    = who_db['Noti_Distribution']['newrel_art_perc']
 
-            PropHIVpNoART    = PropHIVp * (1- PropHIVponART)
-            PropHIVponART6m  = PropHIVp * 0.1 * PropHIVponART
-            PropHIVponART12m = PropHIVp * 0.9 * PropHIVponART
-            # check that     PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m=1
-            if (PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m)!=1:
-                print(f'PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m!=1 {iso3}')
-                failed_countries.append(iso3)
-            TXf  = PropHIVn*(3/100)+PropHIVpNoART*(9/100)+PropHIVponART6m*(6/100)+PropHIVponART12m*(4/100)
-            fort_input["tXf"] = [TXf]*num_years
+            # PropHIVpNoART    = PropHIVp * (1- PropHIVponART)
+            # PropHIVponART6m  = PropHIVp * 0.1 * PropHIVponART
+            # PropHIVponART12m = PropHIVp * 0.9 * PropHIVponART
+            # # check that     PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m=1
+            # if (PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m)!=1:
+            #     print(f'PropHIVn+PropHIVpNoART+PropHIVponART6m+PropHIVponART12m!=1 {iso3}')
+            #     failed_countries.append(iso3)
+            # TXf  = PropHIVn*(3/100)+PropHIVpNoART*(9/100)+PropHIVponART6m*(6/100)+PropHIVponART12m*(4/100)
+            sheet = xlsx['Noti_Distribution']
+            for row in range(1, sheet.max_row+1):
+                if  iso3==sheet[f'C{row}'].value:
+                    TXf = sheet[f'BQ{row}'].value
+                    fort_input["tXf"] = [TXf]*num_years
             # check value for Ethiopia for which TXf ~ 0.035. Check value for Eswatini should closer to the HIV values
 
             for yr in GBRange(fort_input["year"][-1]+1, 2050):
@@ -140,9 +144,9 @@ def upload_tb_fort_inputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        # for file in files:
-        for iso3 in  ('SAMP',):
-            file = iso3+'_'+version+'.JSON'
+        for file in files:
+        # for iso3 in  ('BGD',):
+            # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file) 
             if version in FQName:
                 log(FQName)

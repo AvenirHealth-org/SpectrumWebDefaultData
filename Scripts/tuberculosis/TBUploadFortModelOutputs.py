@@ -20,19 +20,23 @@ def create_TB_fort_outputs(version):
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
     failed_countries = []
     after_stp =True
-    for country_cell in xlsx['Countries']['C']:
-        iso3=country_cell.value
-    # for iso3 in ('KEN', ):
+    # for country_cell in xlsx['Countries']['C']:
+    # for country_cell in xlsx['Noti_Distribution']['C']:
+    #     tXf = xlsx['Noti_Distribution'][f'BQ{country_cell.row}'].value
+    #     iso3=country_cell.value
+    for iso3 in ('GAB', ):
+    #     tXf = 0.0298
+    #     tXp = 0.2450
         # if iso3 == 'STP':
         #     after_stp = True 
         #     continue
         if after_stp:
             try:
-                if iso3=='iso3':
+                if ((iso3=='iso3') or (iso3==None)):
                     continue
                 print(iso3)
                 # pages = ['TB_burden_countries']
-                fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V3.JSON') 
+                fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V5.JSON') 
                 # who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V3.JSON') 
                 # fort_inputs["tXf"]  = [0.035]*num_years
 
@@ -41,8 +45,12 @@ def create_TB_fort_outputs(version):
                 # with open('BRB_FORT_INPUTS.JSON', "w+") as fp:
                     # ujson.dump(fort_inputs, fp)
                 fort_inputs['modelType'] = 'IPn2'
+                # fort_inputs['tXf'] = [tXf]*len(fort_inputs['tXf'])
+                # fort_inputs['tXp'] = [tXp]*len(fort_inputs['tXf'])
                 # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
                 response = post('http://localhost:8080/projection', json=fort_inputs)
+                if response.status_code==500:
+                    failed_countries.append({"iso":iso3, "tXf":fort_inputs['tXf']})    
                 fort_IP_outputs = response.json()
                 # fort_inputs['modelType'] = 'failsafe
                 # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)

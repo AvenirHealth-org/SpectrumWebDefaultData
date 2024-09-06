@@ -75,14 +75,14 @@ store_keys_in_env()
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
 ####### Tuberculosis #######
-# tuberculosis.create_TB_WHOCountryData('V3')
-# tuberculosis.upload_TB_WHOCountryData('V3')
+# tuberculosis.create_TB_WHOCountryData('V4')
+# tuberculosis.upload_TB_WHOCountryData('V4')
 
-# tuberculosis.create_TB_fort_input('V3')
-# tuberculosis.upload_tb_fort_inputs_db('V3')
+# tuberculosis.create_TB_fort_input('V5')
+# tuberculosis.upload_tb_fort_inputs_db('V5')
 
-# tuberculosis.create_TB_fort_outputs('V4')
-# tuberculosis.upload_tb_fort_outputs_db('V4')
+tuberculosis.create_TB_fort_outputs('V5')
+# tuberculosis.upload_tb_fort_outputs_db('V5')
 
 # tuberculosis.upload_TB_DyanmicalModelData('V1')
 
