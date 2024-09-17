@@ -81,7 +81,7 @@ store_keys_in_env()
 # tuberculosis.create_TB_fort_input('V5')
 # tuberculosis.upload_tb_fort_inputs_db('V5')
 
-tuberculosis.create_TB_fort_outputs('V5')
+# tuberculosis.create_TB_fort_outputs('V5')
 # tuberculosis.upload_tb_fort_outputs_db('V5')
 
 # tuberculosis.upload_TB_DyanmicalModelData('V1')
