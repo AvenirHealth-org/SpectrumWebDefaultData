@@ -152,8 +152,8 @@ store_keys_in_env()
 # list.uploadDatabaseFiles(SubnatMetaData)
 # list.uploadDatabaseFiles(MissOpData)
 
-humanresources.create_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
-humanresources.upload_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
+# humanresources.create_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
+# humanresources.upload_staff_salaries_DB_HW(HW_STAFF_SALARIES_DB_CURR_VERSION)
 
 # infrastructure.create_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
 # infrastructure.upload_facility_equipment_and_group_DBs_IS(IS_FACILITY_EQUIP_DB_CURR_VERSION)
