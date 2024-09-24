@@ -10,6 +10,8 @@ from SpectrumCommon.Const.AM import *
 from SpectrumCommon.Modvars.GB.GBDefs import createProjectionParams
 from SpectrumCommon.Modvars.GB.GBCreateProjection import *
 from DefaultData.DefaultDataUtil import *
+from Calc.DP.Transfer_DLL.x64.Release.SWCalcTransfer import DemProj
+from Calc.CS.Transfer_DLL.x64.Release.SWCalcTransfer import LiSTCalc
 
 initialConditions_json_path = os.getcwd() + '\\DefaultData\\JSONData\\demproj\\initialConditions'
 
@@ -44,6 +46,8 @@ def write_DP_population_db(version):
         projection[DP_InitialConditionsTempTransportTag] = {}
 
         projection['timings']  = {}
+        projection['dp_dll']  = DemProj()
+        projection['cs_dll']  = LiSTCalc()
         GBCalculate(projection)
 
         pop1 = projection[DP_InitialConditionsTempTransportTag]['pop1']
