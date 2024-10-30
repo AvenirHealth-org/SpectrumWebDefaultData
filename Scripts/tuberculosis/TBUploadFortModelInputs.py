@@ -13,13 +13,13 @@ from AvenirCommon.Util import GBRange
 
 def create_TB_fort_input(version):    
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2023.xlsx'
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
 
     failed_countries = []
     for country_cell in xlsx['Countries']['C']:
         iso3=country_cell.value
-    # for iso3 in  ('BGD', ):
+    # for iso3 in ('MDG', 'SSD'):
         if iso3=='iso3':
             continue
         try:
@@ -36,7 +36,7 @@ def create_TB_fort_input(version):
                 "pHat": [],
                 "sEp" : []
             }
-            sheet = xlsx['TB_burden_countries_2022']
+            sheet = xlsx['TB_burden_countries_2023']
             for row in range(1, sheet.max_row+1):
                 row_str = str(row)
                 if  iso3==sheet['C'+row_str].value:
@@ -65,20 +65,23 @@ def create_TB_fort_input(version):
                     fort_input["sEp" ].append(0.0305) # 3.05%
 
 
-            sheet = xlsx['TB_notifications_2022']
+            sheet = xlsx['TB_notifications_2023']
             for row in range(1, sheet.max_row+1):
                 row_str = str(row)
                 if  iso3==sheet['C'+row_str].value:
                     year = sheet['F'+row_str].value
                     if year>= fort_input["year"][0]:
-                        c_newinc = sheet['X'+row_str].value
-                        ret_nrel = sheet['U'+row_str].value
+                        # notif = sheet['AB'+row_str].value
+                        # ret_nrel = sheet['Z'+row_str].value
+                        # c_newinc = sheet['X'+row_str].value
                         
                         # error checking
-                        c_newinc = c_newinc if c_newinc!=None else 0 
-                        ret_nrel = ret_nrel if ret_nrel!=None else 0 
+                        # c_newinc = c_newinc if c_newinc!=None else 0 
+                        # ret_nrel = ret_nrel if ret_nrel!=None else 0 
                         
-                        noti = c_newinc+ret_nrel 
+                        noti =  sheet['AB'+row_str].value 
+                        if not noti: 
+                            noti = 0
                         noti_hi = (1+0.15)*noti
                         noti_lo = (1-0.15)*noti 
                         sEn = (noti_hi-noti_lo)/3.92
@@ -100,7 +103,7 @@ def create_TB_fort_input(version):
             # who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V4.JSON')    
             
             # #Scale up fort notifications to match Noti_Distribution WHO notifications
-            # noti_scale  = who_db['Noti_Distribution']['c_notification']/fort_input["nHat"][2022-2000]
+            # noti_scale  = who_db['Noti_Distribution']['c_notification']/fort_input["nHat"][2023-2000]
             # fort_input["nHat"] = (np.array(fort_input["nHat"])*noti_scale).tolist()   
 
             # PropHIVp         = who_db['Noti_Distribution']['newrel_hivpos_perc']
@@ -145,7 +148,7 @@ def upload_tb_fort_inputs_db(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
-        # for iso3 in  ('BGD',):
+        # for iso3 in ('DOM', 'SSD'):
             # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file) 
             if version in FQName:

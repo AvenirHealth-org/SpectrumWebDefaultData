@@ -43,7 +43,7 @@ def create_TB_DyanmicalModelData(version):
         indicators[sheet_name][field_name] = {'firstYear': first_year, 'finalYear':final_year}
     pass
         # iso3=country_cell.value
-    for iso3 in ('IND', 'ZMB', 'ZWE'):
+    for iso3 in ('XAF', ):
         if (iso3=='iso3'):# or (iso3=='GRL'):
             continue
         logging.debug(iso3)
@@ -127,7 +127,7 @@ def upload_TB_DyanmicalModelData(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\dynamicalmodel\\countries\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
-        # for file in ('IND_V3.JSON'):
+        # for file in ('NGA_V1.JSON'):
             FQName = os.path.join(subdir, file)
             if version in FQName:
                 print(FQName)

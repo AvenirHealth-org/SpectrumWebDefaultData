@@ -27,8 +27,12 @@ from SpectrumCommon.Const.PC.PCConst import *
 from SpectrumCommon.Const.BG.BGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
-
 store_keys_in_env()
+from AvenirCommon.Logger import initialise_logger
+initialise_logger(
+    program="DefaultData",
+    env="development"
+)
 
 # globals.create_disability_json('V1')
 # globals.upload_disability_json('V1')
@@ -75,15 +79,16 @@ store_keys_in_env()
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
 ####### Tuberculosis #######
-# tuberculosis.create_TB_WHOCountryData('V4')
-# tuberculosis.upload_TB_WHOCountryData('V4')
+# tuberculosis.create_TB_WHOCountryData('V5')
+# tuberculosis.upload_TB_WHOCountryData('V5')
 
-# tuberculosis.create_TB_fort_input('V5')
-# tuberculosis.upload_tb_fort_inputs_db('V5')
+# tuberculosis.create_TB_fort_input('V6')
+# tuberculosis.upload_tb_fort_inputs_db('V6')
 
-# tuberculosis.create_TB_fort_outputs('V5')
-# tuberculosis.upload_tb_fort_outputs_db('V5')
+# tuberculosis.create_TB_fort_outputs('V6')
+# tuberculosis.upload_tb_fort_outputs_db('V6')
 
+# tuberculosis.create_TB_DyanmicalModelData('V1')
 # tuberculosis.upload_TB_DyanmicalModelData('V1')
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)

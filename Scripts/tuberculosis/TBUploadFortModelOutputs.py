@@ -16,15 +16,23 @@ from SpectrumCommon.Const.GB import GB_Nan
 def create_TB_fort_outputs(version):
     
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2023.xlsx'
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
     failed_countries = []
     after_stp =True
     # for country_cell in xlsx['Countries']['C']:
     # for country_cell in xlsx['Noti_Distribution']['C']:
-    #     tXf = xlsx['Noti_Distribution'][f'BQ{country_cell.row}'].value
-    #     iso3=country_cell.value
-    for iso3 in ('GAB', ):
+    #     # # tXf = xlsx['Noti_Distribution'][f'BQ{country_cell.row}'].value
+        # iso3=country_cell.value
+
+    for iso3 in ('SSD', ):
+                # ('CAF',
+                # 'SDN',
+                # 'TCD',
+                # 'CPV',
+                # 'MDG',
+                # 'GAB',
+                # 'BRB'):
     #     tXf = 0.0298
     #     tXp = 0.2450
         # if iso3 == 'STP':
@@ -36,7 +44,7 @@ def create_TB_fort_outputs(version):
                     continue
                 print(iso3)
                 # pages = ['TB_burden_countries']
-                fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V5.JSON') 
+                fort_inputs = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'fort/inputs/'+iso3+'_V6.JSON') 
                 # who_db  = GB_get_db_json(os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION'], 'tuberculosis', 'countries/'+iso3+'_V3.JSON') 
                 # fort_inputs["tXf"]  = [0.035]*num_years
 
@@ -51,6 +59,8 @@ def create_TB_fort_outputs(version):
                 response = post('http://localhost:8080/projection', json=fort_inputs)
                 if response.status_code==500:
                     failed_countries.append({"iso":iso3, "tXf":fort_inputs['tXf']})    
+                    with open(default_path+'\\JSONData\\tuberculosis\\fortinputs\\failed\\'+iso3+'_'+version+'.JSON', 'w') as f:
+                        ujson.dump(fort_inputs, f)
                 fort_IP_outputs = response.json()
                 # fort_inputs['modelType'] = 'failsafe
                 # response = post('https://tbbetastatisticalserver.azurewebsites.net/projection', json=fort_inputs)
@@ -99,7 +109,7 @@ def upload_tb_fort_outputs_db(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\fortoutputs\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
-        # for iso3 in  ('SAMP',):
+        # for iso3 in ('DOM', 'SSD'):
             # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:

@@ -18,7 +18,7 @@ def create_TB_WHOCountryData(version):
     # TB_Path = os.getcwd()+'\\Tools\DefaultDataManager\\TB\\'
     
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2022.xlsx'
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2023.xlsx'
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
     
     # profile = cProfile.Profile()
@@ -26,9 +26,9 @@ def create_TB_WHOCountryData(version):
     countries = []
     for country_cell in xlsx['Countries']['C']:
         countries.append(country_cell.value)
-    # countries = ('BGD',)#('IND', 'ZMB', 'ZWE', 'WLF')
+    # countries = ('ZWE', 'DOM', 'SSD')
     for iso3 in countries: #81 GRL 137 ANT 174 SCG 197 TKL
-        if (iso3=='iso3') or (iso3=='GRL'):
+        if (iso3=='iso3'):# or (iso3=='GRL'):
             continue
         print(iso3)
         try:
@@ -250,27 +250,27 @@ def create_TB_WHOCountryData(version):
                         col_names[col_name] = var_name
 
                     col_letters = {}
-                    for col in xlsx[page_name+'_2022'].columns:
+                    for col in xlsx[page_name+'_2023'].columns:
                         name = col[0]._value
                         if name in col_names:
                             col_letters[col[0]._value] = col[0].column_letter
                         
-                    for row in range(1, xlsx[page_name+'_2022'].max_row+1):
+                    for row in range(1, xlsx[page_name+'_2023'].max_row+1):
                         row_str = str(row)
 
-                        if  iso3==xlsx[page_name+'_2022']['C'+row_str].value:
+                        if  iso3==xlsx[page_name+'_2023']['C'+row_str].value:
                             for col_name in col_names:
                                 letter = col_letters[col_name]
-                                val = xlsx[page_name+'_2022'][letter+row_str].value
+                                val = xlsx[page_name+'_2023'][letter+row_str].value
                                 if not (col_name in country[sector_name]):
                                     country[sector_name][col_name] = [val]
                                 else:
                                     country[sector_name][col_name].append(val)    
-                            #log(xlsx[page_name+'_2022']['F'+row_str].value)
-                            if  iso3!=xlsx[page_name+'_2022']['C'+str(row+1)].value:
+                            #log(xlsx[page_name+'_2023']['F'+row_str].value)
+                            if  iso3!=xlsx[page_name+'_2023']['C'+str(row+1)].value:
                                 break
 
-                    country[sector_name]['startYear'] = xlsx[page_name+'_2022']['F2'].value 
+                    country[sector_name]['startYear'] = xlsx[page_name+'_2023']['F2'].value 
 
 
                 pass
@@ -304,7 +304,7 @@ def upload_TB_WHOCountryData(version):
     json_path= default_path+'\\JSONData\\tuberculosis\\countries\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
-        # for iso3 in  ('BGD',):
+        # for iso3 in ('ZWE', 'DOM', 'SSD'):
             # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:
