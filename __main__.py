@@ -27,6 +27,13 @@ from SpectrumCommon.Const.PC.PCConst import *
 from SpectrumCommon.Const.BG.BGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
+from AvenirCommon.Logger import initialise_logger
+
+initialise_logger(
+    program="DefaultData",
+    env="development"
+)
+
 store_keys_in_env()
 from AvenirCommon.Logger import initialise_logger
 initialise_logger(

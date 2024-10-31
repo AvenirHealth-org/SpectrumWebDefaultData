@@ -26,7 +26,7 @@ def create_TB_WHOCountryData(version):
     countries = []
     for country_cell in xlsx['Countries']['C']:
         countries.append(country_cell.value)
-    # countries = ('ZWE', 'DOM', 'SSD')
+    countries = ('KEN', 'TKM', 'WSM', 'DJI', 'LVA')
     for iso3 in countries: #81 GRL 137 ANT 174 SCG 197 TKL
         if (iso3=='iso3'):# or (iso3=='GRL'):
             continue
