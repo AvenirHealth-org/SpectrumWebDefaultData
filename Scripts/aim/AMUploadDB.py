@@ -928,9 +928,9 @@ def readMeningitis(countries, sheet, sheetName):
             localCountries[countryCode] = {}
 
         if not subnatCode in localCountries[countryCode]:
-            localCountries[countryCode][subnatCode] = []
+            localCountries[countryCode][subnatCode] = values
             
-        localCountries[countryCode][subnatCode].append(values)
+        # localCountries[countryCode][subnatCode].append(values)
 
     for countryCode in localCountries:
         for subnatCode in localCountries[countryCode]:

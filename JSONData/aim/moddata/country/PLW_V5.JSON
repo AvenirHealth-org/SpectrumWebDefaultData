@@ -1,1 +1,1 @@
-{"countryCode":585,"subnatCode":0,"PercPregAccessAntenatalCare":{"value":90.3,"year":"2010"},"SexualActivity15-19":{"SexAct_F_15_19":16.4,"Source":"AP average"},"Meningitis":[{"CrAGPlus":0.046,"EconCat":"High income","InCare":0.2,"NotInCare":0.3}]}
+{"countryCode":585,"subnatCode":0,"PercPregAccessAntenatalCare":{"value":90.3,"year":"2010"},"SexualActivity15-19":{"SexAct_F_15_19":16.4,"Source":"AP average"},"Meningitis":{"CrAGPlus":0.046,"EconCat":"High income","InCare":0.2,"NotInCare":0.3}}
