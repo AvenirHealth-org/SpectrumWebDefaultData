@@ -546,6 +546,27 @@ def readMortalityWithARTByRegion(AMModDataGlobal, sheet, sheetName):
     AMModDataGlobal['AdultMortByCD4WithART7to12'] = MortByCD4WithART7to12.tolist()
     AMModDataGlobal['AdultMortByCD4WithARTGT12'] = MortByCD4WithARTGT12.tolist()
 
+def readNonAIDSExcessMortality(AMModDataGlobal, sheet, sheetName):
+    
+    values = np.zeros((DP_MaxNumRegions, DP_OnART + 1, GB_Female + 1, DP_CD4_45_54 + 1, DP_CD4_LT50 + 1))
+
+    for region in DP_GlobalRegions:
+        row = getTagRow(sheet, region)
+        if not (row == GB_Nan):
+            row += 3
+
+            for art in GBRange(DP_NoTreat, DP_OnART):
+                row += 1
+                for c in GBRange(DP_CD4_GT500, DP_CD4_LT50):
+                    col = 1
+                    for a in GBRange(DP_CD4_15_24, DP_CD4_45_54):
+                        values[DP_GlobalRegions[region], art, GB_Male, a, c] = sheet.values[row][col]
+                        values[DP_GlobalRegions[region], art, GB_Female, a, c] = sheet.values[row][col + 4]
+                        col += 1
+                    row += 1
+        
+    AMModDataGlobal[sheetName] = values.tolist()
+
 def readARTmortalityTrends(AMModDataGlobal, sheet, sheetName): 
     startCol = 2
     endCol = len(sheet.values[0]) - 1
@@ -888,7 +909,37 @@ def readARTCoverageSurveys(countries, sheet, sheetName):
     for countryCode in localCountries:
         for subnatCode in localCountries[countryCode]:
             addDataByCountryCode(countryCode, countries, sheetName, localCountries[countryCode][subnatCode], subnatCode)
-    
+
+def readMeningitis(countries, sheet, sheetName):
+    localCountries = {}
+
+    for row in GBRange(2, len(sheet.values) - 1):
+        countryCode = sheet.values[row, 0]
+        subnatCode = sheet.values[row, 2]
+        values = {}
+        values['CrAGPlus'] = float(sheet.values[row, 4])
+        values['EconCat'] = sheet.values[row, 5]
+        for eCatRow in GBRange(2,5):
+            if sheet.values[eCatRow, 9] == values['EconCat']:
+                values['InCare'] = sheet.values[eCatRow, 10]
+                values['NotInCare'] = sheet.values[eCatRow, 11]
+
+        if not (countryCode in localCountries):
+            localCountries[countryCode] = {}
+
+        if not subnatCode in localCountries[countryCode]:
+            localCountries[countryCode][subnatCode] = values
+            
+        # localCountries[countryCode][subnatCode].append(values)
+
+    for countryCode in localCountries:
+        for subnatCode in localCountries[countryCode]:
+            addDataByCountryCode(countryCode, countries, sheetName, localCountries[countryCode][subnatCode], subnatCode)
+
+
+
+
+
 
 def write_aim_db(version, country=''):
     FQName = os.getcwd() + '/DefaultData/SourceData/aim/AMModData.xlsx'
@@ -919,6 +970,8 @@ def write_aim_db(version, country=''):
             readMortalityNoARTByRegion(AMModDataGlobal, sheet, sheetName)
         elif (sheetName == 'MortalityWithARTByRegion'):
             readMortalityWithARTByRegion(AMModDataGlobal, sheet, sheetName)
+        elif (sheetName == 'NonAIDSExcessMortality'):
+            readNonAIDSExcessMortality(AMModDataGlobal, sheet, sheetName)
         elif (sheetName == 'ARTmortalityTrends'):
             readARTmortalityTrends(AMModDataGlobal, sheet, sheetName)
         elif (sheetName == 'DHSPrevalenceByAge'):
@@ -967,6 +1020,9 @@ def write_aim_db(version, country=''):
             readChildARTMortalityTrends(AMModDataGlobal, sheet, sheetName)
         elif (sheetName == 'ARTCoverageSurveys'):
             readARTCoverageSurveys(countries, sheet, sheetName)
+        elif (sheetName == 'Meningitis'):
+            readMeningitis(countries, sheet, sheetName)
+            
 
     # log('Uploading global data')
     # AMModDataGlobal_json = ujson.dumps(AMModDataGlobal)
