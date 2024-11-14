@@ -173,11 +173,11 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
     sheet = wb[ivc.IV_INTERVENTION_DB_NAME]
     
     '''
-        IMPORTANT: The max intervention master ID is 658. 
+        IMPORTANT: The max intervention master ID is 671. 
         
         New interventions must have a master ID greater than this. Please update this maximum if you add a new intervention.
 
-        Last updated by Jared on 10/24/2024.  Added new intervention Case management of malaria treatment for LiST.
+        Last updated by Jared on 11/13/2024.  Added new interventions for LiST.
     '''
 
     # first row of intervention data after col descriptions and col tags
