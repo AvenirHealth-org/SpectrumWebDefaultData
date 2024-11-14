@@ -151,7 +151,7 @@ def create_activity_line_item_DB_PC(version : str = pcc.PC_ACTIVITY_LINE_ITEM_DB
         
     log('Finished PC activity line item DB')
 
-def upload_activity_line_item_DB_PC(version):
+def upload_activity_line_item_DB_PC(version : str = pcc.PC_ACTIVITY_LINE_ITEM_DB_CURR_VERSION):
     JSON_file_name = pcc.PC_ACTIVITY_LINE_ITEM_DB_NAME + '_' + version + '.' + gbc.GB_JSON
     GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_PC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + JSON_file_name)
     log('Uploaded PC activity line item DB') 
