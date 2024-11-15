@@ -27,12 +27,17 @@ PC_UNIT_OF_MEASURE_STR_CONST = '<Unit of Measure String Constant>'
 PC_NOTE                      = '<Note>' 
 PC_SOURCE                    = '<Source>'
 
-def create_cost_input_DB_PC(version = str):
+# To create a new database for testing, pass 'Testing' as the version. To use, set the database version to 'Testing'. Don't forget to change it back later! 
+def create_cost_input_DB_PC(version : str = pcc.PC_COST_INPUT_DB_CURR_VERSION):
     log('Creating PC cost input DB')
 
     cost_input_list = []
     wb = load_workbook(ddu.get_source_data_path(gbc.GB_PC) + '\PCModData.xlsx')
-    sheet = wb[pcc.PC_COST_INPUT_DB_NAME]
+    sheet = None
+    if version == 'Testing':
+        sheet = wb[pcc.PC_COST_INPUT_DB_NAME + 'Testing']
+    else:
+        sheet = wb[pcc.PC_COST_INPUT_DB_NAME]
     
     '''
         IMPORTANT: Max cost category master ID: xxx
@@ -123,7 +128,7 @@ def create_cost_input_DB_PC(version = str):
 
     log('Finished PC cost input DB')
 
-def upload_cost_input_DB_PC(version):
+def upload_cost_input_DB_PC(version : str = pcc.PC_ACTIVITY_LINE_ITEM_DB_CURR_VERSION):
     JSON_file_name = pcc.PC_COST_INPUT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
     GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_PC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + JSON_file_name)
     log('Uploaded PC cost input DB')

@@ -47,6 +47,10 @@ def trimDict(data, ignoreKeySet = []):
 #                                                                                                                   #
 #####################################################################################################################
 
+def cellIsBlank(sheet, row, col):
+    cell_value = sheet.iloc[row, col]
+    return (pd.isnull(cell_value)) or (cell_value == "")
+
 def getVal_IfInBounds(sheet, row, col):
     val = ''
     if row < len(sheet.values):
@@ -1014,14 +1018,16 @@ def processSubnatData(GBModData, countries, regions, FName, key):
             for col in GBRange(dataStartCol, dataFinalCol): 
                 mstID =  getVal(sheet, 2, col)
 
-                if not (mstID in countries[ISO3_Alpha][level][year][source]):
-                    countries[ISO3_Alpha][level][year][source][mstID] = {'name' : getVal(sheet, 3, col)}
+                if not cellIsBlank(sheet, row, col):
+                
+                    if not (mstID in countries[ISO3_Alpha][level][year][source]):
+                        countries[ISO3_Alpha][level][year][source][mstID] = {'name' : getVal(sheet, 3, col)}
+                
+                    if key == 'flag':
+                        countries[ISO3_Alpha][level][year][source][mstID][key] = getVal(sheet, row, col)
             
-                if key == 'flag':
-                    countries[ISO3_Alpha][level][year][source][mstID][key] = getVal(sheet, row, col)
-        
-                if key == 'value':
-                    countries[ISO3_Alpha][level][year][source][mstID][key] = getFloat(sheet, row, col)        
+                    if key == 'value':
+                        countries[ISO3_Alpha][level][year][source][mstID][key] = getFloat(sheet, row, col)    
 
             # Region stuff
 
