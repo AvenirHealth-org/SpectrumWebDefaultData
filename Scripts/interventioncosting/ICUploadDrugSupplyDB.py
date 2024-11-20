@@ -46,7 +46,7 @@ def create_drug_supply_DB_IC(version = str):
     sheet = wb[icc.IC_DRUG_SUPPLY_DB_NAME]
     
     '''
-        IMPORTANT: Max drug/supply master ID: 1190
+        IMPORTANT: Max drug/supply master ID: 1208
 
         New drugs and supplies must have a master ID greater than this. Please update this maximum if you add a new one.
 
