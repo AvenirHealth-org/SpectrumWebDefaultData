@@ -26,6 +26,7 @@ def isValueByYearSheet(sheetName):
         'HIV_15_ART',
         'HIV_50',
         'HIV_50_ART',
+        'AHDViralSuppr'
     ]
     
 def getValuesByYear(countries, sheet, sheetName, startRow = 1):
