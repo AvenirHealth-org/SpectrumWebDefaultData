@@ -734,6 +734,8 @@ def create_dataByCountry(mode):
 
             tagRecords = []
             
+            tagRecords.append({"tag" : TG_DataSource, "firstCol" : dataStartCol-1, "finalCol" : dataStartCol-1})
+            
             for col in GBRange(dataStartCol, dataFinalCol):
                 cellVal = getVal(sheet, 0, col)
                 if '<' in cellVal:
@@ -750,88 +752,91 @@ def create_dataByCountry(mode):
                 firstCol = tagRecord["firstCol"]  
                 finalCol = tagRecord["finalCol"]             
                     
-                key1Row = 2
-                key2Row = 3
+                if tag == TG_DataSource:
+                    data = getVal(sheet, dataFirstRow-1, firstCol)
+                else:
+                    key1Row = 2
+                    key2Row = 3
 
-                if tag in [TG_DeathsByCause, 
-                           TG_AdolDeathByCause,
-                           TG_MatDeathByCause, 
-                           TG_SBCauses, 
-                           TG_Coverage, 
-                           TG_ImpactBirthOutcomesOnMort, 
-                           TG_HerdEff]:                        
-                    key1Row = 1
-                    key2Row = 2
+                    if tag in [TG_DeathsByCause, 
+                            TG_AdolDeathByCause,
+                            TG_MatDeathByCause, 
+                            TG_SBCauses, 
+                            TG_Coverage, 
+                            TG_ImpactBirthOutcomesOnMort, 
+                            TG_HerdEff]:                        
+                        key1Row = 1
+                        key2Row = 2
 
-                data = {}  
-                sources = {}
+                    data = {}  
+                    sources = {}
 
-                key1 = ''
-                key2 = ''
+                    key1 = ''
+                    key2 = ''
 
-                for col in GBRange(firstCol, finalCol):
-                    
-                    values = np.zeros(dataFinalRow - dataFirstRow + 1)        
-                
-                    i = 0
-                    nonZeroValueFound = False
-                    for row in GBRange(dataFirstRow, dataFinalRow):
-                        value = getFloat(sheet, row, col)
-                        values[i] = value
-                        if not float(value) == 0.0:
-                            nonZeroValueFound = True
-                        i += 1
-                    
-                    values = values.tolist()
-                    if not nonZeroValueFound:
-                        values = CS_TG_Zeros
-                    
-                    key1 = get_DBC_Key(sheet, key1Row, col, key1)
-                    
-                    if not key1 == '':                        
-                        key2 = get_DBC_Key(sheet, key2Row, col)  
-
-                        if not(key1 in data):
-                            data[key1] = {}
-                            
-                            if tag in [TG_NutritionalDeficiencies]:
-                                data[key1] = {'mstID' : getVal(sheet, 5, col)}                                      
-                            
-                            if tag in [TG_DeathsByCause, 
-                                       TG_MatDeathByCause, 
-                                       TG_SBCauses, 
-                                       TG_Coverage, 
-                                       TG_HerdEff]:
-                                data[key1] = {'mstID' : getVal(sheet, 3, col)}                                      
+                    for col in GBRange(firstCol, finalCol):
                         
-                        if not key2 == '':
-                            if not(key2 in data[key1]):
-                                data[key1][key2] = values
-                                if tag in [TG_AdolDeathByCause, TG_ImpactBirthOutcomesOnMort]:
-                                    data[key1][key2] = {
-                                        'mstID' : getVal(sheet, 3, col),
-                                        'values' : values
-                                    }
+                        values = np.zeros(dataFinalRow - dataFirstRow + 1)        
+                    
+                        i = 0
+                        nonZeroValueFound = False
+                        for row in GBRange(dataFirstRow, dataFinalRow):
+                            value = getFloat(sheet, row, col)
+                            values[i] = value
+                            if not float(value) == 0.0:
+                                nonZeroValueFound = True
+                            i += 1
+                        
+                        values = values.tolist()
+                        if not nonZeroValueFound:
+                            values = CS_TG_Zeros
+                        
+                        key1 = get_DBC_Key(sheet, key1Row, col, key1)
+                        
+                        if not key1 == '':                        
+                            key2 = get_DBC_Key(sheet, key2Row, col)  
 
-                        else:
-                            if 'mstID' in data[key1]:
-                                data[key1]['values'] = values
+                            if not(key1 in data):
+                                data[key1] = {}
+                                
+                                if tag in [TG_NutritionalDeficiencies]:
+                                    data[key1] = {'mstID' : getVal(sheet, 5, col)}                                      
+                                
+                                if tag in [TG_DeathsByCause, 
+                                        TG_MatDeathByCause, 
+                                        TG_SBCauses, 
+                                        TG_Coverage, 
+                                        TG_HerdEff]:
+                                    data[key1] = {'mstID' : getVal(sheet, 3, col)}                                      
+                            
+                            if not key2 == '':
+                                if not(key2 in data[key1]):
+                                    data[key1][key2] = values
+                                    if tag in [TG_AdolDeathByCause, TG_ImpactBirthOutcomesOnMort]:
+                                        data[key1][key2] = {
+                                            'mstID' : getVal(sheet, 3, col),
+                                            'values' : values
+                                        }
+
                             else:
-                                data[key1] = values
-                    
-                    else:
-                        data = values                     
-                    
-                    ID = getVal(sheet, 5, col)
-                    source = getVal(sheet, 6, col)
+                                if 'mstID' in data[key1]:
+                                    data[key1]['values'] = values
+                                else:
+                                    data[key1] = values
+                        
+                        else:
+                            data = values                     
+                        
+                        ID = getVal(sheet, 5, col)
+                        source = getVal(sheet, 6, col)
 
-                    if not (ID == '') and not (source == '') and not (ID in sources):
-                        sources[ID] = source                         
-                
-                if not sources == {}:                        
-                    if type(data) in [str, list]:
-                        data = {'values' : data}
-                    data['sources'] = sources
+                        if not (ID == '') and not (source == '') and not (ID in sources):
+                            sources[ID] = source                         
+                    
+                    if not sources == {}:                        
+                        if type(data) in [str, list]:
+                            data = {'values' : data}
+                        data['sources'] = sources
 
                 if not(name in countries):
                     countries[name] = {
