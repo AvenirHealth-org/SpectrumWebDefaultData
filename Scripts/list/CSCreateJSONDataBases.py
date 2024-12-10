@@ -1409,4 +1409,8 @@ def create_MissOpData():
                     "isBirthOutcomeIV" : isBirthOutcomeIV
                 })
 
+    if 'KEN' in countries:
+        countries['SAMP'] = deepcopy(countries['KEN'])            
+        countries['SAMP']['ISO3_Alpha'] = 'SAMP'
+
     createCountryFiles(MissOpData, countries)
