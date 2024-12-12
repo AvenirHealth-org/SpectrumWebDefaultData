@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import ujson
 import time
+import math
 
 from copy import deepcopy
 
@@ -24,21 +25,24 @@ JSONData_DIR = os.getcwd() + '\DefaultData\JSONData\list'
 #                                                                                                                   #
 #####################################################################################################################
 
-def trimDict(data, ignoreKeySet = []):  
+def trimDict(data, ignoreKeySet=[]):
     popSet = []
-    for key in data:
-        if type (data[key]) == dict:
-            trimDict(data[key], ignoreKeySet)
-        
-        copy = deepcopy(data[key])
-        if type (copy) == dict:
+
+    for key, value in data.items():
+        if isinstance(value, dict):
+            trimDict(value, ignoreKeySet)
+
+        # Create a shallow copy of the value to modify safely
+        copy = deepcopy(value) if isinstance(value, dict) else value
+        if isinstance(copy, dict):
             for ignoreKey in ignoreKeySet:
-                if ignoreKey in copy:
-                    copy.pop(ignoreKey)
-        
-        if (copy in [{}, '']):
+                copy.pop(ignoreKey, None)  # Efficiently remove keys if they exist
+
+        # Check if the copy is empty or a blank string
+        if copy in ({}, ''):
             popSet.append(key)
 
+    # Remove all keys marked for deletion
     for key in popSet:
         data.pop(key)
 
@@ -1021,116 +1025,90 @@ def create_regionalValues():
 #                                                                                                                   #
 #####################################################################################################################
 
-def processSubnatData(GBModData, countries, regions, FName, key):
-    xlsx = pd.ExcelFile(SourceData_DIR + '\Subnational/' + FName + '.xlsx')
+def processSubnatData(GBModData, countries, regions, FName, key, call, totalCalls):
+    xlsx = pd.ExcelFile(SourceData_DIR + '\\Subnational/' + FName + '.xlsx')
 
-    for sheetName in xlsx.sheet_names:     
+    totalSheets = len(xlsx.sheet_names)
+    for sheetIdx, sheetName in enumerate(xlsx.sheet_names, start=1):
+        # Calculate progress and log
+        sheetProgress = math.floor(((call - 1) / totalCalls + (sheetIdx / totalSheets) / totalCalls) * 100)
+        log(f"Processing subnat data part {call} of {totalCalls}, sheet {sheetIdx}/{totalSheets}: ({sheetProgress}%)")
+        
         sheet = xlsx.parse(sheetName, header=None)
 
         dataFirstRow = 4
-        dataFinalRow = len(sheet.values) - 1
+        dataFinalRow = len(sheet) - 1
 
         dataStartCol = 6
-        dataFinalCol = len(sheet.values[2]) - 1
-                    
-        for row in GBRange(dataFirstRow, dataFinalRow):                            
+        dataFinalCol = len(sheet.iloc[2]) - 1
 
+        totalRows = dataFinalRow - dataFirstRow + 1
+        for idx, row in enumerate(range(dataFirstRow, dataFinalRow + 1), start=1):
             ISO3 = getVal(sheet, row, 0)
             level = getVal(sheet, row, 5)
             year = getVal(sheet, row, 3)
             source = getVal(sheet, row, 4)
-            
-            ISO3_Alpha = -1
-            for i in GBRange(0, len(GBModData)-1):
-                if GBModData[i]['ISO3_Numeric'] == int(ISO3):
-                    ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
-            
-            # Country stuff            
-            
-            if not(ISO3_Alpha in countries):
-                countries[ISO3_Alpha] = {'ISO3_Alpha' : ISO3_Alpha}
-            
-            if not (level in countries[ISO3_Alpha]):
-                countries[ISO3_Alpha][level] = {}
 
-            if not (year in countries[ISO3_Alpha][level]):
-                countries[ISO3_Alpha][level][year] = {}
+            # Find ISO3_Alpha
+            ISO3_Alpha = next((item['ISO3_Alpha'] for item in GBModData if item['ISO3_Numeric'] == int(ISO3)), -1)
 
-            if not (source in countries[ISO3_Alpha][level][year]):
-                countries[ISO3_Alpha][level][year][source] = {}            
-            
-            for col in GBRange(dataStartCol, dataFinalCol): 
-                mstID =  getVal(sheet, 2, col)
+            # Country processing
+            country_data = countries.setdefault(ISO3_Alpha, {'ISO3_Alpha': ISO3_Alpha})
+            level_data = country_data.setdefault(level, {})
+            year_data = level_data.setdefault(year, {})
+            source_data = year_data.setdefault(source, {})
 
+            for col in range(dataStartCol, dataFinalCol + 1):
+                mstID = getVal(sheet, 2, col)
                 if not cellIsBlank(sheet, row, col):
-                
-                    if not (mstID in countries[ISO3_Alpha][level][year][source]):
-                        countries[ISO3_Alpha][level][year][source][mstID] = {'name' : getVal(sheet, 3, col)}
-                
-                    if key == 'flag':
-                        countries[ISO3_Alpha][level][year][source][mstID][key] = getVal(sheet, row, col)
-            
-                    if key == 'value':
-                        countries[ISO3_Alpha][level][year][source][mstID][key] = getFloat(sheet, row, col)    
+                    mst_data = source_data.setdefault(mstID, {'name': getVal(sheet, 3, col)})
+                    
+                    if key in ['flag', 'value']:
+                        value = (getVal(sheet, row, col) if key == 'flag' else getFloat(sheet, row, col))
+                        mst_data[key] = value
 
-            # Region stuff
+            # Region processing
+            region_data = regions.setdefault(ISO3_Alpha, [])
+            region_entry = next((r for r in region_data if r['region'] == level), None)
 
-            if not(ISO3_Alpha in regions):
-                regions[ISO3_Alpha] = []           
-            
-            foundLevel = False
-            for l in GBRange(0, len(regions[ISO3_Alpha])-1):
-                record = regions[ISO3_Alpha][l]
-                if level == record['region']:
-                    foundLevel = True
-                                
-            if not foundLevel:
-                regions[ISO3_Alpha].append({'region' : level, 'surveys' : []})
-                        
-            for l in GBRange(0, len(regions[ISO3_Alpha])-1):
-                record = regions[ISO3_Alpha][l]
-                if level == record['region']:
-                    foundSurvey = False
-                    for s in GBRange(0, len(record['surveys'])-1):
-                        survey = record['surveys'][s]
-                        if source == survey['source'] and year == survey['year']:
-                            foundSurvey = True
-            
-                    if not foundSurvey:
-                        record['surveys'].append({'source' : source, 'year' : year})
-            
-def processPercPop(GBModData, countries, FName):
-    xlsx = pd.ExcelFile(SourceData_DIR + '\Subnational/' + FName + '.xlsx')
+            if not region_entry:
+                region_entry = {'region': level, 'surveys': []}
+                region_data.append(region_entry)
 
-    for sheetName in xlsx.sheet_names:     
+            survey_entry = next((s for s in region_entry['surveys'] if s['source'] == source and s['year'] == year), None)
+
+            if not survey_entry:
+                region_entry['surveys'].append({'source': source, 'year': year})
+
+def processPercPop(GBModData, countries, FName, call, totalCalls):
+    xlsx = pd.ExcelFile(SourceData_DIR + '\\Subnational/' + FName + '.xlsx')
+
+    totalSheets = len(xlsx.sheet_names)
+    for sheetIdx, sheetName in enumerate(xlsx.sheet_names, start=1):
+        # Calculate progress and log
+        sheetProgress = math.floor(((call - 1) / totalCalls + (sheetIdx / totalSheets) / totalCalls) * 100)
+        log(f"Processing subnat data part {call} of {totalCalls}, sheet {sheetIdx}/{totalSheets}: ({sheetProgress}%)")
+
         sheet = xlsx.parse(sheetName, header=None)
 
         dataFirstRow = 4
-        dataFinalRow = len(sheet.values) - 1
+        dataFinalRow = len(sheet) - 1
 
-        for row in GBRange(dataFirstRow, dataFinalRow):                            
-
+        totalRows = dataFinalRow - dataFirstRow + 1
+        for idx, row in enumerate(range(dataFirstRow, dataFinalRow + 1), start=1):
             ISO3 = getVal(sheet, row, 0)
             level = getVal(sheet, row, 5)
             year = getVal(sheet, row, 3)
-            
-            ISO3_Alpha = -1
-            for i in GBRange(0, len(GBModData)-1):
-                if GBModData[i]['ISO3_Numeric'] == int(ISO3):
-                    ISO3_Alpha = GBModData[i]['ISO3_Alpha']               
-            
-            if not(ISO3_Alpha in countries):
-                countries[ISO3_Alpha] = {
-                    'ISO3_Alpha' : getVal(sheet, row, 1)
-                    }
-            
-            if not (level in countries[ISO3_Alpha]):
-                countries[ISO3_Alpha][level] = {}
 
-            if not (year in countries[ISO3_Alpha][level]):
-                countries[ISO3_Alpha][level][year] = {}
-            
-            countries[ISO3_Alpha][level][year]['PercPop'] = getFloat(sheet, row, 6)
+            # Find ISO3_Alpha
+            ISO3_Alpha = next((item['ISO3_Alpha'] for item in GBModData if item['ISO3_Numeric'] == int(ISO3)), -1)
+
+            # Country processing
+            country_data = countries.setdefault(ISO3_Alpha, {'ISO3_Alpha': getVal(sheet, row, 1)})
+            level_data = country_data.setdefault(level, {})
+            year_data = level_data.setdefault(year, {})
+
+            year_data['PercPop'] = getFloat(sheet, row, 6)
 
 def create_SubnatData():
     countries = {}
@@ -1138,19 +1116,21 @@ def create_SubnatData():
     
     GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
 
-    processSubnatData(GBModData, countries, regions, 'CSSubnatDB', 'value')
-    processSubnatData(GBModData, countries, regions, 'CSSubnatFlagDB', 'flag')
-    processSubnatData(GBModData, countries, regions, 'CSSubnatUrbanRural', 'value')
-    processSubnatData(GBModData, countries, regions, 'CSSubnatFlagUrbanRural', 'flag')
+    processSubnatData(GBModData, countries, regions, 'CSSubnatDB', 'value', 1, 6)
+    processSubnatData(GBModData, countries, regions, 'CSSubnatFlagDB', 'flag', 2, 6)
+    processSubnatData(GBModData, countries, regions, 'CSSubnatUrbanRural', 'value', 3, 6)
+    processSubnatData(GBModData, countries, regions, 'CSSubnatFlagUrbanRural', 'flag', 4, 6)
    
     for key, record in regions.items():
         for i in GBRange(0, len(record)-1):
             record[i]['surveys'] = sorted(record[i]['surveys'], key=lambda x: x['year'], reverse=True)
 
-    processPercPop(GBModData, countries, 'CSSubnatPercPop')
-    processPercPop(GBModData, countries, 'CSSubnatPercPopUrbanRural')
+    processPercPop(GBModData, countries, 'CSSubnatPercPop', 5, 6)
+    processPercPop(GBModData, countries, 'CSSubnatPercPopUrbanRural', 6, 6)
 
+    log('Trimming data dictionary:')
     trimDict(countries)
+
     createCountryFiles(SubnatData, countries)
     createSingleFile(SubnatMetaData, regions)      
     
@@ -1318,8 +1298,12 @@ def create_MissOpData():
     GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
     
     countries = {}
+    totalSheets = len(xlsx.sheet_names)
     
-    for sheetName in xlsx.sheet_names:     
+    for sheetIdx, sheetName in enumerate(xlsx.sheet_names, start=1):        
+        progress = math.floor((sheetIdx / totalSheets) * 100)
+        log(f"Processing sheet {sheetIdx}/{totalSheets}: {sheetName} (Progress: {progress}%)")
+        
         sheet = xlsx.parse(sheetName, header=None)
         
         monthCreated = getVal(sheet, 0, 1)
