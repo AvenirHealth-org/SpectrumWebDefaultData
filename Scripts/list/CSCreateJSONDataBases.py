@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import ujson
+import time
 
 from copy import deepcopy
 
@@ -48,29 +49,40 @@ def trimDict(data, ignoreKeySet = []):
 #####################################################################################################################
 
 def cellIsBlank(sheet, row, col):
-    cell_value = sheet.iloc[row, col]
-    return (pd.isnull(cell_value)) or (cell_value == "")
+    """
+    Check if a cell is blank in a DataFrame.
+    """
+    try:
+        cell_value = sheet.iat[row, col]
+        return pd.isna(cell_value) or cell_value == ""
+    except IndexError:
+        # If the cell is out of bounds, consider it blank.
+        return True
 
 def getVal_IfInBounds(sheet, row, col):
-    val = ''
-    if row < len(sheet.values):
-        if col < len(sheet.values[row]):
-            val = sheet.values[row][col] 
-    return val
+    """
+    Retrieve a value from the DataFrame if the specified row and column are in bounds.
+    """
+    try:
+        return sheet.iat[row, col]
+    except IndexError:
+        return ''
 
 def getVal(sheet, row, col):
-    val = getVal_IfInBounds(sheet, row, col)    
-    if (type(val)) == str:
+    """
+    Retrieve a value from the DataFrame, stripping whitespace and replacing NaN with an empty string.
+    """
+    val = getVal_IfInBounds(sheet, row, col)
+    if isinstance(val, str):
         val = val.strip()
-    if pd.isna(val):
-        val = ''
-    return val
+    return '' if pd.isna(val) else val
 
 def getFloat(sheet, row, col):
-    val = getVal_IfInBounds(sheet, row, col)  
-    if pd.isna(val):
-        val = 0
-    return val
+    """
+    Retrieve a float value from the DataFrame. Replace NaN or out-of-bounds values with 0.
+    """
+    val = getVal_IfInBounds(sheet, row, col)
+    return 0 if pd.isna(val) else float(val)
 
 #####################################################################################################################
 #                                                                                                                   #
@@ -679,179 +691,206 @@ def create_DiarrShigella():
 #                                                                                                                   #
 #####################################################################################################################
 
-def get_DBC_Key(sheet, row, col, oldkey = ''):
-    result = oldkey
-    newKey = getVal(sheet, row, col)
-    if not newKey == '':
-        result = newKey
-    if type(result) == str:
-        if '\xa0' in result:
-            result = result.replace('\xa0', ' ')
+def get_DBC_Key(sheet, row, col, oldkey=''):
+    """
+    Retrieve a key from the DataFrame. If a new key is available in the specified cell, 
+    it replaces the old key. Handles non-breaking spaces.
+    """
+    new_key = getVal(sheet, row, col)
+    # Check explicitly for None instead of relying on truthy/falsy values
+    result = new_key if new_key not in [None, ''] else oldkey
+
+    # Replace non-breaking spaces with regular spaces if the result is a string
+    if isinstance(result, str):
+        result = result.replace('\xa0', ' ')
+
     return result
-     
+
 #####################################################################################################################
 #                                                                                                                   #
 #                                              Create DBC Files                                                     #
 #                                                                                                                   #
 #####################################################################################################################
-   
+
 def create_dataByCountry(mode):
-    if mode == CS_Interpolated:
-        FQName = SourceData_DIR + '\CSDataByCountry.xlsx'
     
-    if mode == CS_Uninterpolated:
-        FQName = SourceData_DIR + '\CSDataByCountry_uninterpolated.xlsx'
+    FQName = (
+        SourceData_DIR + '\\CSDataByCountry.xlsx'
+        if mode == CS_Interpolated
+        else SourceData_DIR + '\\CSDataByCountry_uninterpolated.xlsx'
+    )
     
     countries = {}
-
+    
     xlsx = pd.ExcelFile(FQName)
-
+    
     GBModData = GB_get_db_json(os.environ[GB_SPECT_MOD_DATA_CONN_ENV], "globals", formatCountryFName(GBCountryListDBName, GBDatabaseVersion))
 
-    for sheetName in xlsx.sheet_names:
-        if sheetName not in ['DataByCountry_Countries', 'Regional_values']:
-            sheet = xlsx.parse(sheetName, header=None)
-
-            dataFirstRow = 7
-            dataFinalRow = len(sheet.values) - 1
-
-            dataStartCol = 7
-            dataFinalCol = len(sheet.values[2]) - 1
-            
-            code = getVal(sheet, dataFirstRow, 0)
-            name = getVal(sheet, dataFirstRow, 1)
-            region = getVal(sheet, dataFirstRow, 3)
-            
-            log('Creating DBC record for ' + name)     
-
-            ISO3_Alpha = -1
-            for i in GBRange(0, len(GBModData)-1):
-                if GBModData[i]['ISO3_Numeric'] == int(code):
-                    ISO3_Alpha = GBModData[i]['ISO3_Alpha']  
-            
-            firstYear = int(sheet.values[dataFirstRow][2])
-            finalYear = int(sheet.values[dataFinalRow][2])
-
-            tagRecords = []
-            
-            tagRecords.append({"tag" : TG_DataSource, "firstCol" : dataStartCol-1, "finalCol" : dataStartCol-1})
-            
-            for col in GBRange(dataStartCol, dataFinalCol):
-                cellVal = getVal(sheet, 0, col)
-                if '<' in cellVal:
-                    tagRecords.append({"tag" : cellVal, "firstCol" : col})
-                    
-            finalTagIndex = len(tagRecords) - 1
-            for i in GBRange(0, finalTagIndex - 1):
-                tagRecords[i]["finalCol"] = tagRecords[i + 1]["firstCol"] - 1      
-            tagRecords[finalTagIndex]["finalCol"] = dataFinalCol            
-
-            for tagRecord in tagRecords:
-                
-                tag = tagRecord["tag"]
-                firstCol = tagRecord["firstCol"]  
-                finalCol = tagRecord["finalCol"]             
-                    
-                if tag == TG_DataSource:
-                    data = getVal(sheet, dataFirstRow-1, firstCol)
-                else:
-                    key1Row = 2
-                    key2Row = 3
-
-                    if tag in [TG_DeathsByCause, 
-                            TG_AdolDeathByCause,
-                            TG_MatDeathByCause, 
-                            TG_SBCauses, 
-                            TG_Coverage, 
-                            TG_ImpactBirthOutcomesOnMort, 
-                            TG_HerdEff]:                        
-                        key1Row = 1
-                        key2Row = 2
-
-                    data = {}  
-                    sources = {}
-
-                    key1 = ''
-                    key2 = ''
-
-                    for col in GBRange(firstCol, finalCol):
-                        
-                        values = np.zeros(dataFinalRow - dataFirstRow + 1)        
-                    
-                        i = 0
-                        nonZeroValueFound = False
-                        for row in GBRange(dataFirstRow, dataFinalRow):
-                            value = getFloat(sheet, row, col)
-                            values[i] = value
-                            if not float(value) == 0.0:
-                                nonZeroValueFound = True
-                            i += 1
-                        
-                        values = values.tolist()
-                        if not nonZeroValueFound:
-                            values = CS_TG_Zeros
-                        
-                        key1 = get_DBC_Key(sheet, key1Row, col, key1)
-                        
-                        if not key1 == '':                        
-                            key2 = get_DBC_Key(sheet, key2Row, col)  
-
-                            if not(key1 in data):
-                                data[key1] = {}
-                                
-                                if tag in [TG_NutritionalDeficiencies]:
-                                    data[key1] = {'mstID' : getVal(sheet, 5, col)}                                      
-                                
-                                if tag in [TG_DeathsByCause, 
-                                        TG_MatDeathByCause, 
-                                        TG_SBCauses, 
-                                        TG_Coverage, 
-                                        TG_HerdEff]:
-                                    data[key1] = {'mstID' : getVal(sheet, 3, col)}                                      
-                            
-                            if not key2 == '':
-                                if not(key2 in data[key1]):
-                                    data[key1][key2] = values
-                                    if tag in [TG_AdolDeathByCause, TG_ImpactBirthOutcomesOnMort]:
-                                        data[key1][key2] = {
-                                            'mstID' : getVal(sheet, 3, col),
-                                            'values' : values
-                                        }
-
-                            else:
-                                if 'mstID' in data[key1]:
-                                    data[key1]['values'] = values
-                                else:
-                                    data[key1] = values
-                        
-                        else:
-                            data = values                     
-                        
-                        ID = getVal(sheet, 5, col)
-                        source = getVal(sheet, 6, col)
-
-                        if not (ID == '') and not (source == '') and not (ID in sources):
-                            sources[ID] = source                         
-                    
-                    if not sources == {}:                        
-                        if type(data) in [str, list]:
-                            data = {'values' : data}
-                        data['sources'] = sources
-
-                if not(name in countries):
-                    countries[name] = {
-                        'ISO3_Alpha' : ISO3_Alpha,
-                        'firstYear' : firstYear,
-                        'finalYear' : finalYear,
-                        'Region' : region
-                    }
-                
-                countries[name][tag] = data
+    # Convert GBModData to a dictionary for faster lookups
+    iso_map = {item["ISO3_Numeric"]: item["ISO3_Alpha"] for item in GBModData}
     
+    total_sheets = len(xlsx.sheet_names) - 2
+    processed_sheets = 0
+    
+    # Record start time
+    start_time = time.time()
+    
+    for sheetName in xlsx.sheet_names:
+        if sheetName in ["DataByCountry_Countries", "Regional_values"]:
+            continue
+        
+        sheet = xlsx.parse(sheetName, header=None)
+        
+        dataFirstRow = 7
+        dataFinalRow = len(sheet) - 1
+
+        dataStartCol = 7
+        dataFinalCol = len(sheet.columns) - 1
+
+        code = getVal(sheet, dataFirstRow, 0)
+        name = getVal(sheet, dataFirstRow, 1)
+        region = getVal(sheet, dataFirstRow, 3)
+
+        processed_sheets += 1
+        progress = int((processed_sheets / total_sheets) * 100)  # Convert to integer percentage
+        
+        # Calculate elapsed time
+        elapsed_time = time.time() - start_time
+        elapsed_time_str = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))  # Format elapsed time as HH:MM:SS
+
+        log(f"Creating DBC record (elapsed time: {elapsed_time_str}, {progress:.0f}%): {name}")
+
+        ISO3_Alpha = iso_map.get(int(code), -1)
+        
+        firstYear = int(sheet.iloc[dataFirstRow, 2])
+        finalYear = int(sheet.iloc[dataFinalRow, 2])
+
+        tagRecords = [{"tag": TG_DataSource, "firstCol": dataStartCol - 1}]
+        
+        tagRecords.extend(
+            {
+                "tag": sheet.iloc[0, col],
+                "firstCol": col,
+            }
+            
+            for col in GBRange(dataStartCol, dataFinalCol)
+            if "<" in str(sheet.iloc[0, col])
+        )
+
+        # Finalize columns in tagRecords
+        for i, tagRecord in enumerate(tagRecords[:-1]):
+            tagRecord["finalCol"] = tagRecords[i + 1]["firstCol"] - 1
+        tagRecords[-1]["finalCol"] = dataFinalCol
+        
+        for tagRecord in tagRecords:
+            tag = tagRecord["tag"]
+            firstCol = tagRecord["firstCol"]
+            finalCol = tagRecord["finalCol"]
+
+            # Handle TG_DataSource directly
+            if tag == TG_DataSource:
+                data = getVal(sheet, dataFirstRow - 1, firstCol)
+            else:
+                # Determine key row mappings based on the tag
+                key1Row, key2Row = (2, 3)
+                if tag in [
+                    TG_DeathsByCause,
+                    TG_AdolDeathByCause,
+                    TG_MatDeathByCause,
+                    TG_SBCauses,
+                    TG_Coverage,
+                    TG_ImpactBirthOutcomesOnMort,
+                    TG_HerdEff,
+                ]:
+                    key1Row, key2Row = (1, 2)
+
+                # Initialize data structures
+                data = {}
+                sources = {}
+                key1, key2 = "", ""
+
+                # Process each column
+                for col in GBRange(firstCol, finalCol):
+                    # Extract and populate values
+                    values = np.array([getFloat(sheet, row, col) for row in GBRange(dataFirstRow, dataFinalRow)])
+                    
+                    # Ensure `values` is compatible for comparison
+                    if isinstance(values, (list, np.ndarray)):
+                        values_array = np.array(values, dtype=float)  # Convert to numpy array if it's a list
+                        nonZeroValueFound = np.any(values_array != 0.0)
+                    else:
+                        nonZeroValueFound = False
+                
+                    # Assign '<ZEROS>' if no non-zero values are found
+                    if not nonZeroValueFound:
+                        values = '<ZEROS>'
+                    else:
+                        values = values.tolist()  # Convert numpy array to list for consistency with existing logic
+
+                    # Update keys
+                    key1 = get_DBC_Key(sheet, key1Row, col, key1)
+                    if key1 != "":
+                        key2 = get_DBC_Key(sheet, key2Row, col)
+
+                        # Initialize key1 if not present
+                        if key1 not in data:
+                            data[key1] = {}
+
+                            # Add metadata for specific tags
+                            if tag == TG_NutritionalDeficiencies:
+                                data[key1] = {"mstID": getVal(sheet, 5, col)}
+                            elif tag in [
+                                TG_DeathsByCause,
+                                TG_MatDeathByCause,
+                                TG_SBCauses,
+                                TG_Coverage,
+                                TG_HerdEff,
+                            ]:
+                                data[key1] = {"mstID": getVal(sheet, 3, col)}
+
+                        # Populate key2 or directly key1
+                        if key2 != "":
+                            if key2 not in data[key1]:
+                                data[key1][key2] = values
+                                if tag in [TG_AdolDeathByCause, TG_ImpactBirthOutcomesOnMort]:
+                                    data[key1][key2] = {
+                                        "mstID": getVal(sheet, 3, col),
+                                        "values": values,
+                                    }
+                        else:
+                            if "mstID" in data[key1]:
+                                data[key1]["values"] = values
+                            else:
+                                data[key1] = values
+                    else:
+                        # If key1 is empty, assign values directly
+                        data = values
+
+                    # Collect sources
+                    ID = getVal(sheet, 5, col)
+                    source = getVal(sheet, 6, col)
+                    if not (ID == '') and not (source == '') and not (ID in sources):
+                        sources[ID] = source 
+
+                # Add sources to data if not empty
+                if sources:
+                    if isinstance(data, (str, list)):
+                        data = {"values": data}
+                    data["sources"] = sources
+
+            if name not in countries:
+                countries[name] = {
+                    "ISO3_Alpha": ISO3_Alpha,
+                    "firstYear": firstYear,
+                    "finalYear": finalYear,
+                    "Region": region,
+                }
+            
+            countries[name][tag] = data
+
     if mode == CS_Interpolated:
         createCountryFiles(DataByCountry, countries)
-    
-    if mode == CS_Uninterpolated:
+    elif mode == CS_Uninterpolated:
         createCountryFiles(DBC_DataPoints, countries)
 
 #####################################################################################################################
