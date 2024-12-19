@@ -2223,7 +2223,7 @@
   "GB_stScalpelBladeDisposable": "Scalpel blade, disposable",
   "GB_stScreenAnaesthesia": "Screen, anaesthesia",
   "GB_stScreenBedside": "Screen, bedside",
-  "GB_stScreenProvInit": "Screening (provider-initated)",
+  "GB_stScreenProvInit": "Screening (provider-initiated)",
   "GB_stScreenProvInitFibroticLesions": "People with untreated fibrotic lesions on chest x-ray",
   "GB_stScreenProvInitGenPop": "General population in settings with ≥ 0.5% general prevalence",
   "GB_stScreenProvInitHHAdults15Plus": "Household contacts, adults 15+",
