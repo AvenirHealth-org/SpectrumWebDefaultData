@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timezone
 from AvenirCommon.Database.BlobStorage import GB_get_db_json
 from Calc.GB.GBMain import GBCalculate 
 from SpectrumCommon.Const.GB.GBConst import GB_DP, GB_AM
@@ -32,11 +32,6 @@ def write_DP_population_db(version):
         
         dt = np.dtype(np.float64)  
         for mv in projection:
-                # if mv in [AM_ChildMortByCD4WithART0to6Tag, AM_ChildMortByCD4WithART0to6PercTag,
-                #         AM_ChildMortByCD4WithART7to12Tag, AM_ChildMortByCD4WithART7to12PercTag,
-                #         AM_ChildMortByCD4WithARTGT12Tag, AM_ChildMortByCD4WithARTGT12PercTag]:
-                #     #print('meow')
-                #     pass
             if type(projection[mv]) == list:
                 if len(projection[mv])>0 and ((type(projection[mv][0])==dict) or(type(projection[mv][0])==str)) :
                     projection[mv] = np.array(projection[mv], order='C')
@@ -55,12 +50,13 @@ def write_DP_population_db(version):
         deaths = projection[DP_InitialConditionsTempTransportTag]['deaths']
         hiv_infections = projection[DP_InitialConditionsTempTransportTag]['hiv_infections']
         hiv_deaths = projection[DP_InitialConditionsTempTransportTag]['hiv_deaths']
-
+        pmtct_need_15_49 = projection[DP_InitialConditionsTempTransportTag]['pmtct_need_15_49']
+        cotrim_need = projection[DP_InitialConditionsTempTransportTag]['cotrim_need']
 
         print('Writing '+ country['name'])
 
-        now = datetime.utcnow()
-        timeStamp = now.strftime("Date: %Y-%m-%d Time: %H:%M:%S")
+        now = datetime.datetime.now(timezone.utc)
+        timeStamp = now.strftime("Date: " + GB_DateTime_Format)
 
         country_data = {
                 'pop1': pop1.tolist(),
@@ -68,6 +64,8 @@ def write_DP_population_db(version):
                 'deaths': deaths.tolist(),
                 'hiv_infections': hiv_infections.tolist(),
                 'hiv_deaths': hiv_deaths.tolist(),
+                'pmtct_need_15_49': pmtct_need_15_49.tolist(),
+                'cotrim_need': cotrim_need.tolist(),
                 'calcVersion': GB_Calc_Version,
                 'PMVersion': GB_PM_Version,
                 'date': timeStamp,
