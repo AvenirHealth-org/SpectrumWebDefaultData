@@ -844,6 +844,28 @@ def readChildARTMortalityTrends(AMModDataGlobal, sheet, sheetName):
 
     AMModDataGlobal[sheetName] = data
 
+def readAHDGlobals(AMModDataGlobal, sheet, sheetName):
+    startRow = 1
+    startCol = 1
+    endCol = len(sheet.values[0]) - 1
+    startYear = int(sheet.values[0][startCol])
+    endYear = int(sheet.values[0][endCol])
+
+    data = {
+        'startYear' : startYear,
+        'endYear' : endYear
+    }
+
+    for row in GBRange(startRow, len(sheet.values) - 1):
+        values = []
+        for col in GBRange(startCol, len(sheet.values[row]) - 1):
+            values.append(float(sheet.values[row][col]))
+        data[sheet.values[row][0]] = values.copy()
+            
+
+    AMModDataGlobal[sheetName] = data
+
+
 def getSexStartIdx(sex):   #first column of a selected sexes' data
     result = 6
     if sex == GB_BothSexes: 
@@ -1023,6 +1045,8 @@ def write_aim_db(version, country=''):
             readARTCoverageSurveys(countries, sheet, sheetName)
         elif (sheetName == 'Meningitis'):
             readMeningitis(countries, sheet, sheetName)
+        elif (sheetName == 'AHDGlobals'):
+            readAHDGlobals(AMModDataGlobal, sheet, sheetName)
             
 
     # log('Uploading global data')
