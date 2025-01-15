@@ -126,6 +126,7 @@ IV_TB_DAT_DISAG_IH                  = '<UH - TB DAT Disaggregate>'
 IV_TB_DAT_AG_IH                     = '<UH - TB DAT Aggregate>'
 IV_PHC_IH                           = '<UH - PHC>'
 IV_ALT_COVERAGE_IH                  = '<UH - Alternative Coverage>'
+IV_COV_COMPOSITE_LABEL_IH           = '<UH - Coverage Composite Label>'
 IV_HIDE_CONFIG_IH                   = '<UH - Hide Configuration>'
 IV_HIDE_INPUT_OUTPUT_DATA_IH        = '<UH - Hide Input and Output Data>'
 IV_HIDE_PINS_IH                     = '<UH - Hide PINs>'
@@ -277,6 +278,7 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
     tb_dat_ag_col_IH = gbc.GB_NOT_FOUND
     phc_col_IH = gbc.GB_NOT_FOUND
     alt_coverage_col_IH = gbc.GB_NOT_FOUND
+    cov_comp_lab_IH = gbc.GB_NOT_FOUND
     hide_config_col_IH = gbc.GB_NOT_FOUND
     hide_input_output_data_col_IH = gbc.GB_NOT_FOUND
     hide_pins_col_IH = gbc.GB_NOT_FOUND
@@ -551,6 +553,9 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
 
         elif tag == IV_ALT_COVERAGE_IH:    
             alt_coverage_col_IH = c
+
+        elif tag == IV_COV_COMPOSITE_LABEL_IH:
+            cov_comp_lab_IH = c
 
         elif tag == IV_HIDE_CONFIG_IH:    
             hide_config_col_IH = c
@@ -900,6 +905,9 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
 
             if (alt_coverage_col_IH != gbc.GB_NOT_FOUND) and (row[alt_coverage_col_IH - 1] == 1): 
                 interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_ALT_COVERAGE)
+
+            if (cov_comp_lab_IH != gbc.GB_NOT_FOUND) and (row[cov_comp_lab_IH - 1] != None): 
+                interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(row[cov_comp_lab_IH - 1])
 
             if (hide_config_col_IH != gbc.GB_NOT_FOUND) and (row[hide_config_col_IH - 1] == 1):   
                 interv_dict[ivdbk.IV_SPECIAL_CASES_IH_KEY_IDB].append(ivcl.IV_IC_HIDE_CONFIG)
