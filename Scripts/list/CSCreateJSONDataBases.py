@@ -351,17 +351,18 @@ def create_DefaultData():
                                 'source' : source
                                 }                                        
                         
-                        col = 5                      
-                        while col < 11:       
-                            key2 = getVal(sheet, vars['keyRow'], col)               
-                            data[tag][key][key2] = getVal(sheet, row, col)                            
-                            col += 3                               
-                        
                         col = 11
                         while col < 27:       
                             key2 = getVal(sheet, vars['keyRow'], col)                               
                             data[tag][key][key2] = createDataRec(sheet, row, col, vars)              
                             col += 6                                            
+                        
+                        col = 5                      
+                        while col < 8:       
+                            key3 = 'Arr'
+                            key2 = getVal(sheet, vars['keyRow'], col)               
+                            data[tag][key][key2][key3] = getVal(sheet, row, col)                            
+                            col += 1                        
                         
                         row += 1
                 
