@@ -603,12 +603,12 @@ def readAgeRatioPatternsIncidence(AMModDataGlobal, sheet, sheetName):
     SexRatioStartRow = 17
     AnnualChangeRow  = 48
 
-    values = np.zeros((DP_Concentrated2_Patt + 1, GB_Female + 1, DP_A75_Up + 1))
+    values = np.zeros((DP_NonIDUConcentrated_Index + 1, GB_Female + 1, DP_A75_Up + 1))
 
     row = IncidenceStartRow
     for a in GBRange(DP_A15_19, DP_A75_Up):
         col = 1
-        for id in GBRange(DP_Generalized_Patt, DP_Concentrated2_Patt):
+        for id in GBRange(DP_Generalized_Index, DP_NonIDUConcentrated_Index):
             for s in GBRange(GB_Male, GB_Female):
                 values[id][s][a] = sheet.values[row][col]
                 col += 1
@@ -616,12 +616,12 @@ def readAgeRatioPatternsIncidence(AMModDataGlobal, sheet, sheetName):
 
     AMModDataGlobal['AgeRatioPatternsIncidence'] = values.tolist()
 
-    values = np.zeros((DP_Concentrated2_Patt + 1, DP_AgeRatioMaxYear + 1))
+    values = np.zeros((DP_NonIDUConcentrated_Index + 1, DP_AgeRatioMaxYear + 1))
 
     row = SexRatioStartRow
     for t in GBRange(DP_AgeRatioMinYear, DP_AgeRatioMaxYear):
         col = 1
-        for id in GBRange(DP_Generalized_Patt, DP_Concentrated2_Patt):
+        for id in GBRange(DP_Generalized_Index, DP_NonIDUConcentrated_Index):
             values[id][t] = sheet.values[row][col]
             col += 1
         row += 1
