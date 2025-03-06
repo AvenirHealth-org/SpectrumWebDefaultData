@@ -51,6 +51,7 @@ def write_DP_population_db(version):
         hiv_infections = projection[DP_InitialConditionsTempTransportTag]['hiv_infections']
         hiv_deaths = projection[DP_InitialConditionsTempTransportTag]['hiv_deaths']
         pmtct_need_15_49 = projection[DP_InitialConditionsTempTransportTag]['pmtct_need_15_49']
+        pmtct_need_15_24 = projection[DP_InitialConditionsTempTransportTag]['pmtct_need_15_24']
         cotrim_need = projection[DP_InitialConditionsTempTransportTag]['cotrim_need']
 
         print('Writing '+ country['name'])
@@ -65,6 +66,7 @@ def write_DP_population_db(version):
                 'hiv_infections': hiv_infections.tolist(),
                 'hiv_deaths': hiv_deaths.tolist(),
                 'pmtct_need_15_49': pmtct_need_15_49.tolist(),
+                'pmtct_need_15_24': pmtct_need_15_24.tolist(),
                 'cotrim_need': cotrim_need.tolist(),
                 'calcVersion': GB_Calc_Version,
                 'PMVersion': GB_PM_Version,
