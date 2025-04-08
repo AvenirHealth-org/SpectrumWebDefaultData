@@ -2835,5 +2835,11 @@
   "GB_stUASettingsMatch": "UA settings match first projection",
   "GB_stPulmExtrapulmTBAdults15PPresRifampIsonSens": "Pulmonary and extrapulmonary TB, adults 15+: Number presumed rifampicin- and isoniazid-sensitive",
   "GB_stPulmExtrapulmTBChild0t14PresRifampIsonSens": "Pulmonary and extrapulmonary TB, children 0-14: Number presumed rifampicin- and isoniazid-sensitive",
-  "GB_stPulmExtrapulmTBChild0t14NotSevPresRifampIsonSens": "Pulmonary and extrapulmonary TB, children 0-14, without severe TB: Number presumed rifampicin- and isoniazid-sensitive"
+  "GB_stPulmExtrapulmTBChild0t14NotSevPresRifampIsonSens": "Pulmonary and extrapulmonary TB, children 0-14, without severe TB: Number presumed rifampicin- and isoniazid-sensitive",
+  "GB_stDefaultToCustomize": "Default to customize",
+  "GB_stDomesticPublicFunding": "Domestic public funding",
+  "GB_stSocialHealthInsurance": "Social health insurance",
+  "GB_stInsurancePrePayments": "Insurance pre-payments",
+  "GB_stHouseholdDirectPayments": "Household direct payments",
+  "GB_stExternalSources": "External sources"
 }
