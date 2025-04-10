@@ -1018,6 +1018,7 @@
   "GB_stGlassBeadsMassiveGlass5MmDiameter": "Glass beads, massive glass, 5 mm diameter",
   "GB_stGlibenclamide5MgTab": "Glibenclamide, 5 mg tab",
   "GB_stGlobalFund": "Global Fund",
+  "GB_stGlobalFundApplication": "Global Fund application",
   "GB_stGlobalFundFinancialMgmtSystemEstablishment": "Global Fund financial management system establishment",
   "GB_stGlovesExamLatexDisposablePair": "Gloves, exam, latex, disposable, pair",
   "GB_stGlovesNitrilPowderFreeDisposableSize67100PerPack": "Gloves, nitril,  powder free, disposable, size 6-7, 100 per pack",
@@ -2785,6 +2786,7 @@
   "GB_stWheelchairAttendantDrivenCollapsible": "Wheelchair, attendant driven, collapsible",
   "GB_stWheelchairSpecify": "Wheelchair, <specify>",
   "GB_stWHOBudgetCategories": "WHO budget categories",
+  "GB_stWHOTBDataReporting": "WHO TB data reporting",
   "GB_stWireBasketsDripTrayAutoclave": "Wire baskets with drip tray for autoclave ",
   "GB_stWireBasketsOrStainlessSteelBucketsAutoclave": "Wire baskets or stainless steel buckets for autoclave ",
   "GB_stWireLocalizationNeedle": "Wire localization needle",
@@ -2841,5 +2843,7 @@
   "GB_stSocialHealthInsurance": "Social health insurance",
   "GB_stInsurancePrePayments": "Insurance pre-payments",
   "GB_stHouseholdDirectPayments": "Household direct payments",
-  "GB_stExternalSources": "External sources"
+  "GB_stExternalSources": "External sources",
+  "GB_stCustomizable": "Customizable",
+  "GB_stNationalStrategicPlanTB": "National strategic plan for TB"
 }
