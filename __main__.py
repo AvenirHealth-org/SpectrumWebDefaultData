@@ -13,6 +13,7 @@ import DefaultData.Scripts.infrastructure as infrastructure
 import DefaultData.Scripts.programmecosting as programmecosting
 import DefaultData.Scripts.budgetmapping as budgetmapping
 
+
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP.DPConst import *
 from SpectrumCommon.Const.FP import *
@@ -43,8 +44,8 @@ initialise_logger(
 
 # globals.create_disability_json('V1')
 # globals.upload_disability_json('V1')
-# globals.writeGBCountryListMaster(GBDatabaseVersion)
-# globals.uploadGBCountryListMaster(GBDatabaseVersion)
+globals.writeGBCountryListMaster(GBDatabaseVersion)
+globals.uploadGBCountryListMaster(GBDatabaseVersion)
 # globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
 
 ####### DemProj #######
@@ -55,6 +56,9 @@ initialise_logger(
 # demproj.upload_demproj_db(DPDatabaseVersion) test this before using
 # demproj.write_DP_population_db(DPInitialConditionsDBVersion)
 # demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
+
+# demproj.create_DP_subnationals('V1')
+# demproj.upload_DP_subnationals('V1')
 
 ####### AIM #######
 # aim.write_aim_db(AMDatabaseVersion)
@@ -70,7 +74,7 @@ initialise_logger(
 
 # ####### FamPlan #######
 # for mode in [FP_All, FP_MAR, FP_MARUMSA, FP_AllUninterpolated, FP_MARUninterpolated, FP_MARUMSAUninterpolated]:
-#     famplan.create_famplan_db(FP_DB_Version[mode], mode) 
+#     # famplan.create_famplan_db(FP_DB_Version[mode], mode) 
 #     famplan.upload_famplan_db(FP_DB_Version[mode], mode)
 
 ####### Rapid #######
@@ -88,6 +92,12 @@ initialise_logger(
 ####### Tuberculosis #######
 # tuberculosis.create_TB_WHOCountryData('V5')
 # tuberculosis.upload_TB_WHOCountryData('V5')
+
+# tuberculosis.create_TB_subnational_list('V1')
+# tuberculosis.upload_TB_subnational_list('V1')
+
+# tuberculosis.create_TB_subnationals('V1')
+# tuberculosis.upload_TB_subnationals('V1')
 
 # tuberculosis.create_TB_fort_input('V6')
 # tuberculosis.upload_tb_fort_inputs_db('V6')

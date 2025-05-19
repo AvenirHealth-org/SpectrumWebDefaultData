@@ -23,10 +23,12 @@ def create_TB_WHOCountryData(version):
     
     # profile = cProfile.Profile()
     # profile.enable()
-    countries = []
-    for country_cell in xlsx['Countries']['C']:
-        countries.append(country_cell.value)
-    countries = ('KEN', 'TKM', 'WSM', 'DJI', 'LVA')
+    countries = TB_RUN_DEFAULT_COUNTRIES
+    if not countries:
+        countries = []
+        for country_cell in xlsx['Countries']['C']:
+            countries.append(country_cell.value)
+            
     for iso3 in countries: #81 GRL 137 ANT 174 SCG 197 TKL
         if (iso3=='iso3'):# or (iso3=='GRL'):
             continue
@@ -303,9 +305,9 @@ def upload_TB_WHOCountryData(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\countries\\'
     for subdir, dirs, files in os.walk(json_path):
-        for file in files:
-        # for iso3 in ('ZWE', 'DOM', 'SSD'):
-            # file = iso3+'_'+version+'.JSON'
+        # for file in files:
+        for iso3 in ('PER', ):
+            file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:
                 print(FQName)

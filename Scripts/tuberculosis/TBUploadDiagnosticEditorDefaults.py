@@ -13,9 +13,10 @@ from SpectrumCommon.Const.GB import GB_Nan
 
 def create_TB_DiagEditorDefaults(version):
     
-    TB_Path = os.getcwd()+'\Tools\DefaultDataManager\TB\\'
-    xlsx = openpyxl.load_workbook(
-                '.\Tools\DefaultDataManager\TB\ModData\TBDiagnosticEditorDefaults.xlsx', read_only=False, keep_vba=False, data_only=True, keep_links=True)
+    # TB_Path = os.getcwd()+'\Tools\DefaultDataManager\TB\\'
+    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\TBDiagnosticEditorDefaults2024.xlsx'
+    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=True, keep_links=True)
     
     diagnosticEditorDefaults = {}
     # for country_cell in xlsx['Countries']['C']:
@@ -99,16 +100,20 @@ def create_TB_DiagEditorDefaults(version):
             diagnosticEditorDefaults[name]['specificity'].append(specificity)
         #print(page_name)
         
-    os.makedirs(TB_Path+'\JSON\diag\\', exist_ok=True)
-    with open(TB_Path+'\JSON\diag\diagnosticEditorDefaults'+version+'.JSON', 'w') as f:
+    # os.makedirs(TB_Path+'\JSON\diag\\', exist_ok=True)
+    
+    os.makedirs(default_path+'\\JSONData\\tuberculosis\\diag\\', exist_ok=True)
+    with open(default_path+'\\JSONData\\tuberculosis\\diag\\diagnosticEditorDefaults'+version+'.JSON', 'w') as f:
         ujson.dump(diagnosticEditorDefaults, f)
+    # with open(TB_Path+'\JSON\diag\diagnosticEditorDefaults'+version+'.JSON', 'w') as f:
 
 def upload_TB_DiagEditorDefaults(version):
     connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     
-    FQName = os.getcwd()+'\Tools\DefaultDataManager\TB\JSON\diag\diagnosticEditorDefaults'+version+'.JSON'
+    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
+    FQName = default_path+'\\JSONData\\tuberculosis\\diag\\diagnosticEditorDefaults'+version+'.JSON'
     log(FQName)
     GB_upload_file(connection, 'tuberculosis', 'diagnosticDefaults_'+version+'.JSON', FQName)
         
-    log('Uploaded TB who db json')
+    log('Uploaded TB DiagEditorDefault')
    

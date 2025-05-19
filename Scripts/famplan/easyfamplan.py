@@ -96,6 +96,9 @@ def create_famplan_db(version, mode, country=''):
 
         for c in range(2, sheet.shape[1]):
             col_name = list(sheet)[c]
+            if col_name not in single_year_key:
+                pass
+                continue
             key = single_year_key[col_name]
             value = sheet.iat[r, c]
             if sheet[col_name].dtype == np.int64:
@@ -169,7 +172,7 @@ def create_famplan_db(version, mode, country=''):
         if country['ISO_Alpha']==-1:
             continue
         os.makedirs(famplan_json_path+dir+'\\', exist_ok=True)
-        print(country['ISO_Alpha'])
+        print(dir+'\\'+country['ISO_Alpha'])
         with open(famplan_json_path+dir+'\\'+country['ISO_Alpha']+'_'+version+'.JSON', 'w') as f:
             ujson.dump(country, f)
     log('Finished famplan json')

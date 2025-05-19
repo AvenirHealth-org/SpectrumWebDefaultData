@@ -17,9 +17,9 @@ def create_TB_fort_input(version):
     xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
 
     failed_countries = []
-    for country_cell in xlsx['Countries']['C']:
-        iso3=country_cell.value
-    # for iso3 in ('MDG', 'SSD'):
+    # for country_cell in xlsx['Countries']['C']:
+        # iso3=country_cell.value
+    for iso3 in TB_RUN_DEFAULT_COUNTRIES:
         if iso3=='iso3':
             continue
         try:
@@ -95,7 +95,7 @@ def create_TB_fort_input(version):
 
             num_years = 2050-fort_input["year"][0]+1
             fort_input["sEp"]  = [None]*num_years
-            # fort_input["pHat"] = [None]*num_years
+            fort_input["pHat"] = [None]*num_years
             fort_input["hRd"]  = [1]*num_years
             fort_input["hRi"]  = [1]*num_years
             fort_input["oRt"]  = [1]*num_years    
@@ -147,9 +147,9 @@ def upload_tb_fort_inputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        for file in files:
-        # for iso3 in ('DOM', 'SSD'):
-            # file = iso3+'_'+version+'.JSON'
+        # for file in files:
+        for iso3 in TB_RUN_DEFAULT_COUNTRIES:
+            file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file) 
             if version in FQName:
                 log(FQName)

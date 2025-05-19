@@ -7,3 +7,4 @@ from .TBUploadWHOCountryData import *
 from .TBUploadDynamicalModelCountryData import *
 from .TBUploadDiagnosticEditorDefaults import *
 from .TBUploadScreeningEditorDefaults import *
+from .TBSubnationalRatios import *
