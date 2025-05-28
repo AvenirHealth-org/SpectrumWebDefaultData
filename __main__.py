@@ -44,8 +44,8 @@ initialise_logger(
 
 # globals.create_disability_json('V1')
 # globals.upload_disability_json('V1')
-globals.writeGBCountryListMaster(GBDatabaseVersion)
-globals.uploadGBCountryListMaster(GBDatabaseVersion)
+# globals.writeGBCountryListMaster(GBDatabaseVersion)
+# globals.uploadGBCountryListMaster(GBDatabaseVersion)
 # globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
 
 ####### DemProj #######
@@ -54,7 +54,7 @@ globals.uploadGBCountryListMaster(GBDatabaseVersion)
 
 # demproj.write_demproj_db(DPDatabaseVersion)
 # demproj.upload_demproj_db(DPDatabaseVersion) test this before using
-# demproj.write_DP_population_db(DPInitialConditionsDBVersion)
+demproj.write_DP_population_db(DPInitialConditionsDBVersion)
 # demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
 
 # demproj.create_DP_subnationals('V1')

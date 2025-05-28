@@ -40,7 +40,7 @@ def write_CSAVR_db(version, country=''):
             param = sheet.values[paramRow][col]
 
             data = {
-                'mstID' : sheet.values[mstIDRow][col],
+                'mstID' : int(sheet.values[mstIDRow][col]),
                 'value' : float(sheet.values[row][col])
             }
             if not fitType in rowData:

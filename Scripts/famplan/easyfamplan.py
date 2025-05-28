@@ -175,6 +175,11 @@ def create_famplan_db(version, mode, country=''):
         print(dir+'\\'+country['ISO_Alpha'])
         with open(famplan_json_path+dir+'\\'+country['ISO_Alpha']+'_'+version+'.JSON', 'w') as f:
             ujson.dump(country, f)
+        if country['ISO_Alpha'] == 'KEN':
+            print('SAMP')
+            with open(famplan_json_path+dir+'\\SAMP_'+version+'.JSON', 'w') as f:
+                ujson.dump(country, f)
+
     log('Finished famplan json')
 
 def upload_famplan_db(version, mode):

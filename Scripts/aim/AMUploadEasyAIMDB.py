@@ -25,14 +25,14 @@ def getValuesByYear(countries, sheet, sheetName, startRow = 3):
     endYear = int(sheet.values[2][endCol])
 
     for row in GBRange(startRow, len(sheet.values) - 1):
-        countryCode = sheet.values[row][0]
+        countryCode = int(sheet.values[row][0]) 
         countryName = sheet.values[row][1]
 
         if (not pd.isna(countryCode)) and (not pd.isna(countryName)): #if country ID values are valid, add
             values = np.zeros(endYear - startYear + 1)
             i = 0
             for col in GBRange(startCol, endCol):
-                values[i] = sheet.values[row][col]
+                values[i] = float(sheet.values[row][col])
                 i += 1
             
             data = {
@@ -51,7 +51,7 @@ def getValuesNotByYear(countries, sheet, sheetName):
     endCol = len(sheet.values[2]) - 1
 
     for row in GBRange(3, len(sheet.values) - 1):
-        countryCode = sheet.values[row][0]
+        countryCode = int(sheet.values[row][0])
         countryName = sheet.values[row][1]
       
         if (not pd.isna(countryCode)) and (not pd.isna(countryName)): #if country ID values are valid, add
@@ -62,7 +62,7 @@ def getValuesNotByYear(countries, sheet, sheetName):
 
             for col in GBRange(startCol, endCol):
                 dataName = 'value' if pd.isna(sheet.values[2][col]) else sheet.values[2][col]  
-                data[dataName] = 0 if (pd.isna(sheet.values[row][col])) else sheet.values[row][col]
+                data[dataName] = 0 if (pd.isna(sheet.values[row][col])) else float(sheet.values[row][col])
 
             addDataByCountryCode(countryCode, countries, sheetName, data)
 

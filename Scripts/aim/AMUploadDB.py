@@ -603,12 +603,12 @@ def readAgeRatioPatternsIncidence(AMModDataGlobal, sheet, sheetName):
     SexRatioStartRow = 17
     AnnualChangeRow  = 48
 
-    values = np.zeros((DP_Concentrated2_Patt + 1, GB_Female + 1, DP_A75_Up + 1))
+    values = np.zeros((DP_NonIDUConcentrated_Index + 1, GB_Female + 1, DP_A75_Up + 1))
 
     row = IncidenceStartRow
     for a in GBRange(DP_A15_19, DP_A75_Up):
         col = 1
-        for id in GBRange(DP_Generalized_Patt, DP_Concentrated2_Patt):
+        for id in GBRange(DP_Generalized_Index, DP_NonIDUConcentrated_Index):
             for s in GBRange(GB_Male, GB_Female):
                 values[id][s][a] = sheet.values[row][col]
                 col += 1
@@ -616,12 +616,12 @@ def readAgeRatioPatternsIncidence(AMModDataGlobal, sheet, sheetName):
 
     AMModDataGlobal['AgeRatioPatternsIncidence'] = values.tolist()
 
-    values = np.zeros((DP_Concentrated2_Patt + 1, DP_AgeRatioMaxYear + 1))
+    values = np.zeros((DP_NonIDUConcentrated_Index + 1, DP_AgeRatioMaxYear + 1))
 
     row = SexRatioStartRow
     for t in GBRange(DP_AgeRatioMinYear, DP_AgeRatioMaxYear):
         col = 1
-        for id in GBRange(DP_Generalized_Patt, DP_Concentrated2_Patt):
+        for id in GBRange(DP_Generalized_Index, DP_NonIDUConcentrated_Index):
             values[id][t] = sheet.values[row][col]
             col += 1
         row += 1
@@ -844,6 +844,28 @@ def readChildARTMortalityTrends(AMModDataGlobal, sheet, sheetName):
 
     AMModDataGlobal[sheetName] = data
 
+def readAHDGlobals(AMModDataGlobal, sheet, sheetName):
+    startRow = 1
+    startCol = 1
+    endCol = len(sheet.values[0]) - 1
+    startYear = int(sheet.values[0][startCol])
+    endYear = int(sheet.values[0][endCol])
+
+    data = {
+        'startYear' : startYear,
+        'endYear' : endYear
+    }
+
+    for row in GBRange(startRow, len(sheet.values) - 1):
+        values = []
+        for col in GBRange(startCol, len(sheet.values[row]) - 1):
+            values.append(float(sheet.values[row][col]))
+        data[sheet.values[row][0]] = values.copy()
+            
+
+    AMModDataGlobal[sheetName] = data
+
+
 def getSexStartIdx(sex):   #first column of a selected sexes' data
     result = 6
     if sex == GB_BothSexes: 
@@ -1023,6 +1045,8 @@ def write_aim_db(version, country=''):
             readARTCoverageSurveys(countries, sheet, sheetName)
         elif (sheetName == 'Meningitis'):
             readMeningitis(countries, sheet, sheetName)
+        elif (sheetName == 'AHDGlobals'):
+            readAHDGlobals(AMModDataGlobal, sheet, sheetName)
             
 
     # log('Uploading global data')
