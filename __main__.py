@@ -54,7 +54,7 @@ initialise_logger(
 
 # demproj.write_demproj_db(DPDatabaseVersion)
 # demproj.upload_demproj_db(DPDatabaseVersion) test this before using
-demproj.write_DP_population_db(DPInitialConditionsDBVersion)
+# demproj.write_DP_population_db(DPInitialConditionsDBVersion)
 # demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
 
 # demproj.create_DP_subnationals('V1')
@@ -151,6 +151,7 @@ demproj.write_DP_population_db(DPInitialConditionsDBVersion)
 
 ####### LiST  #######
 # list.create_DefaultData() 
+# list.create_DefaultWHOData() 
 # list.create_IVDefaultData() 
 # list.create_GNI_Per_Cap()
 # list.create_Readiness() 
@@ -162,6 +163,7 @@ demproj.write_DP_population_db(DPInitialConditionsDBVersion)
 # list.create_SubnatData()
 # list.create_MissOpData()
 # list.uploadDatabaseFiles(DefaultData)
+# list.uploadDatabaseFiles(DefaultWHOData)
 # list.uploadDatabaseFiles(IVDefaultData)
 # list.uploadDatabaseFiles(GNI_Per_Cap)
 # list.uploadDatabaseFiles(Readiness)

@@ -36,7 +36,7 @@ def getASFRTableNames():
     ]
 
 def write_demproj_db(version):
-    FQName = os.getcwd() + '\DefaultData\SourceData\demproj\ModData\DPModData.xlsx'
+    FQName = os.getcwd() + '\\DefaultData\\SourceData\\demproj\\ModData\\DPModData.xlsx'
     # connection =  os.environ['AVENIR_SPEC_DEFAULT_DATA_CONNECTION']
     
     #non-country-specific data

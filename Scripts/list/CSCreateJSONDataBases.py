@@ -206,11 +206,11 @@ def createDataRec(sheet, row, col, vars):
 #                                                                                                                   #
 #####################################################################################################################
 
-def create_DefaultData():
+def create_DefaultData(name=DefaultData):
     xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
 
     for sheetName in xlsx.sheet_names:     
-        if sheetName in ['DefaultData']:
+        if sheetName in [name]:
             sheet = xlsx.parse(sheetName, header=None)
 
             dataFirstRow = 2
@@ -275,7 +275,7 @@ def create_DefaultData():
                                 
                                 if (tag in [TG_RelRiskMortBF]) and 'Neonatal' in key:
                                     vars['startCol'] = 5
-                                    vars['keyRow'] = 299
+                                    vars['keyRow'] = 318
 
                                 col = vars['startCol']                   
                                 while col < vars['finalCol']:       
@@ -414,7 +414,7 @@ def create_DefaultData():
                                         key3 = ''
             
             trimDict(data, ['mstID'])
-            createSingleFile(DefaultData, data)
+            createSingleFile(name, data)
 
 #####################################################################################################################
 #                                                                                                                   #
@@ -1438,3 +1438,6 @@ def create_MissOpData():
         countries['SAMP']['ISO3_Alpha'] = 'SAMP'
 
     createCountryFiles(MissOpData, countries)
+
+def create_DefaultWHOData():
+    create_DefaultData(DefaultWHOData)
