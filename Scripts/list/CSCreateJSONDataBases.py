@@ -422,67 +422,64 @@ def create_DefaultData(name=DefaultData):
 #                                                                                                                   #
 #####################################################################################################################
 
-def create_IVDefaultData():
+def create_IVDefaultData(sheetName = 'InterventionDefaultData', dataName = IVDefaultData):
     xlsx = pd.ExcelFile(SourceData_DIR + '\CSModData.xlsx')
 
-    for sheetName in xlsx.sheet_names:      
-        if sheetName in ['InterventionDefaultData']:
-            sheet = xlsx.parse(sheetName, header=None)
-
-            dataFirstRow = 4
-            dataFinalRow = len(sheet.values) - 1
-
-            matDataStartCol = 3
-            SB_DataStartCol = 58
-            dataFinalCol = len(sheet.values[2]) - 4
-            
-            data = {}
-
-            for row in GBRange(dataFirstRow, dataFinalRow):
-
-                interventionName = getVal(sheet, row, 1)
-                
-                data[interventionName] = {
-                    'mstID' : getVal(sheet, row, 0),
-                    'MatSource' : getVal(sheet, row, matDataStartCol - 1),
-                    'SB_Source' : getVal(sheet, row, SB_DataStartCol - 1)
+    sheet = xlsx.parse(sheetName, header=None)
+    dataFirstRow = 4
+    dataFinalRow = len(sheet.values) - 1
+    matDataStartCol = 3
+    SB_DataStartCol = 58
+    dataFinalCol = len(sheet.values[2]) - 4
+    
+    data = {}
+    for row in GBRange(dataFirstRow, dataFinalRow):
+        interventionName = getVal(sheet, row, 1)
+        
+        data[interventionName] = {
+            'mstID' : getVal(sheet, row, 0),
+            'MatSource' : getVal(sheet, row, matDataStartCol - 1),
+            'SB_Source' : getVal(sheet, row, SB_DataStartCol - 1)
+        }
+        
+        col = matDataStartCol
+        while col < SB_DataStartCol - 1:                    
+            causeOfDeath = getVal(sheet, 1, col)       
+            if not 'matDeathCauses' in data[interventionName]:
+                data[interventionName]['matDeathCauses'] = {}    
+            data[interventionName]['matDeathCauses'][causeOfDeath] = {
+                'mstID' : getVal(sheet, 2, col),
+                'Eff' : getVal(sheet, row, col),
+                'Aff' : getVal(sheet, row, col + 1),
+                'Min' : getVal(sheet, row, col + 2),
+                'Max' : getVal(sheet, row, col + 3),
+                'alpha' : getVal(sheet, row, col + 4),
+                'beta' : getVal(sheet, row, col + 5),
                 }
-                
-                col = matDataStartCol
-                while col < SB_DataStartCol - 1:                    
-                    causeOfDeath = getVal(sheet, 1, col)       
-                    if not 'matDeathCauses' in data[interventionName]:
-                        data[interventionName]['matDeathCauses'] = {}    
-                    data[interventionName]['matDeathCauses'][causeOfDeath] = {
-                        'mstID' : getVal(sheet, 2, col),
-                        'Eff' : getVal(sheet, row, col),
-                        'Aff' : getVal(sheet, row, col + 1),
-                        'Min' : getVal(sheet, row, col + 2),
-                        'Max' : getVal(sheet, row, col + 3),
-                        'alpha' : getVal(sheet, row, col + 4),
-                        'beta' : getVal(sheet, row, col + 5),
-                        }
-                    col += 6
-                
-                col = SB_DataStartCol
-                while col <= dataFinalCol:
-                    causeOfDeath = getVal(sheet, 1, col)       
-                    if not 'SB_DeathCauses' in data[interventionName]:
-                        data[interventionName]['SB_DeathCauses'] = {}    
-                    data[interventionName]['SB_DeathCauses'][causeOfDeath] = {
-                        'mstID' : getVal(sheet, 2, col),
-                        'Eff' : getVal(sheet, row, col),
-                        'Aff' : getVal(sheet, row, col + 1),
-                        'aRR' : getVal(sheet, row, col + 2),
-                        'Min' : getVal(sheet, row, col + 3),
-                        'Max' : getVal(sheet, row, col + 4),
-                        'alpha' : getVal(sheet, row, col + 5),
-                        'beta' : getVal(sheet, row, col + 6),
-                        }
-                    col += 7
+            col += 6
+        
+        col = SB_DataStartCol
+        while col <= dataFinalCol:
+            causeOfDeath = getVal(sheet, 1, col)       
+            if not 'SB_DeathCauses' in data[interventionName]:
+                data[interventionName]['SB_DeathCauses'] = {}    
+            data[interventionName]['SB_DeathCauses'][causeOfDeath] = {
+                'mstID' : getVal(sheet, 2, col),
+                'Eff' : getVal(sheet, row, col),
+                'Aff' : getVal(sheet, row, col + 1),
+                'aRR' : getVal(sheet, row, col + 2),
+                'Min' : getVal(sheet, row, col + 3),
+                'Max' : getVal(sheet, row, col + 4),
+                'alpha' : getVal(sheet, row, col + 5),
+                'beta' : getVal(sheet, row, col + 6),
+                }
+            col += 7
+    trimDict(data, ['mstID'])
+    createSingleFile(dataName, data)   
 
-            trimDict(data, ['mstID'])
-            createSingleFile(IVDefaultData, data)      
+def create_IVDefaultWHOData():
+    return create_IVDefaultData('InterventionDefaultWHOData', IVDefaultWHOData)
+       
         
 #####################################################################################################################
 #                                                                                                                   #

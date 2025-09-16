@@ -21,7 +21,7 @@ def create_DP_subnationals(version):
     # profile = cProfile.Profile()
     # profile.enable()
     countries = TB_RUN_DEFAULT_COUNTRIES
-    countries = ['NGA', ]
+    countries = ['NGA', 'ETH']
     age_map = {
         'Y000_004' : 0,
         'Y005_009' : 1, 
@@ -41,6 +41,10 @@ def create_DP_subnationals(version):
         'Y075_079' : 15,
         'Y080_999' : 16,
         'Y015_049' : 17, 
+
+        'Y015_999' : None,
+        'Y000_999' : None,
+
     }
     indicators = ['population',
                   'prevalence',
@@ -52,21 +56,19 @@ def create_DP_subnationals(version):
                   'incidence',
                   'infections',
                   'anc_art_coverage']
-
-
           
     for iso3 in countries: #81 GRL 137 ANT 174 SCG 197 TKL
         print(iso3)
         try:
-       
-            who_tb_fqname = f'{default_path}\\SourceData\\demproj\\NGA_SubNat_Data.xlsx'
+
+            who_tb_fqname = f'{default_path}\\SourceData\\demproj\\{iso3}_SubNat_Data.xlsx'
             xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
             # pages = ['TB_burden_countries']
             subnationals = {}
-            sheet = xlsx['NaomiNGA']
+            sheet = xlsx[f'Naomi{iso3}']
             
             
-            for row in range(2, xlsx['NaomiNGA'].max_row+1):
+            for row in range(2, sheet.max_row+1):
                 subnational_name = sheet[f'D{row}'].value
                 subnational_id = sheet[f'C{row}'].value
                 if subnational_id not in subnationals:
@@ -92,6 +94,8 @@ def create_DP_subnationals(version):
                     
                 sex = 0 if sheet[f'E{row}'].value.lower() =="male" else 1
                 age = age_map[sheet[f'F{row}'].value]
+                if age is None:
+                    continue
                 indicator = sheet[f'J{row}'].value
                 subnationals[subnational_id][indicator]['mean'][sex][age]   = sheet[f'L{row}'].value
                 subnationals[subnational_id][indicator]['se'][sex][age]     = sheet[f'M{row}'].value
@@ -99,9 +103,9 @@ def create_DP_subnationals(version):
                 subnationals[subnational_id][indicator]['mode'][sex][age]   = sheet[f'O{row}'].value
                 subnationals[subnational_id][indicator]['lower'][sex][age]  = sheet[f'P{row}'].value
                 subnationals[subnational_id][indicator]['upper'][sex][age]  = sheet[f'Q{row}'].value
-                if ((age==17) and (indicator == 'infections')):
+                if ((age>=3) and (age<=8) and (indicator == 'infections')):
                     subnationals[subnational_id]['totalInfection']  +=sheet[f'L{row}'].value
-                if ((age==17) and (indicator == 'plhiv')):
+                if ((age>=3) and (age<=8) and (indicator == 'plhiv')):
                     subnationals[subnational_id]['totalHIVPop']  +=sheet[f'L{row}'].value
                     
             os.makedirs(default_path+'\\JSONData\\demproj\\subnationals\\'+iso3+'\\', exist_ok=True)

@@ -93,11 +93,11 @@ initialise_logger(
 # tuberculosis.create_TB_WHOCountryData('V5')
 # tuberculosis.upload_TB_WHOCountryData('V5')
 
-# tuberculosis.create_TB_subnational_list('V1')
-# tuberculosis.upload_TB_subnational_list('V1')
+# tuberculosis.create_TB_subnational_list('V2')
+# tuberculosis.upload_TB_subnational_list('V2')
 
 # tuberculosis.create_TB_subnationals('V1')
-# tuberculosis.upload_TB_subnationals('V1')
+tuberculosis.upload_TB_subnationals('V1')
 
 # tuberculosis.create_TB_fort_input('V6')
 # tuberculosis.upload_tb_fort_inputs_db('V6')
@@ -153,6 +153,7 @@ initialise_logger(
 # list.create_DefaultData() 
 # list.create_DefaultWHOData() 
 # list.create_IVDefaultData() 
+# list.create_IVDefaultWHOData() 
 # list.create_GNI_Per_Cap()
 # list.create_Readiness() 
 # list.create_CSection_Cov() 
@@ -165,6 +166,7 @@ initialise_logger(
 # list.uploadDatabaseFiles(DefaultData)
 # list.uploadDatabaseFiles(DefaultWHOData)
 # list.uploadDatabaseFiles(IVDefaultData)
+# list.uploadDatabaseFiles(IVDefaultWHOData)
 # list.uploadDatabaseFiles(GNI_Per_Cap)
 # list.uploadDatabaseFiles(Readiness)
 # list.uploadDatabaseFiles(CSection_Cov)

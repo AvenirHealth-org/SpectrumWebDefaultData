@@ -20,14 +20,15 @@ def create_TB_subnationals(version):
         version (str): The version identifier for the subnational list.
     """
     default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
-    countries = ['NGA']  # Hardcoded for now, can be extended
+    countries = ['ETH']  # Hardcoded for now, can be extended
     subnational_list = {}
 
     try:
         subnationals = {}
         for iso3 in countries:
             # Load the Excel file
-            xlsx = openpyxl.load_workbook(f'{default_path}\\SourceData\\demproj\\NGA_SubNat_Data.xlsx', 
+            # xlsx = openpyxl.load_workbook(f'{default_path}\\SourceData\\demproj\\NGA_SubNat_Data.xlsx', 
+            xlsx = openpyxl.load_workbook(f'{default_path}\\SourceData\\demproj\\{iso3}_SubNat_Data.xlsx', 
                                           read_only=False, 
                                           keep_vba=False, 
                                           data_only=True, 
@@ -36,20 +37,21 @@ def create_TB_subnationals(version):
             # Extract subnational data
             distribution_sheet = xlsx['TB_IHT_SubNatData']
             first_subnat_row = 2
-            last_subnat_row = 38
+            # last_subnat_row = 38
             subnationals[iso3] = {}
-            for row in range(first_subnat_row, last_subnat_row + 1):
-                subnat_id = distribution_sheet[f'A{row}'].value
-                subnat_name = distribution_sheet[f'B{row}'].value
-                subnationals[iso3][subnat_id] = {
-                    'iso3': iso3,
-                    'level': 2, #distribution_sheet[f'A{row}'].value,
-                    'name': subnat_name,
-                    'areaID': subnat_id,
-                    'notif': distribution_sheet[f'C{row}'].value,
-                    'notifProp': distribution_sheet[f'D{row}'].value,
-                    'notif2023': distribution_sheet[f'E{row}'].value,
-                }
+            for row in range(first_subnat_row, distribution_sheet.max_row + 1):
+                if distribution_sheet[f'A{row}'].value:
+                    subnat_id = distribution_sheet[f'B{row}'].value
+                    subnat_name = distribution_sheet[f'A{row}'].value
+                    subnationals[iso3][subnat_id] = {
+                        'iso3': iso3,
+                        'level': 2, #distribution_sheet[f'A{row}'].value,
+                        'name': subnat_name,
+                        'areaID': subnat_id,
+                        'notif': distribution_sheet[f'C{row}'].value,
+                        'notifProp': distribution_sheet[f'D{row}'].value,
+                        'notif2023': distribution_sheet[f'E{row}'].value,
+                    }
 
 
         # Save the subnational list to a JSON file
@@ -79,7 +81,7 @@ def upload_TB_subnationals(version):
         # Construct the file path for the subnational list JSON
         default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
         json_path = os.path.join(default_path, 'JSONData', 'tuberculosis', 'subnationals')
-        countries = ['NGA',]  # Hardcoded for now, can be extended
+        countries = ['ETH']  # Hardcoded for now, can be extended
         for iso3 in countries:
             file_name = f'{iso3}_subnat_{version}.JSON'
             full_file_path = os.path.join(json_path, file_name)
@@ -103,33 +105,35 @@ def create_TB_subnational_list(version):
         version (str): The version identifier for the subnational list.
     """
     default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
-    countries = ['NGA']  # Hardcoded for now, can be extended
+    countries = ['NGA', 'ETH']  # Hardcoded for now, can be extended
     subnational_list = {}
 
     try:
         subnationals = {}
         for iso3 in countries:
             # Load the Excel file
-            xlsx = openpyxl.load_workbook(f'{default_path}\\SourceData\\demproj\\NGA_SubNat_Data.xlsx', 
+            xlsx = openpyxl.load_workbook(f'{default_path}\\SourceData\\demproj\\{iso3}_SubNat_Data.xlsx', 
                                           read_only=False, 
                                           keep_vba=False, 
-                                          data_only=False, 
+                                          data_only=True, 
                                           keep_links=True)
 
             # Extract subnational data
             distribution_sheet = xlsx['TB_IHT_SubNatData']
-            first_subnat_row = 2
-            last_subnat_row = 38
+            row = 2
+            # last_subnat_row = 38
             subnationals[iso3] = {}
-            for row in range(first_subnat_row, last_subnat_row + 1):
-                subnat_id = distribution_sheet[f'A{row}'].value
-                subnat_name = distribution_sheet[f'B{row}'].value
+            while (subnat_name := distribution_sheet[f'A{row}'].value) != 'Total':
+                subnat_id = distribution_sheet[f'B{row}'].value
+                # subnat_name = distribution_sheet[f'B{row}'].value
                 subnationals[iso3][subnat_id] = {
                     'iso3': iso3,
                     'level': 2, #distribution_sheet[f'A{row}'].value,
                     'name': subnat_name,
                     'areaID': subnat_id,
                 }
+                row += 1
+            print(subnationals[iso3])
 
 
         # Save the subnational list to a JSON file
