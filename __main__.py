@@ -97,7 +97,7 @@ initialise_logger(
 # tuberculosis.upload_TB_subnational_list('V2')
 
 # tuberculosis.create_TB_subnationals('V1')
-tuberculosis.upload_TB_subnationals('V1')
+# tuberculosis.upload_TB_subnationals('V1')
 
 # tuberculosis.create_TB_fort_input('V6')
 # tuberculosis.upload_tb_fort_inputs_db('V6')
