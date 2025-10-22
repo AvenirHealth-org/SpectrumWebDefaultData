@@ -20,7 +20,7 @@ def create_TB_subnationals(version):
         version (str): The version identifier for the subnational list.
     """
     default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
-    countries = ['ETH']  # Hardcoded for now, can be extended
+    countries = ['NGA', 'ETH']  # Hardcoded for now, can be extended
     subnational_list = {}
 
     try:
@@ -81,7 +81,7 @@ def upload_TB_subnationals(version):
         # Construct the file path for the subnational list JSON
         default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
         json_path = os.path.join(default_path, 'JSONData', 'tuberculosis', 'subnationals')
-        countries = ['ETH']  # Hardcoded for now, can be extended
+        countries = ['NGA', 'ETH']  # Hardcoded for now, can be extended
         for iso3 in countries:
             file_name = f'{iso3}_subnat_{version}.JSON'
             full_file_path = os.path.join(json_path, file_name)
