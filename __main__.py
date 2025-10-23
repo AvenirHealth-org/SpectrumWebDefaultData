@@ -53,9 +53,11 @@ initialise_logger(
 # demproj.upload_UPD_db(DPUPDVersion)
 
 # demproj.write_demproj_db(DPDatabaseVersion)
-# demproj.upload_demproj_db(DPDatabaseVersion) test this before using
+# demproj.upload_demproj_db(DPDatabaseVersion)# test this before using
 # demproj.write_DP_population_db(DPInitialConditionsDBVersion)
 # demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
+
+
 
 # demproj.create_DP_subnationals('V1')
 # demproj.upload_DP_subnationals('V1')
@@ -72,10 +74,16 @@ initialise_logger(
 
 # aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
+# aim uncertainty analysis
+aim.upload_UA_db(DPUADatabaseVersion)
+
 # ####### FamPlan #######
 # for mode in [FP_All, FP_MAR, FP_MARUMSA, FP_AllUninterpolated, FP_MARUninterpolated, FP_MARUMSAUninterpolated]:
-#     # famplan.create_famplan_db(FP_DB_Version[mode], mode) 
-#     famplan.upload_famplan_db(FP_DB_Version[mode], mode)
+# #     # famplan.create_famplan_db(FP_DB_Version[mode], mode) 
+    # famplan.upload_famplan_db(FP_DB_Version[mode], mode)
+    
+# famplan.create_famplan_effectiveness('V1')
+# famplan.upload_FP_effectiveness('V1')
 
 ####### Rapid #######
 # rapid.create_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
@@ -97,7 +105,7 @@ initialise_logger(
 # tuberculosis.upload_TB_subnational_list('V2')
 
 # tuberculosis.create_TB_subnationals('V1')
-tuberculosis.upload_TB_subnationals('V1')
+# tuberculosis.upload_TB_subnationals('V1')
 
 # tuberculosis.create_TB_fort_input('V6')
 # tuberculosis.upload_tb_fort_inputs_db('V6')

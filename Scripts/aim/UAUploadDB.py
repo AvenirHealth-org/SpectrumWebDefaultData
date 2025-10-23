@@ -42,7 +42,7 @@ def readHIVMortART(FQName, sheet):
         col = LT6mthsStartCol
         for c in GBRange(DP_CD4_GT500, DP_CD4_LT50):
             for a in GBRange(DP_CD4_15_24, DP_CD4_45_54):
-                for s in GBRange(DP_Male, DP_Female):
+                for s in GBRange(GB_Male, GB_Female):
                     HIVMortART0_6[r - 1, s, a, c] = sheet.values[row, col]
                     col += 1
         row += 1
@@ -52,7 +52,7 @@ def readHIVMortART(FQName, sheet):
         col = From6to12mthsStartCol
         for c in GBRange(DP_CD4_GT500, DP_CD4_LT50):
             for a in GBRange(DP_CD4_15_24, DP_CD4_45_54):
-                for s in GBRange(DP_Male, DP_Female):
+                for s in GBRange(GB_Male, GB_Female):
                     HIVMortART7_12[r - 1, s, a, c] = sheet.values[row, col]
                     col += 1
         row += 1
@@ -62,7 +62,7 @@ def readHIVMortART(FQName, sheet):
         col = GT12mthsStartCol
         for c in GBRange(DP_CD4_GT500, DP_CD4_LT50):
             for a in GBRange(DP_CD4_15_24, DP_CD4_45_54):
-                for s in GBRange(DP_Male, DP_Female):
+                for s in GBRange(GB_Male, GB_Female):
                     HIVMortARTGT12[r - 1, s, a, c] = sheet.values[row, col]
                     col += 1
         row += 1
@@ -157,7 +157,7 @@ def readHIVMortNoART(FQName, sheet):
 
 
 def upload_UA_db(version):
-    FQName = os.getcwd() + '\\Tools\\DefaultDataManager\\UA\\ModData\\UAModData.xlsx'
+    FQName = os.getcwd() + '\\DefaultData\\SourceData\\aim\\UAModData.xlsx'
     connection =  os.environ[GB_SPECT_MOD_DATA_CONN_ENV]
 
     UAData = {}
