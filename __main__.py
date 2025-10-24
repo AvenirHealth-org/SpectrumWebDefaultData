@@ -75,7 +75,7 @@ initialise_logger(
 # aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
 
 # aim uncertainty analysis
-aim.upload_UA_db(DPUADatabaseVersion)
+# aim.upload_UA_db(DPUADatabaseVersion)
 
 # ####### FamPlan #######
 # for mode in [FP_All, FP_MAR, FP_MARUMSA, FP_AllUninterpolated, FP_MARUninterpolated, FP_MARUMSAUninterpolated]:
