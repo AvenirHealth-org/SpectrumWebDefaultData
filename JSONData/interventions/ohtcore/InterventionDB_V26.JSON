@@ -2088,7 +2088,7 @@
   {
     "rootConstant": "IV_BCG_Vacc",
     "mstID": 49,
-    "groupMstID": 22,
+    "groupMstID": 20,
     "subgroupMstID": 86,
     "stringConst": "GB_stBCGImmunization",
     "englishString": "BCG immunization",
