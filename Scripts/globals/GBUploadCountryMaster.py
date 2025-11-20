@@ -91,8 +91,5 @@ def uploadGBCountryListMaster(version):
     FQName = path.join(countryList_json_path, formatCountryFName(GBCountryListDBName, version))
     connection = environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     
-    jo = GB_get_db_json(connection, 'globals', formatCountryFName(GBCountryListDBName, version)) 
-    with open(FQName+'.tmp', 'w') as f:
-        ujson.dump(jo, f)
     GB_upload_file(connection, 'globals', formatCountryFName(GBCountryListDBName, version), FQName) 
     log('Uploaded country list master json ')
