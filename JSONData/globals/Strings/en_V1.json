@@ -2934,5 +2934,9 @@
   "GB_stMeningitisVaccine": "Meningitis vaccine",
   "GB_stMeaslesContainingVaccine": "MCV (measles containing vaccine)",
   "GB_stScreening": "Screening",
-  "GB_stCaseFinding": "Case finding"
+  "GB_stCaseFinding": "Case finding",
+  "GB_stNational": "National",
+  "GB_stProvincial": "Provincial",
+  "GB_stFacility": "Facility",
+  "GB_stDistrict": "District"
 }
