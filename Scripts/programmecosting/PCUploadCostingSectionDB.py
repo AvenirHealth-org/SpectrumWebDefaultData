@@ -28,7 +28,7 @@ PC_COSTING_SUBSECT_NAME      = '<Costing Subsection Name>'
 PC_COSTING_SUBSECT_STR_CONST = '<Costing Subsection String Constant>' 
 PC_COSTS_CS                  = '<Costs - CS>'
 
-def create_costing_section_DB_PC(version = str):
+def create_costing_section_DB_PC(version: str):
 
     log('Creating PC costing section DB')
 
@@ -89,6 +89,7 @@ def create_costing_section_DB_PC(version = str):
 
     # Get each row from the sheet and create a dictionary for each each group
     for row in islice(sheet.values, first_data_row - 1, num_rows):
+        if (row[area_ID_col - 1] == None): continue
 
         costing_sect_dict = {}
 
@@ -119,7 +120,7 @@ def create_costing_section_DB_PC(version = str):
 
     log('Finished PC costing section DB')
 
-def upload_costing_section_DB_PC(version = str):
+def upload_costing_section_DB_PC(version: str):
     JSON_file_name = pcc.PC_COSTING_SECT_DB_NAME + '_' + version + '.' + gbc.GB_JSON
     GB_upload_file(os.environ[gbc.GB_SPECT_MOD_DATA_CONN_ENV], gbc.GB_PC_CONTAINER, JSON_file_name, ddu.get_JSON_data_path(gbc.GB_PC) + '\\' + JSON_file_name)
     log('Uploaded PC costing section DB')
