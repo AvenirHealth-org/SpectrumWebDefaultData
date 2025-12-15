@@ -2938,5 +2938,6 @@
   "GB_stNational": "National",
   "GB_stProvincial": "Provincial",
   "GB_stFacility": "Facility",
-  "GB_stDistrict": "District"
+  "GB_stDistrict": "District",
+  "GB_stCentral": "Central"
 }
