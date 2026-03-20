@@ -1,0 +1,1074 @@
+[
+    {
+        "coldChainID": "S0005125",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. BMed TCW40SDD E003\/042",
+        "unitCost": 7452.24,
+        "capacity": 0.036
+    },
+    {
+        "coldChainID": "S0005127",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. BMed TCW2043SDD E003\/043",
+        "unitCost": 12360.39,
+        "capacity": 0.07
+    },
+    {
+        "coldChainID": "S0005128",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. Dulas VC60SDD-1 E003\/084",
+        "unitCost": 5828.51,
+        "capacity": 0.057
+    },
+    {
+        "coldChainID": "S0005129",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. Dulas VC150SDD E003\/048",
+        "unitCost": 6917.73,
+        "capacity": 0.102
+    },
+    {
+        "coldChainID": "S0005130",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. Haier HTCD-90 E003\/074",
+        "unitCost": 4205.3,
+        "capacity": 0.0375
+    },
+    {
+        "coldChainID": "S0005131",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. Haier HTCD-160 E003\/057",
+        "unitCost": 5800,
+        "capacity": 0.1
+    },
+    {
+        "coldChainID": "S0005250",
+        "coldChainType": 1,
+        "name": "SDD Ref & Frz. Haier HTCD-160B E003\/135",
+        "unitCost": 5830,
+        "capacity": 0.1
+    },
+    {
+        "coldChainID": "S0005157",
+        "coldChainType": 1,
+        "name": "SDD Ref\/Fre Vestfrost VLS056RF E003\/092",
+        "unitCost": 5870.48,
+        "capacity": 0.036
+    },
+    {
+        "coldChainID": "S0005237",
+        "coldChainType": 1,
+        "name": "SDD Rfr Frz Aucma TCD-100 E003\/129",
+        "unitCost": 2550,
+        "capacity": 0.048
+    },
+    {
+        "coldChainID": "S0005238",
+        "coldChainType": 1,
+        "name": "SDD RfrFrz BMedical TCW120SDD E003\/124",
+        "unitCost": 12890.25,
+        "capacity": 0.12
+    },
+    {
+        "coldChainID": "S0005246",
+        "coldChainType": 1,
+        "name": "SDD RfrFrz Vestfrost VLS096RF SDD E003\/132",
+        "unitCost": 7155.27,
+        "capacity": 0.11
+    },
+    {
+        "coldChainID": "S0005140",
+        "coldChainType": 1,
+        "name": "SDD Ref. Dulas VC200SDD E003\/040",
+        "unitCost": 5179.61,
+        "capacity": 0.132
+    },
+    {
+        "coldChainID": "S0005088",
+        "coldChainType": 1,
+        "name": "SDD Ref. Vestfrost VLS054ASDD E003\/106",
+        "unitCost": 3604.01,
+        "capacity": 0.0555
+    },
+    {
+        "coldChainID": "S0005089",
+        "coldChainType": 1,
+        "name": "SDD Ref. Vestfrost VLS094ASDD E003\/107",
+        "unitCost": 4013.9,
+        "capacity": 0.092
+    },
+    {
+        "coldChainID": "S0005090",
+        "coldChainType": 1,
+        "name": "SDD Ref. Vestfrost VLS154ASDD E003\/108",
+        "unitCost": 5034.76,
+        "capacity": 0.17
+    },
+    {
+        "coldChainID": "S0004163",
+        "coldChainType": 1,
+        "name": "SDD Ref. BMed TCW80SDD E003-121",
+        "unitCost": 7709.3,
+        "capacity": 0.0805
+    },
+    {
+        "coldChainID": "S0005143",
+        "coldChainType": 1,
+        "name": "SDD Ref. Haier HTC110SDD E003\/076",
+        "unitCost": 2803,
+        "capacity": 0.059
+    },
+    {
+        "coldChainID": "S0002540",
+        "coldChainType": 1,
+        "name": "SDD Ref. Haier HTC-240 E003\/117",
+        "unitCost": 3859.3,
+        "capacity": 0.2
+    },
+    {
+        "coldChainID": "S0005158",
+        "coldChainType": 1,
+        "name": "SDD Ref. BMed TCW4000SDD E003-093",
+        "unitCost": 9260.39,
+        "capacity": 0.22
+    },
+    {
+        "coldChainID": "S0005180",
+        "coldChainType": 1,
+        "name": "SDD Ref. Aucma MetaFridge CFD-50 SDD E003\/098",
+        "unitCost": 3060,
+        "capacity": 0.05
+    },
+    {
+        "coldChainID": "S0002499",
+        "coldChainType": 1,
+        "name": "SDD Ref. Haier HTC-120 E003\/116",
+        "unitCost": 3455.3,
+        "capacity": 0.2
+    },
+    {
+        "coldChainID": "S0005177",
+        "coldChainType": 1,
+        "name": "Foster WIC mono block 10m3",
+        "unitCost": 25013.9,
+        "capacity": 10
+    },
+    {
+        "coldChainID": "S0005178",
+        "coldChainType": 1,
+        "name": "Foster WIC mono block 30m3",
+        "unitCost": 35626.88,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005179",
+        "coldChainType": 1,
+        "name": "Foster WIC mono block 40m3",
+        "unitCost": 37112.4,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005040",
+        "coldChainType": 1,
+        "name": "Haier WIC room mono block 10m3",
+        "unitCost": 13583,
+        "capacity": 10
+    },
+    {
+        "coldChainID": "S0005041",
+        "coldChainType": 1,
+        "name": "Haier WIC room mono block 30m3",
+        "unitCost": 22777,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005042",
+        "coldChainType": 1,
+        "name": "Haier WIC room mono block 40m3",
+        "unitCost": 26155,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005044",
+        "coldChainType": 1,
+        "name": "Haier WIC room split type 30m3",
+        "unitCost": 24860,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005043",
+        "coldChainType": 1,
+        "name": "Haier WIC room split type 40m3",
+        "unitCost": 27720,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005045",
+        "coldChainType": 1,
+        "name": "Haier WIC-WIF Combi mono block 40m3",
+        "unitCost": 36968,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005046",
+        "coldChainType": 1,
+        "name": "Haier WIC-WIF Combi split type 40m3",
+        "unitCost": 41975,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005047",
+        "coldChainType": 1,
+        "name": "Haier WIF room mono block 20m3",
+        "unitCost": 21920,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005049",
+        "coldChainType": 1,
+        "name": "Haier WIF room split type 20m3",
+        "unitCost": 23652,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005168",
+        "coldChainType": 1,
+        "name": "Porkka WIC mono block 10m3",
+        "unitCost": 22340.67,
+        "capacity": 10
+    },
+    {
+        "coldChainID": "S0005169",
+        "coldChainType": 1,
+        "name": "Porkka WIC mono block 30m3",
+        "unitCost": 29907.3,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005170",
+        "coldChainType": 1,
+        "name": "Porkka WIC mono block 40m3",
+        "unitCost": 34159.91,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005171",
+        "coldChainType": 1,
+        "name": "Porkka WIC split type 30m3",
+        "unitCost": 32387.02,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005176",
+        "coldChainType": 1,
+        "name": "Porkka WIC split type 40m3",
+        "unitCost": 37462.34,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005172",
+        "coldChainType": 1,
+        "name": "Porkka WIC-WIF Combi mono block 40m3",
+        "unitCost": 49803.01,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005173",
+        "coldChainType": 1,
+        "name": "Porkka WIC\/F Combi split type 40m3",
+        "unitCost": 57601.39,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005174",
+        "coldChainType": 1,
+        "name": "Porkka WIF mono block 20m3",
+        "unitCost": 29073,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005175",
+        "coldChainType": 1,
+        "name": "Porkka WIF split type 20m3",
+        "unitCost": 39119.35,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005039",
+        "coldChainType": 1,
+        "name": "Viessmann WIC mono block 10m3",
+        "unitCost": 23429.9,
+        "capacity": 10
+    },
+    {
+        "coldChainID": "S0005160",
+        "coldChainType": 1,
+        "name": "Viessmann WIC mono block 30m3",
+        "unitCost": 31071.84,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005161",
+        "coldChainType": 1,
+        "name": "Viessmann WIC mono block 40m3",
+        "unitCost": 33360.37,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005162",
+        "coldChainType": 1,
+        "name": "Viessmann WIC split type 30m3",
+        "unitCost": 32560.83,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005166",
+        "coldChainType": 1,
+        "name": "Viessmann WIC split type 40m3",
+        "unitCost": 34217.84,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005163",
+        "coldChainType": 1,
+        "name": "Viessmann WIC-WIF Combi mono block 40m3",
+        "unitCost": 54188.88,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005164",
+        "coldChainType": 1,
+        "name": "Viessmann WIC-WIF Combi split type 40m3",
+        "unitCost": 58922.36,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005165",
+        "coldChainType": 1,
+        "name": "Viessmann WIF mono block 20m3",
+        "unitCost": 34096.18,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005167",
+        "coldChainType": 1,
+        "name": "Viessmann WIF split type 20m3",
+        "unitCost": 35162.22,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005030",
+        "coldChainType": 1,
+        "name": "Zhendre WIC mono block 10m3",
+        "unitCost": 17053.81,
+        "capacity": 10
+    },
+    {
+        "coldChainID": "S0005031",
+        "coldChainType": 1,
+        "name": "Zhendre WIC mono block 30m3",
+        "unitCost": 23986.1,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005032",
+        "coldChainType": 1,
+        "name": "Zhendre WIC mono block 40m3",
+        "unitCost": 28157.59,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005033",
+        "coldChainType": 1,
+        "name": "Zhendre WIC split type 30m3",
+        "unitCost": 27323.29,
+        "capacity": 30
+    },
+    {
+        "coldChainID": "S0005034",
+        "coldChainType": 1,
+        "name": "Zhendre WIC split type 40m3",
+        "unitCost": 31501.82,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005035",
+        "coldChainType": 1,
+        "name": "Zhendre WIC-WIF Combi mono block 40m3",
+        "unitCost": 43306.96,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005036",
+        "coldChainType": 1,
+        "name": "Zhendre WIC-WIF Combi split type 40m3",
+        "unitCost": 51205.1,
+        "capacity": 40
+    },
+    {
+        "coldChainID": "S0005037",
+        "coldChainType": 1,
+        "name": "Zhendre WIF mono block 20m3",
+        "unitCost": 24194.67,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0005038",
+        "coldChainType": 1,
+        "name": "Zhendre WIF split type 20m3",
+        "unitCost": 26767.09,
+        "capacity": 20
+    },
+    {
+        "coldChainID": "S0002369",
+        "coldChainType": 1,
+        "name": "Mains Frz Aucma DW-25W147 E003\/060",
+        "unitCost": 623,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002370",
+        "coldChainType": 1,
+        "name": "Mains Frz Aucma DW-25W300 E003\/061",
+        "unitCost": 713,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002374",
+        "coldChainType": 1,
+        "name": "Mains Frz. Vestfrost MF114 E003\/024",
+        "unitCost": 1073.27,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002376",
+        "coldChainType": 1,
+        "name": "Mains Frz. Vestfrost MF314 E003\/023",
+        "unitCost": 1359.21,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002383",
+        "coldChainType": 1,
+        "name": "MainsRef&Frz.VestfrostVLS064ARF E003\/070",
+        "unitCost": 1990.73,
+        "capacity": 0.0525
+    },
+    {
+        "coldChainID": "S0002384",
+        "coldChainType": 1,
+        "name": "Mains Ref Aucma MetaFridgeCFD50 E003\/079",
+        "unitCost": 1500,
+        "capacity": 0.05
+    },
+    {
+        "coldChainID": "S0002386",
+        "coldChainType": 1,
+        "name": "Mains Ref. BMed TCW4000AC E003\/066",
+        "unitCost": 5372.11,
+        "capacity": 0.24
+    },
+    {
+        "coldChainID": "S0002387",
+        "coldChainType": 1,
+        "name": "Mains Ref Dulas VC225ILR E003\/072",
+        "unitCost": 4259.58,
+        "capacity": 0.184
+    },
+    {
+        "coldChainID": "S0002389",
+        "coldChainType": 1,
+        "name": "Mains Ref. Haier HBC-80 E003\/089",
+        "unitCost": 968,
+        "capacity": 0.061
+    },
+    {
+        "coldChainID": "S0002392",
+        "coldChainType": 1,
+        "name": "Mains Ref. Haier HBC-260 E003\/087",
+        "unitCost": 1536,
+        "capacity": 0.211
+    },
+    {
+        "coldChainID": "S0002400",
+        "coldChainType": 1,
+        "name": "Mains Ref. BMed TCW40RAC E003\/100",
+        "unitCost": 3754.35,
+        "capacity": 0.0365
+    },
+    {
+        "coldChainID": "S0002401",
+        "coldChainType": 1,
+        "name": "Mains Ref. BMed TCW80AC E003\/101",
+        "unitCost": 4043.86,
+        "capacity": 0.0805
+    },
+    {
+        "coldChainID": "S0002479",
+        "coldChainType": 1,
+        "name": "Mains Ref & Frz Haier HBCD-90 E003\/097",
+        "unitCost": 1733,
+        "capacity": 0.03
+    },
+    {
+        "coldChainID": "S0002485",
+        "coldChainType": 1,
+        "name": "Mains Ref. Vestfrost VLS204A E003\/109",
+        "unitCost": 1577.2,
+        "capacity": 0.06
+    },
+    {
+        "coldChainID": "S0002486",
+        "coldChainType": 1,
+        "name": "Mains Ref Vestfrost VLS304A AC E003\/110",
+        "unitCost": 1722.07,
+        "capacity": 0.098
+    },
+    {
+        "coldChainID": "S0002497",
+        "coldChainType": 1,
+        "name": "Mains Ref. Haier HBC-120 E003\/114",
+        "unitCost": 1986,
+        "capacity": 0.1
+    },
+    {
+        "coldChainID": "S0004166",
+        "coldChainType": 1,
+        "name": "MainsRef Coolfinity IceVolt300P E003\/122",
+        "unitCost": 3221.32,
+        "capacity": 0.241
+    },
+    {
+        "coldChainID": "S0004167",
+        "coldChainType": 1,
+        "name": "Mains Ref. Vestfrost VLS174A AC E003-120",
+        "unitCost": 1507.53,
+        "capacity": 0.038
+    },
+    {
+        "coldChainID": "S0002578",
+        "coldChainType": 1,
+        "name": "Mains Vaccine Ref. VLS 504A AC E003-113",
+        "unitCost": 2685.4,
+        "capacity": 0.242
+    },
+    {
+        "coldChainID": "S0005236",
+        "coldChainType": 1,
+        "name": "Mains RfrFrz BMedical TCW120AC E003\/123",
+        "unitCost": 5704.45,
+        "capacity": 0.12
+    },
+    {
+        "coldChainID": "S0005244",
+        "coldChainType": 1,
+        "name": "Mains Frz Haier HBD-265 E003\/131",
+        "unitCost": 1608,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002231",
+        "coldChainType": 2,
+        "name": "Cold Box AICB 243S",
+        "unitCost": 86.36,
+        "capacity": 0.008
+    },
+    {
+        "coldChainID": "S0002584",
+        "coldChainType": 2,
+        "name": "Cold Box Leff FHCB23-0624",
+        "unitCost": 179,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002233",
+        "coldChainType": 2,
+        "name": "Cold Box Long term storage 5.4L",
+        "unitCost": 2393,
+        "capacity": 0.0054
+    },
+    {
+        "coldChainID": "S0002583",
+        "coldChainType": 2,
+        "name": "Cold Box Nilkamal RCB503L",
+        "unitCost": 99,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002354",
+        "coldChainType": 2,
+        "name": "Cold box, BMed RCW8",
+        "unitCost": 441.48,
+        "capacity": 0.006
+    },
+    {
+        "coldChainID": "S0002344",
+        "coldChainType": 2,
+        "name": "Cold box, AOV ACB-264SL",
+        "unitCost": 76.78,
+        "capacity": 0.006
+    },
+    {
+        "coldChainID": "S0002269",
+        "coldChainType": 2,
+        "name": "Cold box, AOV ACB-503L",
+        "unitCost": 106.91,
+        "capacity": 0.018
+    },
+    {
+        "coldChainID": "S0002349",
+        "coldChainType": 2,
+        "name": "Cold box, Apex AICB-156 L",
+        "unitCost": 86.36,
+        "capacity": 0.0055
+    },
+    {
+        "coldChainID": "S0002244",
+        "coldChainType": 2,
+        "name": "Cold box, Apex AICB-444L",
+        "unitCost": 104.63,
+        "capacity": 0.018
+    },
+    {
+        "coldChainID": "S0002350",
+        "coldChainType": 2,
+        "name": "Cold box, Apex AICB-503 L",
+        "unitCost": 104.63,
+        "capacity": 0.0225
+    },
+    {
+        "coldChainID": "S0002232",
+        "coldChainType": 2,
+        "name": "Cold box, B.Kings CB\/20\/-CF",
+        "unitCost": 128,
+        "capacity": 0.02
+    },
+    {
+        "coldChainID": "S0002092",
+        "coldChainType": 2,
+        "name": "Cold box, B.Kings CB\/55-CF",
+        "unitCost": 75,
+        "capacity": 0.007
+    },
+    {
+        "coldChainID": "S0002357",
+        "coldChainType": 2,
+        "name": "Cold box, BK CB 12 CF",
+        "unitCost": 95,
+        "capacity": 0.012
+    },
+    {
+        "coldChainID": "S0002362",
+        "coldChainType": 2,
+        "name": "Cold box, Nilkamal RCB 264SL",
+        "unitCost": 86.13,
+        "capacity": 0.006
+    },
+    {
+        "coldChainID": "S0002229",
+        "coldChainType": 2,
+        "name": "Cold box, Nilkamal RCB 324SS",
+        "unitCost": 73.91,
+        "capacity": 0.015
+    },
+    {
+        "coldChainID": "S0002363",
+        "coldChainType": 2,
+        "name": "Cold box, Nilkamal RCB 444 LA",
+        "unitCost": 101,
+        "capacity": 0.02025
+    },
+    {
+        "coldChainID": "S0002239",
+        "coldChainType": 2,
+        "name": "Cold box, Nilkamal RCB-246LS",
+        "unitCost": 84.91,
+        "capacity": 0.016
+    },
+    {
+        "coldChainID": "S0002238",
+        "coldChainType": 2,
+        "name": "Cold box, RCW 12\/CF",
+        "unitCost": 719.58,
+        "capacity": 0.007
+    },
+    {
+        "coldChainID": "S0002235",
+        "coldChainType": 2,
+        "name": "Cold box, RCW 25\/CF",
+        "unitCost": 625.72,
+        "capacity": 0.02
+    },
+    {
+        "coldChainID": "S0002213",
+        "coldChainType": 2,
+        "name": "UIFF BK-VC-FF 1.6 -L",
+        "unitCost": 37,
+        "capacity": 0.0016
+    },
+    {
+        "coldChainID": "S0002496",
+        "coldChainType": 2,
+        "name": "UIFF Cold Box Leff FFCB-15L",
+        "unitCost": 239,
+        "capacity": 0.0154
+    },
+    {
+        "coldChainID": "S0002576",
+        "coldChainType": 2,
+        "name": "UIFF Cold Box Leff FFCB-20L",
+        "unitCost": 234,
+        "capacity": 0
+    },
+    { "coldChainID": "S0002577", "coldChainType": 2, "name": "UIFF VC AOV AFVC 44", "unitCost": 19.27, "capacity": 0 },
+    {
+        "coldChainID": "S0002575",
+        "coldChainType": 2,
+        "name": "UIFF VC BK-VC-FF 2.4-L",
+        "unitCost": 47.7,
+        "capacity": 0.0024
+    },
+    {
+        "coldChainID": "S0002573",
+        "coldChainType": 2,
+        "name": "UIFF VC BMedical RCW1",
+        "unitCost": 273.46,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002587",
+        "coldChainType": 2,
+        "name": "UIFF VC GKS FFVC-44LR",
+        "unitCost": 33.95,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002586",
+        "coldChainType": 2,
+        "name": "UIFF VC Gobi FF001A Eclipse1.8L",
+        "unitCost": 89,
+        "capacity": 0.0018
+    },
+    {
+        "coldChainID": "S0002571",
+        "coldChainType": 2,
+        "name": "UIFF VC Nilkamal BCVC46LFF",
+        "unitCost": 27.96,
+        "capacity": 0.00151
+    },
+    {
+        "coldChainID": "S0002585",
+        "coldChainType": 2,
+        "name": "UIFF VC Trimurti TPVC 46 LFF",
+        "unitCost": 23.9,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002216",
+        "coldChainType": 2,
+        "name": "UIFF Vacc Carrier Leff FFVC1.7",
+        "unitCost": 34,
+        "capacity": 0.0017
+    },
+    {
+        "coldChainID": "S0002475",
+        "coldChainType": 2,
+        "name": "UIFF Vaccine carrier AOV AFVC46",
+        "unitCost": 28.95,
+        "capacity": 0.0015
+    },
+    {
+        "coldChainID": "S0002582",
+        "coldChainType": 2,
+        "name": "Vac.car. Paracoat 2CPCPVC-001",
+        "unitCost": 22.87,
+        "capacity": 0
+    },
+    {
+        "coldChainID": "S0002204",
+        "coldChainType": 2,
+        "name": "Vacc.carr., B.Kings BK-VC1.7",
+        "unitCost": 12.5,
+        "capacity": 0.0017
+    },
+    {
+        "coldChainID": "S0002219",
+        "coldChainType": 2,
+        "name": "Vac.carr., B.Kings BK-VC2.6",
+        "unitCost": 16,
+        "capacity": 0.0026
+    },
+    {
+        "coldChainID": "S0002366",
+        "coldChainType": 2,
+        "name": "Vacc. carr, Apex AIVC-44LR",
+        "unitCost": 10.75,
+        "capacity": 0.0016699999999999998
+    },
+    {
+        "coldChainID": "S0002222",
+        "coldChainType": 2,
+        "name": "Vacc. carr, Nilkamal BBVC-23",
+        "unitCost": 7.34,
+        "capacity": 0.0009
+    },
+    {
+        "coldChainID": "S0002361",
+        "coldChainType": 2,
+        "name": "Vacc. carr, Nilkamal BCVC 46",
+        "unitCost": 12.62,
+        "capacity": 0.0027
+    },
+    {
+        "coldChainID": "S0002574",
+        "coldChainType": 2,
+        "name": "Vacc. carr, Nilkamal BDVC44",
+        "unitCost": 9.15,
+        "capacity": 0.0017
+    },
+    {
+        "coldChainID": "S0002347",
+        "coldChainType": 2,
+        "name": "Vacc. carrier, AOV ADVC-24",
+        "unitCost": 6.69,
+        "capacity": 0.0008
+    },
+    {
+        "coldChainID": "S0002224",
+        "coldChainType": 2,
+        "name": "Vacc. carrier, AOV AVC-46",
+        "unitCost": 16.51,
+        "capacity": 0.0025
+    },
+    {
+        "coldChainID": "S0002225",
+        "coldChainType": 2,
+        "name": "Vacc. carrier, Apex AIDVC-24",
+        "unitCost": 6.86,
+        "capacity": 0.0009
+    },
+    {
+        "coldChainID": "S0002351",
+        "coldChainType": 2,
+        "name": "Vacc. carrier, Apex AIVC-46",
+        "unitCost": 14.45,
+        "capacity": 0.0029
+    },
+    {
+        "coldChainID": "S0002358",
+        "coldChainType": 2,
+        "name": "Vacc. carrier, BK VC 3.4 CF",
+        "unitCost": 17,
+        "capacity": 0.0034
+    },
+    {
+        "coldChainID": "S0005300",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Small Truck,7T,4x2",
+        "unitCost": 146929.32,
+        "capacity": 14.25
+    },
+    {
+        "coldChainID": "S0005301",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Small Truck,7T,4x4",
+        "unitCost": 172520.28,
+        "capacity": 14.25
+    },
+    {
+        "coldChainID": "S0005302",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Small Truck,11.5T,4x4",
+        "unitCost": 188180.76,
+        "capacity": 19.78
+    },
+    {
+        "coldChainID": "S0005303",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Medium Truck,12T,4x2",
+        "unitCost": 149681.34,
+        "capacity": 25.56
+    },
+    {
+        "coldChainID": "S0005304",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Medium Truck,15T,4x4",
+        "unitCost": 182746.23,
+        "capacity": 26.93
+    },
+    {
+        "coldChainID": "S0005305",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Large Truck,18T,4x2",
+        "unitCost": 168719.58,
+        "capacity": 32.96
+    },
+    {
+        "coldChainID": "S0005306",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Autocar,Large Truck,19.5T,4x4",
+        "unitCost": 210689.46,
+        "capacity": 32.85
+    },
+    {
+        "coldChainID": "S0005307",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Van Vliet,Medium Truck,12T,4x2",
+        "unitCost": 147801.85,
+        "capacity": 27.7
+    },
+    {
+        "coldChainID": "S0005308",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Van Vliet,Medium Truck,15T,4x4",
+        "unitCost": 171330.24,
+        "capacity": 28.8
+    },
+    {
+        "coldChainID": "S0005309",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Van Vliet,Large Truck,18T,4x2",
+        "unitCost": 159961.76,
+        "capacity": 33.5
+    },
+    {
+        "coldChainID": "S0005310",
+        "coldChainType": 2,
+        "name": "Refr.Veh.,Van Vliet,Large Truck,15T,4x4",
+        "unitCost": 185245.65,
+        "capacity": 33.5
+    },
+    {
+        "coldChainID": "S0002128",
+        "coldChainType": 3,
+        "name": "30DTR_Haier HETL-01,Int. Sensor,Refr",
+        "unitCost": 23,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002129",
+        "coldChainType": 3,
+        "name": "IFI_Berlinger Freeze-tag",
+        "unitCost": 8.65,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002134",
+        "coldChainType": 3,
+        "name": "IFI_Sensitech FreezeAlert",
+        "unitCost": 4.11,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002135",
+        "coldChainType": 3,
+        "name": "30DTR_Berlinger FT2E,Ext. Sensor,Refr",
+        "unitCost": 90.85,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002136",
+        "coldChainType": 3,
+        "name": "30DTR_Berlinger FT2E,Int. Sensor,Refr",
+        "unitCost": 88.9,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002548",
+        "coldChainType": 3,
+        "name": "RTMS 1xWIC BeyondWireless BC141 E006\/036",
+        "unitCost": 520.23,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002551",
+        "coldChainType": 3,
+        "name": "RTMS 1xWIC Ikhaya VM1000 E006\/061",
+        "unitCost": 351,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002554",
+        "coldChainType": 3,
+        "name": "RTMS 2xWIC BeyondWireless BC440 E006\/037",
+        "unitCost": 1125.75,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002557",
+        "coldChainType": 3,
+        "name": "RTMS 2xWIC Ikhaya VM1000R E006\/061",
+        "unitCost": 851,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002560",
+        "coldChainType": 3,
+        "name": "RTMS 3xWIC BeyondWireless BC440 E006\/037",
+        "unitCost": 1350,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002552",
+        "coldChainType": 3,
+        "name": "RTMS 1xWIC Nexleaf CTX E006\/091",
+        "unitCost": 421.67,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002558",
+        "coldChainType": 3,
+        "name": "RTMS 2xWIC Nexleaf CTX E006\/091",
+        "unitCost": 629.89,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002563",
+        "coldChainType": 3,
+        "name": "RTMS 3xWIC Nexleaf CTX E006\/091",
+        "unitCost": 832.88,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002570",
+        "coldChainType": 3,
+        "name": "RTMS 1xRef Nexleaf CTX E006\/091",
+        "unitCost": 255.45,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002565",
+        "coldChainType": 3,
+        "name": "RTMS 1xRef BeyondWireless BC141 E006\/036",
+        "unitCost": 252.15,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002567",
+        "coldChainType": 3,
+        "name": "RTMS 1xRef Haier U-Cool E006\/060",
+        "unitCost": 108.85,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002568",
+        "coldChainType": 3,
+        "name": "RTMS 1xRef Ikhaya VM1000 E006\/061",
+        "unitCost": 272,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002550",
+        "coldChainType": 3,
+        "name": "RTMS 1xWIC Haier U-Cool LoRa E006\/075",
+        "unitCost": 1030,
+        "capacity": null
+    },
+    {
+        "coldChainID": "S0002566",
+        "coldChainType": 3,
+        "name": "RTMS 1xRef Berlinger Site L E006\/087",
+        "unitCost": 315,
+        "capacity": null
+    }
+]
