@@ -28,12 +28,6 @@ from SpectrumCommon.Const.PC.PCConst import *
 from SpectrumCommon.Const.BG.BGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
-from AvenirCommon.Logger import initialise_logger
-
-initialise_logger(
-    program="DefaultData",
-    env="development"
-)
 
 store_keys_in_env()
 from AvenirCommon.Logger import initialise_logger
@@ -61,21 +55,8 @@ initialise_logger(
 
 # demproj.create_DP_subnationals('V1')
 # demproj.upload_DP_subnationals('V1')
+aim.AMRunScripts()
 
-####### AIM #######
-# aim.write_aim_db(AMDatabaseVersion)
-# aim.upload_aim_db(AMDatabaseVersion)
-
-# aim.write_easyAIM_db(AMEasyAIMDatabaseVersion)
-# aim.upload_easyAIM_db(AMEasyAIMDatabaseVersion)
-
-# aim.write_CSAVR_db(AMCSAVRDatabaseVersion)
-# aim.upload_CSAVR_db(AMCSAVRDatabaseVersion)
-
-# aim.upload_aim_UNAIDSSummaryTemplate_db(AMUNAIDSSummaryTemplateVersion)
-
-# aim uncertainty analysis
-# aim.upload_UA_db(DPUADatabaseVersion)
 
 # ####### FamPlan #######
 # for mode in [FP_All, FP_MAR, FP_MARUMSA, FP_AllUninterpolated, FP_MARUninterpolated, FP_MARUMSAUninterpolated]:
@@ -97,24 +78,7 @@ initialise_logger(
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-####### Tuberculosis #######
-# tuberculosis.create_TB_WHOCountryData('V5')
-# tuberculosis.upload_TB_WHOCountryData('V5')
-
-# tuberculosis.create_TB_subnational_list('V2')
-# tuberculosis.upload_TB_subnational_list('V2')
-
-# tuberculosis.create_TB_subnationals('V1')
-# tuberculosis.upload_TB_subnationals('V1')
-
-# tuberculosis.create_TB_fort_input('V6')
-# tuberculosis.upload_tb_fort_inputs_db('V6')
-
-# tuberculosis.create_TB_fort_outputs('V6')
-# tuberculosis.upload_tb_fort_outputs_db('V6')
-
-# tuberculosis.create_TB_DyanmicalModelData('V1')
-# tuberculosis.upload_TB_DyanmicalModelData('V1')
+tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)

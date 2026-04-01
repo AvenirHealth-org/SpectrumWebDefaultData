@@ -94,23 +94,31 @@ def readMortalityByAge(countries, sheet, sheetName):
 
     localCountries = {}
     for row in GBRange(1, len(sheet.values) - 1):
-        countryCode = sheet.values[row][0]
-        countryName = sheet.values[row][1]
-        year = sheet.values[row][2]
-        cause = sheet.values[row][3]
-        sex = sheet.values[row][4]
+        row_data = sheet.values[row]  # Cache row data to avoid repeated indexing
+        countryCode = row_data[0]
+        year = row_data[2]
+        cause = row_data[3]
+        sex = row_data[4]
         values = np.zeros(DP_A80_Up + 1)
         
+        # Sum values for age 0-4
         for a in GBRange(Age0Col, Age4Col):
-            values[DP_A0_4] += 0 if pd.isna(sheet.values[row][a]) else sheet.values[row][a]
+            val = row_data[a]
+            if not pd.isna(val):
+                values[DP_A0_4] += val
         
+        # Process age 5-9 through 75-79
         age = DP_A5_9
         for a in GBRange(Age5_9Col, Age75_79Col):
-            values[age] = 0 if pd.isna(sheet.values[row][a]) else sheet.values[row][a]
+            val = row_data[a]
+            values[age] = 0 if pd.isna(val) else val
             age += 1
             
+        # Sum values for age 80+
         for a in GBRange(Age80_84Col, Age95PlusCol):
-            values[DP_A80_Up] += 0 if pd.isna(sheet.values[row][a]) else sheet.values[row][a]
+            val = row_data[a]
+            if not pd.isna(val):
+                values[DP_A80_Up] += val
         
         data = {
             'year' : year,
@@ -119,7 +127,7 @@ def readMortalityByAge(countries, sheet, sheetName):
             'values' : values.tolist(),
         }
         
-        if not (countryCode in localCountries):
+        if countryCode not in localCountries:
             localCountries[countryCode] = []
             
         localCountries[countryCode].append(data)
@@ -291,7 +299,7 @@ def readInfantFeedingData(countries, sheet, sheetName):
             
         localCountries[countryCode][subnatCode].append(data)
 
-    for countryName in localCountries:
+    for countryCode in localCountries:
         for subnatCode in localCountries[countryCode]:
             addDataByCountryCode(countryCode, countries, sheetName, localCountries[countryCode][subnatCode], subnatCode)
 
@@ -603,12 +611,14 @@ def readAgeRatioPatternsIncidence(AMModDataGlobal, sheet, sheetName):
     SexRatioStartRow = 17
     AnnualChangeRow  = 48
 
-    values = np.zeros((DP_NonIDUConcentrated_Index + 1, GB_Female + 1, DP_A75_Up + 1))
+    # Had to update the size of the arrays to include IDU. 
+    # I'm Unsure why the previous code worked.
+    values = np.zeros((DP_IDUConcentrated_Index + 1, GB_Female + 1, DP_A75_Up + 1))
 
     row = IncidenceStartRow
     for a in GBRange(DP_A15_19, DP_A75_Up):
         col = 1
-        for id in GBRange(DP_Generalized_Index, DP_NonIDUConcentrated_Index):
+        for id in GBRange(DP_Generalized_Index, DP_IDUConcentrated_Index):
             for s in GBRange(GB_Male, GB_Female):
                 values[id][s][a] = sheet.values[row][col]
                 col += 1
@@ -616,12 +626,12 @@ def readAgeRatioPatternsIncidence(AMModDataGlobal, sheet, sheetName):
 
     AMModDataGlobal['AgeRatioPatternsIncidence'] = values.tolist()
 
-    values = np.zeros((DP_NonIDUConcentrated_Index + 1, DP_AgeRatioMaxYear + 1))
+    values = np.zeros((DP_IDUConcentrated_Index + 1, DP_AgeRatioMaxYear + 1))
 
     row = SexRatioStartRow
     for t in GBRange(DP_AgeRatioMinYear, DP_AgeRatioMaxYear):
         col = 1
-        for id in GBRange(DP_Generalized_Index, DP_NonIDUConcentrated_Index):
+        for id in GBRange(DP_Generalized_Index, DP_IDUConcentrated_Index):
             values[id][t] = sheet.values[row][col]
             col += 1
         row += 1
@@ -973,6 +983,7 @@ def write_aim_db(version, country=''):
     xlsx = pd.ExcelFile(FQName)
     for sheetName in xlsx.sheet_names:
 
+        print("AIM DB Reading Sheet: " + sheetName)
         sheet = xlsx.parse(sheetName, header=None)
 
         if isValueByYearSheet(sheetName):

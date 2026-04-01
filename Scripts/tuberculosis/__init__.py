@@ -8,3 +8,4 @@ from .TBUploadDynamicalModelCountryData import *
 from .TBUploadDiagnosticEditorDefaults import *
 from .TBUploadScreeningEditorDefaults import *
 from .TBSubnationalRatios import *
+from .TBRunScripts import TBRunScripts

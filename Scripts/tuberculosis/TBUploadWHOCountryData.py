@@ -8,6 +8,7 @@ import cProfile
 import pstats
 
 import logging
+from DefaultData.Scripts.tuberculosis.TBVersions import tb_live_db_versions
 from SpectrumCommon.Const.TB import *
 from SpectrumCommon.Const.GB import GB_Nan
 
@@ -15,11 +16,16 @@ from SpectrumCommon.Const.GB import GB_Nan
 
 def create_TB_WHOCountryData(version):
     
+    if tb_live_db_versions['who'] == version:
+        user_input = input("You are creating LIVE WHO TB Country Data version. Are you sure? (y/n)  ")
+        if user_input.lower() not in ['y', 'yes']:
+            print("Operation cancelled by user.")
+            return
     # TB_Path = os.getcwd()+'\\Tools\DefaultDataManager\\TB\\'
     
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2023.xlsx'
-    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2024.xlsx'
+    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=True, keep_links=False)
     
     # profile = cProfile.Profile()
     # profile.enable()
@@ -235,12 +241,12 @@ def create_TB_WHOCountryData(version):
                         row_str = str(row)
 
                         if  iso3==xlsx[page_name]['D'+row_str].value: 
-                            country[sector_name]['DST'] = xlsx[page_name]['K'+row_str].value
+                            country[sector_name]['DST'] = xlsx[page_name]['L'+row_str].value
                             break
                     pass
                 else:
-                    col_names = {}
-                    for row in range(7, xlsx[page_name].max_row+1):
+                    col_names = {'iso3': 'iso3'}
+                    for row in range(1, xlsx[page_name].max_row+1):
                         row_str = str(row)
                         col_name = xlsx[page_name]['A'+row_str].value
                         var_name = xlsx[page_name]['B'+row_str].value
@@ -252,27 +258,27 @@ def create_TB_WHOCountryData(version):
                         col_names[col_name] = var_name
 
                     col_letters = {}
-                    for col in xlsx[page_name+'_2023'].columns:
+                    for col in xlsx[page_name+'_2024'].columns:
                         name = col[0]._value
                         if name in col_names:
                             col_letters[col[0]._value] = col[0].column_letter
                         
-                    for row in range(1, xlsx[page_name+'_2023'].max_row+1):
+                    for row in range(1, xlsx[page_name+'_2024'].max_row+1):
                         row_str = str(row)
 
-                        if  iso3==xlsx[page_name+'_2023']['C'+row_str].value:
+                        if  iso3==xlsx[page_name+'_2024'][col_letters['iso3']+row_str].value:
                             for col_name in col_names:
                                 letter = col_letters[col_name]
-                                val = xlsx[page_name+'_2023'][letter+row_str].value
+                                val = xlsx[page_name+'_2024'][letter+row_str].value
                                 if not (col_name in country[sector_name]):
                                     country[sector_name][col_name] = [val]
                                 else:
                                     country[sector_name][col_name].append(val)    
                             #log(xlsx[page_name+'_2023']['F'+row_str].value)
-                            if  iso3!=xlsx[page_name+'_2023']['C'+str(row+1)].value:
+                            if  iso3!=xlsx[page_name+'_2024']['D'+str(row+1)].value:
                                 break
 
-                    country[sector_name]['startYear'] = xlsx[page_name+'_2023']['F2'].value 
+                    country[sector_name]['startYear'] = xlsx[page_name+'_2024']['B2'].value 
 
 
                 pass
@@ -287,9 +293,9 @@ def create_TB_WHOCountryData(version):
                 print(iso3)
                 with open(default_path+'\\JSONData\\tuberculosis\\countries\\'+iso3+'_'+version+'.JSON', 'w') as f:
                     ujson.dump(country, f)
-        except:
-            print(f'{iso3} exception')            
-                    
+        except Exception as e:
+            print(f'{iso3} exception: {e}')
+
     # profile.disable()
     # ps = pstats.Stats(profile)
     # ps.sort_stats('calls', 'cumtime')
@@ -299,19 +305,24 @@ def create_TB_WHOCountryData(version):
 
 
 def upload_TB_WHOCountryData(version):
+    if tb_live_db_versions['who'] == version:
+        user_input = input("You are uploading LIVE WHO TB Country Data version. Are you sure? (y/n)  ")
+        if user_input.lower() not in ['y', 'yes']:
+            print("Operation cancelled by user.")
+            return
+        
     connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     countries = []
     
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\countries\\'
     for subdir, dirs, files in os.walk(json_path):
-        # for file in files:
-        for iso3 in ('PER', ):
-            file = iso3+'_'+version+'.JSON'
+        for file in files:
+        # for iso3 in TB_RUN_DEFAULT_COUNTRIES:
+            # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file)
             if version in FQName:
                 print(FQName)
                 GB_upload_file(connection, 'tuberculosis', 'countries\\'+file, FQName)
         
     logging.debug('Uploaded TB who db json')
-   

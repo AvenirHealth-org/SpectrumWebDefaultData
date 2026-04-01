@@ -7,11 +7,11 @@ The data includes key populations, VMMC, PrEP, and condom intervention data by c
 """
 
 import os
-from sqlite3 import Row
 import openpyxl
 import ujson
 
 from AvenirCommon.Database import GB_upload_file
+from DefaultData.Scripts.aim.AMVersions import aim_live_db_versions
 
 
 def CreatePreventionNeedsDB(version):
@@ -27,6 +27,12 @@ def CreatePreventionNeedsDB(version):
         3. Organizes data by country (ISO code)
         4. Saves individual JSON files for each country
     """
+    
+    if aim_live_db_versions['prevention_needs'] == version:
+        user_input = input("You are creating LIVE Preventions needs data version. Are you sure? (y/n): ")
+        if user_input.lower() not in ['y', 'yes']:
+            print("Operation cancelled by user.")
+            return
     # Load the source Excel workbook with calculated values only
     aim_FQName = os.getcwd() + '\\DefaultData\\SourceData\\aim\\AMModData.xlsx'
     xlsx = openpyxl.load_workbook(aim_FQName, read_only=False, keep_vba=False, data_only=True, keep_links=False)
@@ -62,6 +68,11 @@ def UploadPreventionNeedsDB(version):
         1. Scans JSONData directory for files containing the version string
         2. Uploads each matching file to the database using GB_upload_file
     """
+    if aim_live_db_versions['prevention_needs'] == version:
+        user_input = input("You are creating LIVE Preventions needs data version. Are you sure? (y/n): ")
+        if user_input.lower() not in ['y', 'yes']:
+            print("Operation cancelled by user.")
+            return
     # Get database connection string from environment
     connection = os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     countries = []
@@ -193,14 +204,16 @@ def create_prep_db(countryies, xlsx):
     pop_sheet = xlsx['PrEPPopulations']
     
     # Define population types eligible for PrEP
-    pop_types  = ["Sero-different couples", "AGYW", "MSM", "Sex_workers", "PWID", "TG", "Pregnant and breastfeeding women"]
+    pop_types  = ["AGYW", "ABYM", "Females25+", "Males25+", "MSM", "Sex_workers", "PWID",  "Pregnant and breastfeeding women", "TG"]
     prep_types = ["Oral", "Ring", "2-month", "6-month"]  # Available PrEP formulations
     years      = [2025, 2026, 2027, 2028, 2029, 2030]   # Projection years
     
     # Define column positions in PrEPPopulations sheet
-    first_year_col = 5                              # Starting column for 2025 population data
-    final_year_col = first_year_col+len(pop_types)+1  # Starting column for 2030 population data  
-    coverage_col   = first_year_col+2*len(pop_types)+2  # Starting column for coverage data
+    first_year_col    = 5  # Starting column for 2025 population data
+    final_year_col    = 15 # Starting column for 2030 population data  
+    base_coverage_col = 25 # Starting column for base coverage data
+    targ_coverage_col = 38 # Starting column for target coverage data  
+    prev_col          = 48 # Starting column for prevalence data 
     
     # Create lookup dictionary for population type indices
     pop_type_indices = { name:i for i, name in enumerate(pop_types) }
@@ -209,15 +222,29 @@ def create_prep_db(countryies, xlsx):
     global_params = [{} for _ in range(len(pop_types))]
 
     # Map parameter sheet population names to our standardized names
-    param_pop_indices = {
-        "Sero-different couples " : 0,
+    param_indices = {
+        "Adolescent boys and young men (15-24)" : 0,
         "Adolescent girls and young women (AGYW)" : 1,
-        "Men who have sex with men" : 2,
-        "Female sex workers" : 3,
-        "People who inject drugs" : 4,
-        "Pregnant and breastfeeding people" : 6,
-        "Transgender people" : 5
+        "Females (25+)" : 2,
+        "Males (25+)" : 3,
+        "Men who have sex with men" : 4,
+        "Female sex workers" : 5,
+        "People who inject drugs" : 6,
+        "Pregnant and breastfeeding people" : 7,
+        "Transgender people" : 8
+    }    
+    pop_type_map_col = {
+        "AGYW" : 0,
+        "ABYM" : 1,
+        "Females25+" : 2,
+        "Males25+" : 3,
+        "MSM" : 4,
+        "Sex_workers" : 5,
+        "PWID" : 6,
+        "Pregnant and breastfeeding women" : 8,
+        "TG": 7
     }
+    
     
     # Find columns for each PrEP type in parameter sheet
     oral_cols = [cell.col_idx-1 for cell in param_sheet[1] if cell.value.strip()=="Oral"]
@@ -229,7 +256,7 @@ def create_prep_db(countryies, xlsx):
     for row in range(2, param_sheet.max_row + 1):
         param_values = [cell.value for cell in param_sheet[row]]
         pop_type = param_values[0]  # Population type name
-        i = param_pop_indices[pop_type]  # Get index in our array
+        i = param_indices[pop_type]  # Get index in our array
         
         # Store efficacy/delivery parameters for each PrEP type
         global_params[i] = {
@@ -240,7 +267,7 @@ def create_prep_db(countryies, xlsx):
             'TwoMonth': [param_values[i] for i in two_month_cols], # 2-month injectable by year
             'SixMonth': [param_values[i] for i in six_month_cols]  # 6-month injectable by year
         }
-
+        
     # Extract country-specific population and coverage data
     for row in range(2, pop_sheet.max_row + 1):
         pop_values = [cell.value for cell in pop_sheet[row]]
@@ -255,30 +282,27 @@ def create_prep_db(countryies, xlsx):
             countryies[row_ISO]['PrEP'] = {'data':[], 'popTypeIndices'  : {}}
         
         # Process each population type
-        c = 0
+        
         for pop_type in pop_types:
-            # Special target coverage calculation for AGYW and pregnant women (doubled)
-            if pop_type in ["AGYW", "Pregnant and breastfeeding women"]:
-                target_cov = pop_values[coverage_col + c]*2
-            else:
-                target_cov = global_params[c]['targetCoverage']
-                
             # Store population-specific data with global parameters
             # Note: The key names will need to change at a later 
             # date to be lowercase to match the rest of the codebase
+            c = pop_type_map_col[pop_type]
             countryies[row_ISO]['PrEP']['data'].append({
                 'id': pop_type,
-                'PopFirstYear': pop_values[first_year_col + c],  # 2025 population
-                'PopFinalYear': pop_values[final_year_col + c],  # 2030 population
-                'PrEPCov': pop_values[coverage_col + c],         # Current coverage
-                'TargetCov': target_cov,                        # Target coverage
+                'PopFirstYear': pop_values[first_year_col + c], # 2025 population
+                'PopFinalYear': pop_values[final_year_col + c], # 2030 population
+                'PrEPCov': pop_values[base_coverage_col + c],   # Current coverage, assumed to be 0-1 
+                'TargetCov': pop_values[targ_coverage_col + c]/100 if pop_values[targ_coverage_col + c] != None else 0, # Target coverage
+                'Prev': pop_values[prev_col + c]/100 if pop_values[prev_col + c] != None else 0,      # User-defined coverage (default to target)
                 'Oral': global_params[c]['Oral'],               # Oral PrEP efficacy by year
                 'Ring': global_params[c]['Ring'],               # Ring efficacy by year
                 'TwoMonth': global_params[c]['TwoMonth'],       # 2-month injectable efficacy by year
                 'SixMonth': global_params[c]['SixMonth']        # 6-month injectable efficacy by year
             })
             countryies[row_ISO]['PrEP']['popTypeIndices'][pop_type] = c
-            c += 1
+
+    pass
 
 
 def create_condom_db(countryies, xlsx):
@@ -333,7 +357,7 @@ def create_condom_db(countryies, xlsx):
             
             # Special handling for family planning condom types
             # Their target coverage equals their baseline coverage (set later)
-            if condom_type in ["Couples_using_condoms_FP", "Unmet_need_FP"]:
+            if condom_type in ["Couples_using_condoms_FP", "Unmet_need_for_FP"]:
                 target_cov = None  # Will be set to baseline coverage later
             else:
                 target_cov = condom_param_sheet.cell(row=param_row, column=target_cov_col).value
@@ -369,8 +393,10 @@ def create_condom_db(countryies, xlsx):
                 pop_final_year = condom_pop_sheet.cell(row=row, column=pop_final_year_cols[i]).value
                 baseline_cov = condom_pop_sheet.cell(row=row, column=baseline_cov_cols[i]).value
                 
+                if baseline_cov == '#DIV/0!': 
+                    baseline_cov = 0.0
                 # Special case: family planning condom programs use baseline as target
-                if condom_type in ["Couples_using_condoms_FP", "Unmet_need_FP"]:
+                if condom_type in ["Couples_using_condoms_FP", "Unmet_need_for_FP"]:
                     target_cov = baseline_cov  # Set TargetCov to BaselineCov
                 else:
                     target_cov = global_params[condom_type]['targetCov']

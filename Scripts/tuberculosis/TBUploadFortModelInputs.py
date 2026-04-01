@@ -13,14 +13,14 @@ from AvenirCommon.Util import GBRange
 
 def create_TB_fort_input(version):    
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2023.xlsx'
-    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=False, keep_links=True)
+    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\WHO_TB_CountryData2024.xlsx'
+    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=True, keep_links=False)
 
     failed_countries = []
-    # for country_cell in xlsx['Countries']['C']:
-        # iso3=country_cell.value
-    for iso3 in TB_RUN_DEFAULT_COUNTRIES:
-        if iso3=='iso3':
+    for country_cell in xlsx['Countries']['C']:
+        iso3=country_cell.value
+    # for iso3 in TB_RUN_DEFAULT_COUNTRIES:
+        if iso3=='iso3' or iso3=='IDN':
             continue
         try:
             log(iso3)
@@ -36,11 +36,11 @@ def create_TB_fort_input(version):
                 "pHat": [],
                 "sEp" : []
             }
-            sheet = xlsx['TB_burden_countries_2023']
+            sheet = xlsx['TB_burden_countries_2024']
             for row in range(1, sheet.max_row+1):
                 row_str = str(row)
-                if  iso3==sheet['C'+row_str].value:
-                    year          = sheet['F'+row_str].value
+                if  iso3==sheet['D'+row_str].value:
+                    year          = sheet['B'+row_str].value
                     e_inc_num     = sheet['K'+row_str].value
                     e_inc_num_hi  = sheet['M'+row_str].value
                     e_inc_num_lo  = sheet['L'+row_str].value
@@ -65,11 +65,11 @@ def create_TB_fort_input(version):
                     fort_input["sEp" ].append(0.0305) # 3.05%
 
 
-            sheet = xlsx['TB_notifications_2023']
+            sheet = xlsx['TB_notifications_2024']
             for row in range(1, sheet.max_row+1):
                 row_str = str(row)
-                if  iso3==sheet['C'+row_str].value:
-                    year = sheet['F'+row_str].value
+                if  iso3==sheet['D'+row_str].value:
+                    year = sheet['B'+row_str].value
                     if year>= fort_input["year"][0]:
                         # notif = sheet['AB'+row_str].value
                         # ret_nrel = sheet['Z'+row_str].value
@@ -121,7 +121,7 @@ def create_TB_fort_input(version):
             sheet = xlsx['Noti_Distribution']
             for row in range(1, sheet.max_row+1):
                 if  iso3==sheet[f'C{row}'].value:
-                    TXf = sheet[f'BQ{row}'].value
+                    TXf = sheet[f'CB{row}'].value
                     fort_input["tXf"] = [TXf]*num_years
             # check value for Ethiopia for which TXf ~ 0.035. Check value for Eswatini should closer to the HIV values
 
@@ -147,9 +147,9 @@ def upload_tb_fort_inputs_db(version):
     default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
     json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
-        # for file in files:
-        for iso3 in TB_RUN_DEFAULT_COUNTRIES:
-            file = iso3+'_'+version+'.JSON'
+        for file in files:
+        # for iso3 in TB_RUN_DEFAULT_COUNTRIES:
+            # file = iso3+'_'+version+'.JSON'
             FQName = os.path.join(subdir, file) 
             if version in FQName:
                 log(FQName)

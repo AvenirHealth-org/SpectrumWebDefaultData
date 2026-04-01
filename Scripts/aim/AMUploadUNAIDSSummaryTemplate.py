@@ -3,11 +3,17 @@ from io import BytesIO
 import pandas as pd
 from DefaultData.DefaultDataUtil import *
 from AvenirCommon.Database.BlobStorage import *
+from DefaultData.Scripts.aim.AMVersions import aim_live_db_versions
 
 FQPath = os.getcwd() + '\\DefaultData\\SourceData\\aim\\UNAIDSSummaryTemplate'
 
 def upload_aim_UNAIDSSummaryTemplate_db(version): 
-
+    if aim_live_db_versions['UNAIDSSummaryTemplate'] == version:
+        user_input = input("You are uploading LIVE UNAIDSSummaryTemplate. Are you sure? (y/n)  ")
+        if user_input.lower() not in ['y', 'yes']:
+            print("Operation cancelled by user.")
+            return
+        
     connection =  os.environ[GB_SPECT_MOD_DATA_CONN_ENV]
     for root, dirs, files in os.walk(FQPath): 
         for file in files:
