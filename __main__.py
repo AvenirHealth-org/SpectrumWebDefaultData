@@ -1,3 +1,4 @@
+# fmt: off
 import DefaultData.Scripts.globals as globals
 import DefaultData.Scripts.aim as aim
 import DefaultData.Scripts.demproj as demproj
@@ -12,6 +13,7 @@ import DefaultData.Scripts.humanresources as humanresources
 import DefaultData.Scripts.infrastructure as infrastructure
 import DefaultData.Scripts.programmecosting as programmecosting
 import DefaultData.Scripts.budgetmapping as budgetmapping
+import DefaultData.Scripts.supplychain as supplychain
 
 
 from SpectrumCommon.Const.GB import *
@@ -26,6 +28,7 @@ from SpectrumCommon.Const.HW.HWConst import *
 from SpectrumCommon.Const.IS.ISConst import *
 from SpectrumCommon.Const.PC.PCConst import *
 from SpectrumCommon.Const.BG.BGConst import *
+from SpectrumCommon.Const.LG.LGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
 
@@ -120,6 +123,9 @@ tuberculosis.TBRunScripts()
 # interventioncosting.upload_outpat_visit_inpat_day_costs_TB_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_TB_DB_CURR_VERSION)
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
+
+# supplychain.create_default_cold_chain_DB_LG(LG_COLD_CHAIN_DB_CURR_VERSION)
+# supplychain.upload_default_cold_chain_DB_LG(LG_COLD_CHAIN_DB_CURR_VERSION)
 
 ####### LiST  #######
 # list.create_DefaultData() 
