@@ -23,9 +23,9 @@ IC_TYPE = "<Type>"
 IC_UNIT_COST = "<Unit Cost>"
 IC_COLD_STORAGE_LG = "<Logistics - ColdStorage>"
 IC_FAMILY_LG = "<Logistics - Family>"
-IC_WEIGHT_LG = "<Logistics - Weight (kg)>"
+IC_WEIGHT_LG = "<Logistics - Weight>"
 IC_WEIGHT_UOHM_LG = "<Logistics - UoM_wt>"
-IC_VOLUME_LG = "<Logistics - Cubic Ft (m)>"
+IC_VOLUME_LG = "<Logistics - Volume>"
 IC_VOLUME_UOM_LG = "<Logistics - UoM_cubic>"
 IC_FORECAST_ERROR_LG = "<Logistics - ForecastError>"
 IC_IMPORTANCE_LG = "<Logistics - Importance>"
@@ -74,6 +74,8 @@ def create_drug_supply_DB_IC(version=str):
     prog_area_filters_col = gbc.GB_NOT_FOUND
     cost_type_ID_col = gbc.GB_NOT_FOUND
     cold_storage_col = gbc.GB_NOT_FOUND
+    weight_col = gbc.GB_NOT_FOUND
+    volume_col = gbc.GB_NOT_FOUND
 
     for c in GBRange(first_data_col, num_cols):
         tag = sheet.cell(tag_row, c).value
@@ -108,6 +110,12 @@ def create_drug_supply_DB_IC(version=str):
         elif tag == IC_COLD_STORAGE_LG:
             cold_storage_col = c
 
+        elif tag == IC_WEIGHT_LG:
+            weight_col = c
+
+        elif tag == IC_VOLUME_LG:
+            volume_col = c
+
     # Get each row from the sheet and create a dictionary for each each group
     for row in islice(sheet.values, first_data_row - 1, num_rows):
         drug_supply_dict = {}
@@ -119,14 +127,18 @@ def create_drug_supply_DB_IC(version=str):
         drug_supply_dict[icdbc.IC_TYPE_MST_ID_KEY_DSCB] = row[type_col - 1]
         drug_supply_dict[icdbc.IC_UNIT_COST_KEY_DSCB] = row[unit_cost_col - 1]
         drug_supply_dict[icdbc.IC_SOURCE_KEY_DSCB] = row[source_col - 1]
+
         if row[prog_area_filters_col - 1] is not None:
             drug_supply_dict[icdbc.IC_PROG_AREA_FILTER_MST_IDS_KEY_DSCB] = str(row[prog_area_filters_col - 1]).split(
                 ", "
             )
         else:
             drug_supply_dict[icdbc.IC_PROG_AREA_FILTER_MST_IDS_KEY_DSCB] = []
+
         drug_supply_dict[icdbc.IC_COST_TYPE_MST_ID_KEY_LG_DSCB] = row[cost_type_ID_col - 1]
         drug_supply_dict[icdbc.IC_COLD_STORAGE_KEY_LG_DSDB] = row[cold_storage_col - 1]
+        drug_supply_dict[icdbc.IC_WEIGHT_KEY_LG_DSCB] = row[weight_col - 1]
+        drug_supply_dict[icdbc.IC_VOLUME_KEY_LG_DSCB] = row[volume_col - 1]
         drug_supply_list.append(drug_supply_dict)
 
     j = ujson.dumps(drug_supply_list)
