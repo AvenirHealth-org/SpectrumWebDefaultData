@@ -9,7 +9,7 @@ from SpectrumCommon.Const.DP import *
 from SpectrumCommon.Const.AM import *
 from SpectrumCommon.Modvars.GB.GBDefs import createProjectionParams
 from SpectrumCommon.Modvars.GB.GBCreateProjection import *
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 from Calc.DP.Transfer_DLL.x64.Release.SWCalcTransfer import DemProj
 from Calc.CS.Transfer_DLL.x64.Release.SWCalcTransfer import LiSTCalc
 

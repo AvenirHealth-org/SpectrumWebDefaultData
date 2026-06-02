@@ -5,7 +5,7 @@ import ujson
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json
 from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange, getTagRow, GBEqual
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 

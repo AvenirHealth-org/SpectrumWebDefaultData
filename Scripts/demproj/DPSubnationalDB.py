@@ -21,7 +21,7 @@ def create_DP_subnationals(version):
     # profile = cProfile.Profile()
     # profile.enable()
     countries = TB_RUN_DEFAULT_COUNTRIES
-    countries = ['NGA', 'ETH']
+    countries = ['ZMB', 'NGA', 'ETH']
     age_map = {
         'Y000_004' : 0,
         'Y005_009' : 1, 
@@ -41,9 +41,36 @@ def create_DP_subnationals(version):
         'Y075_079' : 15,
         'Y080_999' : 16,
         'Y015_049' : 17, 
-
+        'Y015_064' : None,
+        'Y015_024' : None,
+        'Y025_034' : None,
+        'Y035_049' : None,
+        'Y035_044' : None,
+        'Y045_059' : None,
+        'Y050_064' : None,
+        'Y065_999' : None,
         'Y015_999' : None,
+        'Y050_999' : None,
+        'Y000_064' : None,
         'Y000_999' : None,
+        'Y000_014' : None,
+        
+        'Y001_004' : None,
+        'Y015_064' : None,
+        'Y015_999' : None,
+        'Y050_999' : None,
+        'Y000_999' : None,
+        'Y000_064' : None,
+        'Y000_014' : None,
+        'Y015_024' : None,
+        'Y025_034' : None,
+        'Y035_049' : None,
+        'Y050_064' : None,
+        'Y065_999' : None,
+        'Y010_019' : None,
+        'Y025_049' : None,
+        'Y000_000' : None,
+        'Y001_004' : None,
 
     }
     indicators = ['population',
@@ -71,6 +98,9 @@ def create_DP_subnationals(version):
             for row in range(2, sheet.max_row+1):
                 subnational_name = sheet[f'D{row}'].value
                 subnational_id = sheet[f'C{row}'].value
+                if subnational_id is None or subnational_name is None:
+                    continue
+
                 if subnational_id not in subnationals:
                     subnationals[subnational_id] = {
                         'iso3': iso3,
@@ -93,6 +123,11 @@ def create_DP_subnationals(version):
                     
                     
                 sex = 0 if sheet[f'E{row}'].value.lower() =="male" else 1
+                age_str = sheet[f'F{row}'].value
+                # if age_str not in age_map or age_map[age_str] is None:
+                #     print(age_str)
+                #     continue
+
                 age = age_map[sheet[f'F{row}'].value]
                 if age is None:
                     continue

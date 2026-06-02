@@ -20,7 +20,7 @@ def create_TB_subnationals(version):
         version (str): The version identifier for the subnational list.
     """
     default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
-    countries = ['NGA', 'ETH']  # Hardcoded for now, can be extended
+    countries = ['ZMB', 'NGA', 'ETH']  # Hardcoded for now, can be extended
     subnational_list = {}
 
     try:
@@ -54,13 +54,13 @@ def create_TB_subnationals(version):
                     }
 
 
-        # Save the subnational list to a JSON file
-        output_dir = os.path.join(default_path, 'JSONData', 'tuberculosis', 'subnationals')
-        os.makedirs(output_dir, exist_ok=True)
-        output_file = os.path.join(output_dir, f'{iso3}_subnat_{version}.JSON')
+            # Save the subnational list to a JSON file
+            output_dir = os.path.join(default_path, 'JSONData', 'tuberculosis', 'subnationals')
+            os.makedirs(output_dir, exist_ok=True)
+            output_file = os.path.join(output_dir, f'{iso3}_subnat_{version}.JSON')
 
-        with open(output_file, 'w') as f:
-            ujson.dump(subnationals[iso3], f)
+            with open(output_file, 'w') as f:
+                ujson.dump(subnationals[iso3], f)
 
         logging.debug('Created subnational list successfully')
 
@@ -81,7 +81,7 @@ def upload_TB_subnationals(version):
         # Construct the file path for the subnational list JSON
         default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
         json_path = os.path.join(default_path, 'JSONData', 'tuberculosis', 'subnationals')
-        countries = ['NGA', 'ETH']  # Hardcoded for now, can be extended
+        countries = ['ZMB', 'NGA', 'ETH']  # Hardcoded for now, can be extended
         for iso3 in countries:
             file_name = f'{iso3}_subnat_{version}.JSON'
             full_file_path = os.path.join(json_path, file_name)
@@ -105,7 +105,7 @@ def create_TB_subnational_list(version):
         version (str): The version identifier for the subnational list.
     """
     default_path = os.path.join(os.getcwd(), __name__.split('.')[0])
-    countries = ['NGA', 'ETH']  # Hardcoded for now, can be extended
+    countries = ["ZMB", 'NGA', 'ETH']  # Hardcoded for now, can be extended
     subnational_list = {}
 
     try:

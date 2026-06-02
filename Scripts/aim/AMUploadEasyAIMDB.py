@@ -8,7 +8,7 @@ from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange
 from AvenirCommon.Logger import log
 
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 
 from SpectrumCommon.Const.GB import GB_Nan
 from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details

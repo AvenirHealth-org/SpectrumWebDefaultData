@@ -8,7 +8,7 @@ from AvenirCommon.Util import GBRange
 from AvenirCommon.Database import GB_upload_file
 from AvenirCommon.Logger import log
 
-import DefaultData.DefaultDataUtil as ddu
+import DefaultDataUtil as ddu
 
 import SpectrumCommon.Const.GB as gbc
 

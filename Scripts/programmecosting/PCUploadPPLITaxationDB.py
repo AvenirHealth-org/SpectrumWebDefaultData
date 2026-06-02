@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from AvenirCommon.Logger import log
 from AvenirCommon.Util import GBRange
 
-import DefaultData.DefaultDataUtil as ddu
+import DefaultDataUtil as ddu
 
 import SpectrumCommon.Const.GB as gbc
 

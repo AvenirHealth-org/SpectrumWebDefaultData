@@ -35,7 +35,7 @@ def create_famplan_effectiveness(version):
     log('Finished FP effectiveness json')
     
     
-def upload_FP_effectiveness(version):
+def upload_famplan_effectiveness(version):
     FQName = os.getcwd()+'\Tools\DefaultDataManager\FP\JSON\FPEffectiveness_'+version+'.JSON'
     connection = os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     

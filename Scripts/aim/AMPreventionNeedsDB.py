@@ -11,7 +11,7 @@ import openpyxl
 import ujson
 
 from AvenirCommon.Database import GB_upload_file
-from DefaultData.Scripts.aim.AMVersions import aim_live_db_versions
+from Scripts.aim.AMVersions import aim_live_db_versions
 
 
 def CreatePreventionNeedsDB(version):

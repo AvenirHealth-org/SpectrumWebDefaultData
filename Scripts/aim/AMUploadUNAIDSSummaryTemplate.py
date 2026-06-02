@@ -1,9 +1,9 @@
 import os
 from io import BytesIO
 import pandas as pd
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 from AvenirCommon.Database.BlobStorage import *
-from DefaultData.Scripts.aim.AMVersions import aim_live_db_versions
+from Scripts.aim.AMVersions import aim_live_db_versions
 
 FQPath = os.getcwd() + '\\DefaultData\\SourceData\\aim\\UNAIDSSummaryTemplate'
 

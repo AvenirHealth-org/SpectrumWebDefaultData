@@ -9,7 +9,7 @@ from AvenirCommon.Util import GBRange, formatCountryFName, getTagRow
 from AvenirCommon.Logger import log
 from SpectrumCommon.Const.DP import *
 
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 
 UPD_json_path = os.getcwd() + '\\DefaultData\\JSONData\\demproj\\UPD'
 

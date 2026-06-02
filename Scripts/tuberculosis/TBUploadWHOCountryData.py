@@ -8,7 +8,7 @@ import cProfile
 import pstats
 
 import logging
-from DefaultData.Scripts.tuberculosis.TBVersions import tb_live_db_versions
+from Scripts.tuberculosis.TBVersions import tb_live_db_versions
 from SpectrumCommon.Const.TB import *
 from SpectrumCommon.Const.GB import GB_Nan
 

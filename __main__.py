@@ -1,20 +1,20 @@
 # fmt: off
-import DefaultData.Scripts.globals as globals
-import DefaultData.Scripts.aim as aim
-import DefaultData.Scripts.demproj as demproj
-import DefaultData.Scripts.famplan as famplan
-import DefaultData.Scripts.rapid as rapid
-import DefaultData.Scripts.tuberculosis as tuberculosis
-import DefaultData.Scripts.interventions as interventions
-import DefaultData.Scripts.interventioncosting as interventioncosting
-import DefaultData.Scripts.list as list
-import DefaultData.Scripts.ohtcore as ihtcore
-import DefaultData.Scripts.humanresources as humanresources
-import DefaultData.Scripts.infrastructure as infrastructure
-import DefaultData.Scripts.programmecosting as programmecosting
-import DefaultData.Scripts.budgetmapping as budgetmapping
-import DefaultData.Scripts.supplychain as supplychain
-
+# import Scripts.globals as globals
+# import Scripts.aim as aim
+# import Scripts.demproj as demproj
+import Scripts.famplan as famplan
+# import Scripts.rapid as rapid
+# import Scripts.tuberculosis as tuberculosis
+# import Scripts.interventions as interventions
+# import Scripts.interventioncosting as interventioncosting
+# import Scripts.list as list
+# import Scripts.ohtcore as ihtcore
+# import Scripts.humanresources as humanresources
+# import Scripts.infrastructure as infrastructure
+# import Scripts.programmecosting as programmecosting
+# import Scripts.budgetmapping as budgetmapping
+# import Scripts.supplychain as supplychain
+# import Scripts.famplan as famplan
 
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP.DPConst import *
@@ -32,6 +32,8 @@ from SpectrumCommon.Const.LG.LGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
 
+from Scripts.globals import GBRunScripts
+
 store_keys_in_env()
 from AvenirCommon.Logger import initialise_logger
 initialise_logger(
@@ -39,35 +41,14 @@ initialise_logger(
     env="development"
 )
 
-# globals.create_disability_json('V1')
-# globals.upload_disability_json('V1')
-# globals.writeGBCountryListMaster(GBDatabaseVersion)
-# globals.uploadGBCountryListMaster(GBDatabaseVersion)
-# globals.upload_string_DBs(GB_STRING_DB_CURR_VERSION)
-
-####### DemProj #######
-# demproj.write_UPD_db(DPUPDVersion)
-# demproj.upload_UPD_db(DPUPDVersion)
-
-# demproj.write_demproj_db(DPDatabaseVersion)
-# demproj.upload_demproj_db(DPDatabaseVersion)# test this before using
-# demproj.write_DP_population_db(DPInitialConditionsDBVersion)
-# demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
+GBRunScripts()
 
 
+# aim.AMRunScripts()
+# demproj.DPRunScripts()
 
-# demproj.create_DP_subnationals('V1')
-# demproj.upload_DP_subnationals('V1')
-aim.AMRunScripts()
+# famplan.FPRunScripts()
 
-
-# ####### FamPlan #######
-# for mode in [FP_All, FP_MAR, FP_MARUMSA, FP_AllUninterpolated, FP_MARUninterpolated, FP_MARUMSAUninterpolated]:
-# #     # famplan.create_famplan_db(FP_DB_Version[mode], mode) 
-    # famplan.upload_famplan_db(FP_DB_Version[mode], mode)
-    
-# famplan.create_famplan_effectiveness('V1')
-# famplan.upload_FP_effectiveness('V1')
 
 ####### Rapid #######
 # rapid.create_country_defaults_DB_RP(RP_COUNTRY_DEFAULTS_DB_CURR_VERSION)
@@ -81,7 +62,7 @@ aim.AMRunScripts()
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-tuberculosis.TBRunScripts()
+# tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)

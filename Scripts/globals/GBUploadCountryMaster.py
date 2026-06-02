@@ -8,11 +8,10 @@ from AvenirCommon.Database import GB_upload_file, GB_get_db_json
 from AvenirCommon.Logger  import log
 
 
-countryList_json_path = getcwd() + '\\DefaultData\\JSONData\\globals\\'
 
 def writeGBCountryListMaster(version):
     log('Creating country list master json ')
-    FQName = getcwd() + '\\DefaultData\\SourceData\\globals\\GBModData.xlsx'
+    FQName = getcwd() + '\\SourceData\\globals\\GBModData.xlsx'
     
     gb_xlsx = pd.ExcelFile(FQName)
     sheet = gb_xlsx.parse('CountryMaster')
@@ -80,7 +79,7 @@ def writeGBCountryListMaster(version):
                     })
                 
     countries = sorted(countries, key=lambda d: d['name']) 
-
+    countryList_json_path = getcwd() + '\\DefaultData\\JSONData\\globals\\'
     makedirs(countryList_json_path, exist_ok=True)
     with open(path.join(countryList_json_path, formatCountryFName(GBCountryListDBName, version)), 'w') as f:
         ujson.dump(countries, f)
@@ -88,6 +87,7 @@ def writeGBCountryListMaster(version):
 
     
 def uploadGBCountryListMaster(version):
+    countryList_json_path = getcwd() + '\\DefaultData\\JSONData\\globals\\'
     FQName = path.join(countryList_json_path, formatCountryFName(GBCountryListDBName, version))
     connection = environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     

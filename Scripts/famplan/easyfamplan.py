@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-from AvenirCommon.Wrappers import GBSheet
 import numpy as np
 import ujson
 
@@ -66,11 +65,10 @@ single_year_key = {
 def create_famplan_db(version, mode, country=''):
     log('Creating famplan json')
     countries = {}
-    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    easy_famplan_fqname = f'{default_path}\\SourceData\\famplan\\EasyFamPlan.xlsx'
+    easy_famplan_fqname = f'{os.getcwd()}\\SourceData\\famplan\\EasyFamPlan.xlsx'
     fp_xlsx = pd.ExcelFile(easy_famplan_fqname)
     
-    with open(f'{default_path}\\JSONData\\globals\\CountryList_V6.JSON', 'r') as fp:
+    with open(f'{os.getcwd()}\\JSONData\\globals\\CountryList_V6.JSON', 'r') as fp:
         GBModData = ujson.load(fp)
         iso_map = {}
         for cntry in GBModData:
@@ -166,7 +164,7 @@ def create_famplan_db(version, mode, country=''):
         
     dir = FP_DB_Dir[mode] + '/' + FP_DB_SubDir[mode]
 
-    famplan_json_path  = default_path +'\\JSONData\\famplan\\'
+    famplan_json_path  =  f'{os.getcwd()}\\JSONData\\famplan\\'
     for country_iso in countries:    
         country = countries[country_iso]
         if country['ISO_Alpha']==-1:
@@ -188,8 +186,7 @@ def upload_famplan_db(version, mode):
     
     dir = FP_DB_Dir[mode] + '/' + FP_DB_SubDir[mode]
 
-    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    json_path= default_path+f'\\JSONData\\famplan\\{dir}\\'
+    json_path= f'{os.getcwd()}\\JSONData\\famplan\\{dir}\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
             FQName = os.path.join(subdir, file)

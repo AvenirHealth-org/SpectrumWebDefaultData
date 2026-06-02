@@ -2,7 +2,7 @@ import os
 import SpectrumCommon.Const.LG.LGConst as lgc
 import SpectrumCommon.Const.GB.GBConst as gbc
 from AvenirCommon.Database import GB_upload_file
-import DefaultData.DefaultDataUtil as ddu
+import DefaultDataUtil as ddu
 from AvenirCommon.Logger import log
 from openpyxl import load_workbook
 from AvenirCommon.Util import GBRange

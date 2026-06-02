@@ -6,7 +6,7 @@ import ujson
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json, GB_upload_file
 from AvenirCommon.Util import formatCountryFName
 from AvenirCommon.Logger import log
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 
 from SpectrumCommon.Const.GB import GB_Male, GB_Female
 from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details
