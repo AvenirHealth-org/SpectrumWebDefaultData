@@ -37,10 +37,10 @@ def uploadFilesInDir(container, directory, version, pathMod = ''):
                 GB_upload_file(connection, container, os.path.join(pathMod, fileName), os.path.join(root, file))
 
 def get_source_data_path(mod_ID = int):
-    return os.getcwd() + '\DefaultData\SourceData\\' + GB_CONTAINERS[mod_ID]
+    return os.getcwd() + '\\SourceData\\' + GB_CONTAINERS[mod_ID]
 
 def get_JSON_data_path(mod_ID = int, file_name = ''):
-    return os.getcwd() + '\DefaultData\JSONData\\' + GB_CONTAINERS[mod_ID]
+    return os.getcwd() + '\\JSONData\\' + GB_CONTAINERS[mod_ID]
 
 def addDataByCountryCode(countryCode, countries, dataName, data, subnatCode = 0):
     if not (subnatCode == 0):

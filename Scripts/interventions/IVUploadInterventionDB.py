@@ -978,21 +978,21 @@ def create_intervention_DB_IV(version = str, mod_ID = int):
     # Write out a new intervention master ID constants file to the appropriate place depending on mode/module.
 
     if mod_ID == gbc.GB_IH:
-        with open(os.getcwd() + '\SpectrumCommon\Const\IC\ICInterventionIDs.py', 'w') as f:
+        with open('C:\\Proj\\Spectrum\\SpectrumCommon\\Const\\IC\\ICInterventionIDs.py', 'w') as f:
             for interv_dict in interventions_list:
                 f.write('IC_' + interv_dict[ivdbk.IV_ROOT_CONSTANT_KEY_IDB] + '_MST_ID' + ' = \'' + str(interv_dict[ivdbk.IV_MST_ID_KEY_IDB]) + '\'' + '\n')
 
         log('Updated intervention master IDs in SpectrumCommon --> Const --> IC --> ICInterventionIDs.')
 
     elif mod_ID == gbc.GB_TI:
-        with open(os.getcwd() + '\SpectrumCommon\Const\IC\IC_TI_InterventionIDs.py', 'w') as f:
+        with open('C:\\Proj\\Spectrum\\SpectrumCommon\\Const\\IC\\IC_TI_InterventionIDs.py', 'w') as f:
             for interv_dict in interventions_list:
                 f.write('IC_TI_' + interv_dict[ivdbk.IV_ROOT_CONSTANT_KEY_IDB] + '_MST_ID' + ' = \'' + str(interv_dict[ivdbk.IV_MST_ID_KEY_IDB]) + '\'' + '\n')
 
         log('Updated intervention master IDs in SpectrumCommon --> Const --> IC --> IC_TI_InterventionIDs.')
 
     elif mod_ID == gbc.GB_CS:
-        with open(os.getcwd() + '\SpectrumCommon\Const\CS\CSInterventionIDs.py', 'w') as f:
+        with open('C:\\Proj\\Spectrum\\SpectrumCommon\\Const\\CS\\CSInterventionIDs.py', 'w') as f:
             for interv_dict in interventions_list:
                 f.write('CS_' + interv_dict[ivdbk.IV_ROOT_CONSTANT_KEY_IDB] + '_MST_ID' + ' = \'' + str(interv_dict[ivdbk.IV_MST_ID_KEY_IDB]) + '\'' + '\n')
 

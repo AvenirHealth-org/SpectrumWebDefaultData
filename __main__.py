@@ -2,9 +2,10 @@
 # import Scripts.globals as globals
 # import Scripts.aim as aim
 # import Scripts.demproj as demproj
+from Scripts import interventions
 import Scripts.famplan as famplan
 # import Scripts.rapid as rapid
-# import Scripts.tuberculosis as tuberculosis
+import Scripts.tuberculosis as tuberculosis
 # import Scripts.interventions as interventions
 # import Scripts.interventioncosting as interventioncosting
 # import Scripts.list as list
@@ -41,7 +42,7 @@ initialise_logger(
     env="development"
 )
 
-GBRunScripts()
+# GBRunScripts()
 
 
 # aim.AMRunScripts()
@@ -62,7 +63,7 @@ GBRunScripts()
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-# tuberculosis.TBRunScripts()
+tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
@@ -74,8 +75,8 @@ GBRunScripts()
 # interventions.create_group_DB_IV(IV_TI_GROUP_DB_CURR_VERSION, GB_TI)
 # interventions.upload_group_DB_IV(IV_TI_GROUP_DB_CURR_VERSION, GB_TI)
 
-# interventions.create_intervention_DB_IV(IV_CS_INTERVENTION_DB_CURR_VERSION, GB_CS)
-# interventions.upload_intervention_DB_IV(IV_CS_INTERVENTION_DB_CURR_VERSION, GB_CS)
+# interventions.create_intervention_DB_IV("V23", GB_CS)
+# interventions.upload_intervention_DB_IV("V23", GB_CS)
 # interventions.create_group_DB_IV(IV_CS_GROUP_DB_CURR_VERSION, GB_CS)
 # interventions.upload_group_DB_IV(IV_CS_GROUP_DB_CURR_VERSION, GB_CS)
 

@@ -14,9 +14,8 @@ from SpectrumCommon.Const.GB import GB_Nan
 def create_TB_DiagEditorDefaults(version):
     
     # TB_Path = os.getcwd()+'\Tools\DefaultDataManager\TB\\'
-    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    who_tb_fqname = f'{default_path}\\SourceData\\tuberculosis\\TBDiagnosticEditorDefaults2024.xlsx'
-    xlsx = openpyxl.load_workbook(who_tb_fqname, read_only=False, keep_vba=False, data_only=True, keep_links=True)
+    FQName = f'{os.getcwd()}\\SourceData\\tuberculosis\\TBDiagnosticEditorDefaults2024.xlsx'
+    xlsx = openpyxl.load_workbook(FQName, read_only=False, keep_vba=False, data_only=True, keep_links=True)
     
     diagnosticEditorDefaults = {}
     # for country_cell in xlsx['Countries']['C']:
@@ -110,8 +109,7 @@ def create_TB_DiagEditorDefaults(version):
 def upload_TB_DiagEditorDefaults(version):
     connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     
-    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    FQName = default_path+'\\JSONData\\tuberculosis\\diag\\diagnosticEditorDefaults'+version+'.JSON'
+    FQName = f'{os.getcwd()}\\JSONData\\tuberculosis\\diag\\diagnosticEditorDefaults'+version+'.JSON'
     log(FQName)
     GB_upload_file(connection, 'tuberculosis', 'diagnosticDefaults_'+version+'.JSON', FQName)
         

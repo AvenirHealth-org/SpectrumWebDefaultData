@@ -1,0 +1,11 @@
+[project]
+name = "defaultdata"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "avenir-common>=0.1.1",
+    "avenir-spectrum-common>=0.1.3",
+    "pandas>=3.0.3",
+]
