@@ -2,10 +2,10 @@
 # import Scripts.globals as globals
 # import Scripts.aim as aim
 # import Scripts.demproj as demproj
-from Scripts import interventions
-import Scripts.famplan as famplan
+# from Scripts import interventions
+# import Scripts.famplan as famplan
 # import Scripts.rapid as rapid
-import Scripts.tuberculosis as tuberculosis
+# import Scripts.tuberculosis as tuberculosis
 # import Scripts.interventions as interventions
 # import Scripts.interventioncosting as interventioncosting
 # import Scripts.list as list
@@ -33,7 +33,7 @@ from SpectrumCommon.Const.LG.LGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
 
-from Scripts.globals import GBRunScripts
+# from Scripts.globals import GBRunScripts
 
 store_keys_in_env()
 from AvenirCommon.Logger import initialise_logger
@@ -63,7 +63,7 @@ initialise_logger(
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-tuberculosis.TBRunScripts()
+# tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
@@ -106,8 +106,7 @@ tuberculosis.TBRunScripts()
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 
-# supplychain.create_default_cold_chain_DB_LG(LG_COLD_CHAIN_DB_CURR_VERSION)
-# supplychain.upload_default_cold_chain_DB_LG(LG_COLD_CHAIN_DB_CURR_VERSION)
+# supplychain.LGRunScripts()
 
 ####### LiST  #######
 # list.create_DefaultData() 
