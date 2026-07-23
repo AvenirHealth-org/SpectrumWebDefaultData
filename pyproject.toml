@@ -6,6 +6,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "avenir-common>=0.1.1",
+    "avenir-spectrum-calc",
     "avenir-spectrum-common>=0.1.3",
+    "openpyxl>=3.1.5",
     "pandas>=3.0.3",
 ]
+
+# Uncomment and set file path to use local development versions
+[tool.uv.sources]
+avenir-spectrum-calc = { path = "C:\\Proj\\Spectrum\\Calc", editable = true }
+avenir-spectrum-common = { path = "C:\\Proj\\Spectrum\\SpectrumCommon", editable = true }
+avenir-spectrum-import-pjnz = { path = "C:\\Proj\\Spectrum\\Tools\\ImportPJNZ", editable = true }

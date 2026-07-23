@@ -2,8 +2,10 @@
 # import Scripts.globals as globals
 # import Scripts.aim as aim
 # import Scripts.demproj as demproj
+from Scripts import demproj
+from Scripts import aim
 from Scripts import interventions
-import Scripts.famplan as famplan
+from Scripts import famplan
 # import Scripts.rapid as rapid
 import Scripts.tuberculosis as tuberculosis
 # import Scripts.interventions as interventions
@@ -14,7 +16,7 @@ import Scripts.tuberculosis as tuberculosis
 # import Scripts.infrastructure as infrastructure
 # import Scripts.programmecosting as programmecosting
 # import Scripts.budgetmapping as budgetmapping
-# import Scripts.supplychain as supplychain
+import Scripts.supplychain as supplychain
 # import Scripts.famplan as famplan
 
 from SpectrumCommon.Const.GB import *
@@ -32,23 +34,27 @@ from SpectrumCommon.Const.BG.BGConst import *
 from SpectrumCommon.Const.LG.LGConst import *
 
 from AvenirCommon.Keys import store_keys_in_env
+from multiprocessing import freeze_support
 
 from Scripts.globals import GBRunScripts
 
-store_keys_in_env()
 from AvenirCommon.Logger import initialise_logger
-initialise_logger(
-    program="DefaultData",
-    env="development"
-)
-
-# GBRunScripts()
 
 
-# aim.AMRunScripts()
-# demproj.DPRunScripts()
+def run_scripts():
+    store_keys_in_env()
+    initialise_logger(
+        program="DefaultData",
+        env="development"
+    )
 
-# famplan.FPRunScripts()
+    # GBRunScripts()
+
+
+    # aim.AMRunScripts()
+    demproj.DPRunScripts()
+
+    # famplan.FPRunScripts()
 
 
 ####### Rapid #######
@@ -63,7 +69,7 @@ initialise_logger(
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-tuberculosis.TBRunScripts()
+# tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
@@ -171,3 +177,8 @@ tuberculosis.TBRunScripts()
 # budgetmapping.upload_funding_source_DB_BG(BG_FUND_SOURCE_DB_CURR_VERSION)
 # budgetmapping.create_indicator_mapping_DB_BG(BG_INDICATOR_MAPPING_DB_CURR_VERSION)
 # budgetmapping.upload_indicator_mapping_DB_BG(BG_INDICATOR_MAPPING_DB_CURR_VERSION)
+
+
+if __name__ == "__main__":
+    freeze_support()
+    run_scripts()

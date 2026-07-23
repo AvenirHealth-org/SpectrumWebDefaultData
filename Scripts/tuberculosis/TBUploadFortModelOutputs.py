@@ -1,7 +1,7 @@
 import os
 import openpyxl
 from openpyxl.utils import get_column_letter
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from AvenirCommon.Database import GB_upload_json, GB_upload_file, GB_get_db_json
 import ujson
 import numpy as np

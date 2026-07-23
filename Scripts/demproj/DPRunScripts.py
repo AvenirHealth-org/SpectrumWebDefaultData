@@ -1,4 +1,3 @@
-
 import Scripts.demproj as demproj
 
 def DPRunScripts():
@@ -11,13 +10,14 @@ def DPRunScripts():
 
             # demproj.write_demproj_db(DPDatabaseVersion)
             # demproj.upload_demproj_db(DPDatabaseVersion)# test this before using
-            # demproj.write_DP_population_db(DPInitialConditionsDBVersion)
-            # demproj.upload_DP_population_db(DPInitialConditionsDBVersion)
+
+            # demproj.write_DP_population_db('V10')
+            demproj.upload_DP_population_db('V10')
 
 
 
-            demproj.create_DP_subnationals('V2')
-            demproj.upload_DP_subnationals('V2')
+            # demproj.create_DP_subnationals('V2')
+            # demproj.upload_DP_subnationals('V2')
             print("DP scripts completed successfully.")
         except Exception as e:
             print(f"An error occurred while running DP scripts: {e}")

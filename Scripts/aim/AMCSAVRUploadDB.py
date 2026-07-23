@@ -5,13 +5,13 @@ import ujson
 from AvenirCommon.Database import GB_upload_json, GB_get_db_json
 from AvenirCommon.Logger import log
 from AvenirCommon.Util import formatCountryFName, GBRange, getTagRow
-from DefaultData.DefaultDataUtil import *
+from DefaultDataUtil import *
 
 from SpectrumCommon.Const.GB import *
 from SpectrumCommon.Const.DP import *
 from SpectrumCommon.Modvars.GB.GBUtil import get_country_ISO3Alpha, get_country_details
 
-CSAVR_json_path = os.getcwd() + '\\DefaultData\\JSONData\\aim\\CSAVR'
+CSAVR_json_path = os.getcwd() + '\\JSONData\\aim\\CSAVR'
 CSAVR_json_country_path = CSAVR_json_path + '\\' + country_dir
 
 def write_CSAVR_db(version, country=''):
@@ -21,7 +21,7 @@ def write_CSAVR_db(version, country=''):
 
     startCol    = 11
 
-    FQName = os.getcwd() + '/DefaultData/SourceData/aim/AMModData.xlsx'
+    FQName = os.getcwd() + '\\SourceData\\aim\\AMModData.xlsx'
 
     countries = {}
 
