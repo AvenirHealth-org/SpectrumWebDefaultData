@@ -79,7 +79,7 @@ def writeGBCountryListMaster(version):
                     })
                 
     countries = sorted(countries, key=lambda d: d['name']) 
-    countryList_json_path = getcwd() + '\\DefaultData\\JSONData\\globals\\'
+    countryList_json_path = getcwd() + '\\JSONData\\globals\\'
     makedirs(countryList_json_path, exist_ok=True)
     with open(path.join(countryList_json_path, formatCountryFName(GBCountryListDBName, version)), 'w') as f:
         ujson.dump(countries, f)
@@ -87,7 +87,7 @@ def writeGBCountryListMaster(version):
 
     
 def uploadGBCountryListMaster(version):
-    countryList_json_path = getcwd() + '\\DefaultData\\JSONData\\globals\\'
+    countryList_json_path = getcwd() + '\\JSONData\\globals\\'
     FQName = path.join(countryList_json_path, formatCountryFName(GBCountryListDBName, version))
     connection = environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
     
