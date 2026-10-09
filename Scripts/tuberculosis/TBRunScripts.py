@@ -25,8 +25,8 @@ def TBRunScripts():
             # tuberculosis.create_TB_DyanmicalModelData('V1')
             # tuberculosis.upload_TB_DyanmicalModelData('V1')
 
-            # tuberculosis.create_TB_DiagEditorDefaults('V7')
-            tuberculosis.upload_TB_DiagEditorDefaults('V7')
+            tuberculosis.create_TB_DiagEditorDefaults('V7')
+            # tuberculosis.upload_TB_DiagEditorDefaults('V7')
 
             # tuberculosis.create_TBScreeningDefaults('')
             # tuberculosis.upload_TBScreeningDefaults('')

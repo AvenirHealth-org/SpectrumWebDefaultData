@@ -8,8 +8,8 @@ def GBRunScripts():
     if user_input.lower() in ['y', 'yes']:
         try:
             ####### GB #######
-            # globals.writeGBCountryListMaster('V18')
-            globals.uploadGBCountryListMaster('V18')
+            # globals.writeGBCountryListMaster('V19')
+            globals.uploadGBCountryListMaster('V19')
 
             # globals.create_disability_json()
             # globals.upload_disability_json()

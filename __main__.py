@@ -52,7 +52,7 @@ def run_scripts():
 
 
     # aim.AMRunScripts()
-    demproj.DPRunScripts()
+    # demproj.DPRunScripts()
 
     # famplan.FPRunScripts()
 
@@ -69,7 +69,7 @@ def run_scripts():
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-# tuberculosis.TBRunScripts()
+tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
