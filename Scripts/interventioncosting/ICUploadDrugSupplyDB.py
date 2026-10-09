@@ -39,7 +39,7 @@ IC_SOURCE = "<Source>"
 IC_PROG_AREA_FILTERS = "<Program Area Filters>"
 
 
-def create_drug_supply_DB_IC(version=str):
+def create_drug_supply_DB_IC(version: str):
 
     log("Creating IC drug supply DB")
 

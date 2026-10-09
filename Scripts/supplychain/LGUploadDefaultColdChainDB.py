@@ -17,7 +17,7 @@ LG_COLD_CHAIN_TYPE = "<Cold Chain Type ID>"
 LG_NAME = "<Name>"
 LG_DESCRIPTION = "<Description>"
 LG_UNIT_COST = "<Unit Cost>"
-LG_CAPACITY = "<Capacity"
+LG_CAPACITY = "<Capacity>"
 
 
 def create_default_cold_chain_DB_LG(version: str):
