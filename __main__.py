@@ -2,10 +2,10 @@
 # import Scripts.globals as globals
 # import Scripts.aim as aim
 # import Scripts.demproj as demproj
-from Scripts import demproj
-from Scripts import aim
-from Scripts import interventions
-from Scripts import famplan
+# from Scripts import demproj
+# from Scripts import aim
+# from Scripts import interventions
+# from Scripts import famplan
 # import Scripts.rapid as rapid
 # import Scripts.tuberculosis as tuberculosis
 # import Scripts.interventions as interventions
@@ -16,7 +16,7 @@ from Scripts import famplan
 # import Scripts.infrastructure as infrastructure
 # import Scripts.programmecosting as programmecosting
 # import Scripts.budgetmapping as budgetmapping
-import Scripts.supplychain as supplychain
+# import Scripts.supplychain as supplychain
 # import Scripts.famplan as famplan
 
 from SpectrumCommon.Const.GB import *
@@ -49,12 +49,11 @@ def run_scripts():
     )
 
     # GBRunScripts()
-
-
     # aim.AMRunScripts()
     # demproj.DPRunScripts()
-
     # famplan.FPRunScripts()
+    # tuberculosis.TBRunScripts()
+    # supplychain.LGRunScripts()
 
 
 ####### Rapid #######
@@ -69,7 +68,6 @@ def run_scripts():
 # rapid.create_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 # rapid.upload_urban_DB_RP(RP_URBAN_DB_CURR_VERSION)
 
-# tuberculosis.TBRunScripts()
 
 # interventions.create_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
 # interventions.upload_intervention_DB_IV(IV_IH_INTERVENTION_DB_CURR_VERSION, GB_IH)
@@ -112,7 +110,6 @@ def run_scripts():
 # interventioncosting.create_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 # interventioncosting.upload_outpat_visit_inpat_day_costs_CS_DB_IC(IC_OUTPAT_VISIT_INPAT_DAY_COSTS_CS_DB_CURR_VERSION)
 
-# supplychain.LGRunScripts()
 
 ####### LiST  #######
 # list.create_DefaultData() 

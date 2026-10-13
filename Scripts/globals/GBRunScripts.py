@@ -1,15 +1,15 @@
-
-import Scripts.globals  as globals
+import Scripts.globals as globals
 
 from SpectrumCommon.Const.GB import *
 
+
 def GBRunScripts():
     user_input = input("Would you like to run GB scripts?  ")
-    if user_input.lower() in ['y', 'yes']:
+    if user_input.lower() in ["y", "yes"]:
         try:
             ####### GB #######
-            # globals.writeGBCountryListMaster('V19')
-            globals.uploadGBCountryListMaster('V19')
+            # globals.writeGBCountryListMaster(GBDatabaseVersion)
+            globals.uploadGBCountryListMaster(GBDatabaseVersion)
 
             # globals.create_disability_json()
             # globals.upload_disability_json()
