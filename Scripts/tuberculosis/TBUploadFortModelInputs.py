@@ -144,8 +144,7 @@ def create_TB_fort_input(version):
 def upload_tb_fort_inputs_db(version):
     connection =  os.environ['AVENIR_SW_DEFAULT_DATA_CONNECTION']
 
-    default_path = os.getcwd()+'\\' + __name__.split('.')[0] 
-    json_path= default_path+'\\JSONData\\tuberculosis\\fortinputs\\'
+    json_path= '.\\JSONData\\tuberculosis\\fortinputs\\'
     for subdir, dirs, files in os.walk(json_path):
         for file in files:
         # for iso3 in TB_RUN_DEFAULT_COUNTRIES:
